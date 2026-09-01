@@ -477,13 +477,14 @@ div.container.blog.project-figure-narrow > p.caption {
   margin: 0;
 }
 
-.demo-heading .demo-context {
+.demo-heading .demo-context,
+.resource-note {
   margin: 0.8rem 0 0;
   max-width: 60rem;
   color: #56626a;
   font-family: "Poppins", sans-serif;
-  font-size: clamp(0.82rem, 0.98vw, 0.98rem);
-  line-height: 1.55;
+  font-size: inherit;
+  line-height: 1.6;
 }
 
 .demo-layout {
@@ -935,13 +936,9 @@ div.container.blog.project-figure-narrow > p.caption {
 }
 
 .resource-note {
-  color: #5d666d;
-  font-family: "Charter", Georgia, serif;
-  font-size: clamp(0.8rem, 0.92vw, 0.88rem);
+  color: #56626a;
   font-style: italic;
-  line-height: 1.45;
-  margin-top: 0.1rem;
-  max-width: 44rem;
+  margin-top: 0.8rem;
 }
 
 .resource-note strong {
