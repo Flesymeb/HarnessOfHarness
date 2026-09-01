@@ -46,12 +46,12 @@ The `main` branch currently contains the project presentation and research mater
 
 ## Citation
 
-† Haoyang Yan, Minle Su, Hangfan Zhang, and Zhanhao Li contributed equally.
+† Haoyang Yan, Min-Le Su, Hangfan Zhang, and Zhanhao Li contributed equally.
 
 ```bibtex
 @article{yan2026harness,
   title={Harness of Harness: Multi-Day Autonomous Software Development with Continual Improvement},
-  author={Yan, Haoyang and Su, Minle and Zhang, Hangfan and Li, Zhanhao and Zhang, Chen and Zhang, Shao and Chen, Yang and Bai, Lei and Hu, Shuyue},
+  author={Yan, Haoyang and Su, Min-Le and Zhang, Hangfan and Li, Zhanhao and Zhang, Chen and Zhang, Shao and Chen, Yang and Bai, Lei and Hu, Shuyue},
   journal={arXiv preprint},
   year={2026}
 }

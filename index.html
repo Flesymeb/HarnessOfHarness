@@ -58,7 +58,7 @@
                 <div class="blog-intro">
                     <div class="hero-copy">
                         <p class="author">
-                            Haoyang Yan<sup class="equal-marker">†</sup>, Minle Su<sup class="equal-marker">†</sup>, Hangfan Zhang<sup class="equal-marker">†</sup>, Zhanhao Li<sup class="equal-marker">†</sup>, Chen Zhang,<br>
+                            Haoyang Yan<sup class="equal-marker">†</sup>, Min-Le Su<sup class="equal-marker">†</sup>, Hangfan Zhang<sup class="equal-marker">†</sup>, Zhanhao Li<sup class="equal-marker">†</sup>, Chen Zhang,<br>
                             Shao Zhang, Yang Chen, Lei Bai, and Shuyue Hu
                         </p>
                         <p class="equal-contribution"><sup>†</sup> Equal contribution.</p>
@@ -108,10 +108,13 @@
         <div class="container blog main first" id="blog-main">
             <h1>Abstract</h1>
             <p class="text">
-                Coding agents powered by large language models have demonstrated remarkable capabilities, yet their practical effectiveness depends heavily on harnesses that coordinate tool use, context management, execution, and the integration of resulting evidence. We study software development from scratch, where agents must transform high-level requirements into complete, functional software systems.
+                This paper studies autonomous software development by LLM-based coding agents: agents autonomously turn high-level requirements into complete, functional, and usable software without further human intervention.
             </p>
             <p class="text">
-                HoH builds on existing coding-agent harnesses rather than replacing them. It enables a continuous planning–coding–testing cycle in which agents refine software artifacts and incorporate execution evidence into subsequent development decisions. Across GameCraft-Bench, FrontierSWE, and ProgramBench, HoH consistently improves over standalone harnesses and continues to benefit from additional iterations.
+                Harness of Harness (HoH) builds on existing coding-agent harnesses and organizes their executions into iterative planning–coding–testing loops. It balances repair with capability growth, scopes development into small and verifiable increments, separates implementation-time testing from independent evaluation, and constrains verifiable outputs rather than prescribing agent workflows.
+            </p>
+            <p class="text">
+                Across GameCraft-Bench, FrontierSWE, and ProgramBench, and three harness–model pairs, HoH achieves an average relative gain of 52.25% and a maximum gain of 82.86% after three iterations. In a multi-day deployment with more than 70 iterations, HoH autonomously develops <em>Fusepoint</em>, a human-playable first-person shooter with a coherent storyline, fully implemented core mechanics, polished visuals, and integrated audio.
             </p>
         </div>
     </section>
@@ -121,6 +124,7 @@
         <div class="container blog extra-large demo-showcase">
             <header class="demo-heading">
                 <h1>From zero to a playable FPS</h1>
+                <p class="demo-context">A five-minute, single-player bomb-defusal mission built from a PRD and an empty workspace. HoH carried the project through more than 70 development loops; human involvement was limited to restoring network or API availability.</p>
             </header>
 
             <div class="demo-layout">
@@ -168,10 +172,10 @@
         <div class="container blog main">
             <h1>Method</h1>
             <p class="text">
-                Each iteration assigns three stable responsibilities. The <b>planner</b> reconciles the fixed product requirement document with verified behaviour and unresolved evidence gaps. The <b>developer</b> continues from the selected artifact while preserving previously verified functionality. The <b>tester</b> executes checkable claims and returns observable records as verified evidence or gaps.
+                Each loop invokes the same harness–model configuration once in planning–development–testing order. The <b>Project Planner</b> combines the fixed product requirements document, the current artifact, and prior execution evidence to select one bounded, verifiable increment. The <b>Developer</b> starts from the preceding artifact and implements that plan while preserving validated behaviour. The <b>QA Tester</b> independently evaluates the updated artifact against the requirements and development plan, returning structured evidence and unresolved gaps.
             </p>
             <p class="text">
-                Every iteration shares one development document, one evolving workspace, and one evidence bundle. The harness–model configuration remains fixed; HoH changes the artifact and iteration-specific context supplied to it.
+                HoH carries both artifact state and evidence state across loop boundaries. The shared development document, versioned workspace, and testing records preserve what has been built, what has been verified, and what still needs attention, while the harness–model configuration remains fixed within a run.
             </p>
         </div>
 
@@ -188,7 +192,7 @@
         <div class="container blog main">
         <h1>Results</h1>
         <p class="text">
-            Vanilla and successive HoH iterations across all evaluated harness–model configurations.
+            We evaluate Vanilla and HoH@1–3 on three benchmarks—GameCraft-Bench, FrontierSWE, and ProgramBench—using Codex with GPT-5.5 (high), OpenCode with DeepSeek-V4-Pro, and Pi with MiniMax-M3.
         </p>
 
         <figure class="paper-results-table">
@@ -316,7 +320,7 @@
             </div>
             <figcaption>
                 <strong>Main results on GameCraft-Bench, FrontierSWE, and ProgramBench.</strong>
-                Each harness is evaluated under Vanilla and HoH@1–3. Bold values mark the best setting within each harness and metric. Small green values shown only for HoH@3 give absolute gains over Vanilla; higher is better for all metrics.
+                Each harness–model pair is evaluated under Vanilla and HoH@1–3. Bold values mark the best setting within each harness and metric. Green values shown only for HoH@3 give absolute gains over Vanilla; Dominance gains are percentage points and higher is better for all metrics.
                 <span class="table-footnotes">
                     <sup>‡</sup> Dominance is an official FrontierSWE metric; see the <a class="metric-footnote-link" href="https://www.frontierswe.com/#results" target="_blank" rel="noopener noreferrer">official documentation</a> for details.
                     <sup>†</sup> Pass Rate denotes ProgramBench's average test pass rate.
@@ -331,7 +335,7 @@
         <div class="container blog main">
             <h1>Conclusion</h1>
             <p class="text">
-                Harness of Harness treats greenfield software development as a harness-level, long-horizon research problem. Persistent artifacts, stable responsibilities, and execution-grounded evidence allow existing coding-agent harnesses to improve software over repeated iterations rather than restarting from isolated episodes.
+                Harness of Harness treats greenfield software development as a harness-level, long-horizon research problem. Across the controlled benchmarks, HoH improves final artifact quality for all three harness–model configurations and continues to benefit from additional iterations. In the multi-day <em>Fusepoint</em> case, HoH transforms a PRD and an empty workspace into a complete, human-playable FPS over more than 70 loops, while versioned artifacts, issue histories, and evidence packets preserve the development trajectory.
             </p>
         </div>
     </section>
@@ -340,7 +344,7 @@
         <img class="paper-band-art" src="assets/illustrations/human-relax-lying-back.svg" alt="" aria-hidden="true">
         <div class="container blog main">
             <h1>Resources</h1>
-            <p class="resource-note">We release <strong>HoH-Lite</strong>, a lightweight open-source implementation of HoH's core workflow.</p>
+            <p class="resource-note">We will publicly release <strong>HoH-lite</strong>, a lightweight implementation of HoH's core workflow, together with reproducibility materials.</p>
 
             <nav class="resource-links" aria-label="Project resources">
                 <a class="resource-link" href="https://github.com/Flesymeb/HarnessOfHarness" target="_blank" rel="noopener noreferrer">
@@ -374,7 +378,7 @@
             </p>
 <pre><code class="plaintext">@article{yan2026harness,
     title={Harness of Harness: Multi-Day Autonomous Software Development with Continual Improvement},
-    author={Yan, Haoyang and Su, Minle and Zhang, Hangfan and Li, Zhanhao and Zhang, Chen and Zhang, Shao and Chen, Yang and Bai, Lei and Hu, Shuyue},
+    author={Yan, Haoyang and Su, Min-Le and Zhang, Hangfan and Li, Zhanhao and Zhang, Chen and Zhang, Shao and Chen, Yang and Bai, Lei and Hu, Shuyue},
     journal={arXiv preprint},
     year={2026}
 }</code></pre>
