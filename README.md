@@ -89,25 +89,25 @@ We thank everyone who contributed to Harness of Harness and its case studies.
   <tr>
     <td align="center">
       <a href="https://github.com/Flesymeb">
-        <img src="https://github.com/Flesymeb.png?size=128" width="96" height="96" alt="Hyoung Yan" style="border-radius:50%;">
+        <img src="assets/figures/contributors/Flesymeb.png" width="96" height="96" alt="Hyoung Yan">
         <br><sub><b>Hyoung Yan</b></sub>
       </a>
     </td>
     <td align="center">
       <a href="https://github.com/rayburstray">
-        <img src="https://github.com/rayburstray.png?size=128" width="96" height="96" alt="Ray Burstray" style="border-radius:50%;">
+        <img src="assets/figures/contributors/rayburstray.png" width="96" height="96" alt="Ray Burstray">
         <br><sub><b>Ray Burstray</b></sub>
       </a>
     </td>
     <td align="center">
       <a href="https://github.com/HaoTechGuy">
-        <img src="https://github.com/HaoTechGuy.png?size=128" width="96" height="96" alt="HaoTechGuy" style="border-radius:50%;">
+        <img src="assets/figures/contributors/HaoTechGuy.png" width="96" height="96" alt="HaoTechGuy">
         <br><sub><b>HaoTechGuy</b></sub>
       </a>
     </td>
     <td align="center">
       <a href="https://github.com/qzzqzzb">
-        <img src="https://github.com/qzzqzzb.png?size=128" width="96" height="96" alt="qzzqzzb" style="border-radius:50%;">
+        <img src="assets/figures/contributors/qzzqzzb.png" width="96" height="96" alt="qzzqzzb">
         <br><sub><b>qzzqzzb</b></sub>
       </a>
     </td>
