@@ -443,7 +443,7 @@ div.container.blog.project-figure-narrow > p.caption {
 .demo-mode-switch {
   display: grid;
   gap: 0.75rem;
-  grid-template-rows: repeat(2, 4.25rem);
+  grid-template-rows: repeat(3, 4.25rem);
   padding-left: 1.7rem;
   position: relative;
 }
@@ -471,8 +471,12 @@ div.container.blog.project-figure-narrow > p.caption {
   width: 0.65rem;
 }
 
-.demo-mode-switch[data-active="gameplay"] .demo-switch-marker {
+.demo-mode-switch[data-active="process"] .demo-switch-marker {
   transform: translate(-50%, 5rem);
+}
+
+.demo-mode-switch[data-active="gameplay"] .demo-switch-marker {
+  transform: translate(-50%, 10rem);
 }
 
 .demo-mode-option {
@@ -1151,7 +1155,7 @@ a.resource-link:focus-visible .resource-arrow i {
 
   .demo-mode-switch {
     gap: 0.7rem;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     grid-template-rows: auto;
     padding-left: 0;
     padding-top: 1.15rem;
@@ -1167,13 +1171,18 @@ a.resource-link:focus-visible .resource-arrow i {
   }
 
   .demo-switch-marker {
-    left: 25%;
+    left: 16.666%;
     top: 50%;
     transform: translate(-50%, -50%);
   }
 
+  .demo-mode-switch[data-active="process"] .demo-switch-marker {
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
   .demo-mode-switch[data-active="gameplay"] .demo-switch-marker {
-    left: 75%;
+    left: 83.333%;
     transform: translate(-50%, -50%);
   }
 
@@ -1181,6 +1190,10 @@ a.resource-link:focus-visible .resource-arrow i {
     gap: 0.4rem;
     grid-template-columns: 1fr;
     padding: 0.6rem 0;
+  }
+
+  .demo-option-copy strong {
+    font-size: 0.88rem;
   }
 
   .demo-mode-option.is-active {

@@ -86,31 +86,47 @@
             </header>
 
             <div class="demo-layout">
-                <div class="demo-mode-switch" role="tablist" aria-label="Fusepoint demo view" aria-orientation="vertical" data-active="process">
+                <div class="demo-mode-switch" role="tablist" aria-label="Fusepoint demo views" aria-orientation="vertical" data-active="full">
                     <span class="demo-switch-rail" aria-hidden="true">
                         <span class="demo-switch-marker"></span>
                     </span>
 
-                    <button class="demo-mode-option is-active" id="demo-tab-process" type="button" role="tab" aria-selected="true" aria-controls="demo-panel-process" data-demo-target="process">
+                    <button class="demo-mode-option is-active" id="demo-tab-full" type="button" role="tab" aria-selected="true" aria-controls="demo-panel-full" data-demo-target="full">
                         <span class="demo-option-number">01</span>
                         <span class="demo-option-copy">
-                            <strong>Development Process</strong>
+                            <strong>Full Showcase</strong>
+                        </span>
+                    </button>
+
+                    <button class="demo-mode-option" id="demo-tab-process" type="button" role="tab" aria-selected="false" aria-controls="demo-panel-process" tabindex="-1" data-demo-target="process">
+                        <span class="demo-option-number">02</span>
+                        <span class="demo-option-copy">
+                            <strong>Build Process</strong>
                         </span>
                     </button>
 
                     <button class="demo-mode-option" id="demo-tab-gameplay" type="button" role="tab" aria-selected="false" aria-controls="demo-panel-gameplay" tabindex="-1" data-demo-target="gameplay">
-                        <span class="demo-option-number">02</span>
+                        <span class="demo-option-number">03</span>
                         <span class="demo-option-copy">
-                            <strong>Real Gameplay</strong>
+                            <strong>Gameplay Demo</strong>
                         </span>
                     </button>
                 </div>
 
                 <div class="demo-media-column">
                     <div class="demo-stage">
-                        <div class="demo-panel is-active" id="demo-panel-process" role="tabpanel" aria-labelledby="demo-tab-process" data-demo-panel="process">
+                        <div class="demo-panel is-active" id="demo-panel-full" role="tabpanel" aria-labelledby="demo-tab-full" data-demo-panel="full">
                             <div class="demo-video-wrap" data-video-src="assets/video/HoH视频03.mp4">
-                                <video loop playsinline preload="none" poster="assets/figures/hoh-video03-poster.jpg" aria-label="Harness of Harness autonomous development process"></video>
+                                <video loop playsinline preload="none" poster="assets/figures/hoh-video03-poster.jpg" aria-label="Full Harness-of-Harness project showcase"></video>
+                                <button class="demo-video-trigger" type="button" aria-label="Load and play the full project showcase video">
+                                    <i class="fa-solid fa-play" aria-hidden="true"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="demo-panel" id="demo-panel-process" role="tabpanel" aria-labelledby="demo-tab-process" data-demo-panel="process" hidden>
+                            <div class="demo-video-wrap" data-video-src="assets/video/fusepoint-development-process.mp4">
+                                <video loop playsinline preload="none" poster="assets/figures/fusepoint-development-process-poster.jpg" aria-label="Harness-of-Harness autonomous development process"></video>
                                 <button class="demo-video-trigger" type="button" aria-label="Load and play the development process video">
                                     <i class="fa-solid fa-play" aria-hidden="true"></i>
                                 </button>
