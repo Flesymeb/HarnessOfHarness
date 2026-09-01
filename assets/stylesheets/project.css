@@ -52,9 +52,9 @@ div.container.blog#first-content div.blog-title .blog-intro p.author {
 
 div.container.blog#first-content div.blog-title .blog-intro p.equal-contribution {
   margin: 0.35rem 0 0;
-  color: #5d6870;
+  color: #4d5b63;
   font-family: "Charter", Georgia, serif;
-  font-size: clamp(0.76rem, 0.86vw, 0.86rem);
+  font-size: clamp(0.84rem, 0.95vw, 0.95rem);
   font-style: italic;
   letter-spacing: 0.01em;
 }
@@ -75,12 +75,12 @@ div.container.blog#first-content div.blog-title .blog-intro p.equal-contribution
 }
 
 div.container.blog#first-content div.blog-title .blog-intro p.hero-affiliation {
-  color: #4b5359;
-  font-family: "Poppins", sans-serif;
-  font-size: clamp(0.82rem, 0.92vw, 0.92rem);
+  color: #263740;
+  font-family: "Charter", Georgia, serif;
+  font-size: clamp(0.88rem, 1vw, 1rem);
   font-style: normal;
-  font-weight: 400;
-  letter-spacing: 0.01em;
+  font-weight: 600;
+  letter-spacing: 0.018em;
   margin-top: 0.45rem;
 }
 
