@@ -20,13 +20,11 @@
 
 ## Overview
 
-> This paper studies autonomous software development, in which LLM-based coding agents transform high-level requirements into complete, functional, and usable software systems without human intervention.
+We introduce Harness-of-Harness (HoH), a framework that equips coding agents with *continual improvement* capabilities for autonomous software development.
 
-In this setting, “given only high-level requirements as human input, coding agents start from scratch and independently transform the requirements into complete, functional, and deployable software systems, without further human guidance or intervention.”
+HoH builds upon existing coding-agent harnesses and organizes development into iterative planning–coding–testing loops.
 
-> Here, we introduce Harness-of-Harness (HoH), a framework that equips coding agents with *continual improvement* capabilities for autonomous software development.
-
-HoH builds upon existing coding-agent harnesses and organizes development into iterative planning–coding–testing loops. Persistent artifacts, execution evidence, and versioned project histories allow an agent to sustain coherent progress across many loops instead of restarting from isolated episodes. The project is evaluated on three software benchmarks and through **Fusepoint**, a single-player FPS developed from an initial product requirements document.
+In a multi-day deployment with more than 70 iterations, HoH autonomously develops a first-person-shooter game, featuring a coherent storyline, fully implemented core mechanics, human-playable experience, polished visuals and integrated audio.
 
 ## Highlights
 
