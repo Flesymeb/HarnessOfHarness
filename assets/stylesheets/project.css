@@ -481,12 +481,6 @@ div.container.blog.project-figure-narrow > p.caption {
 .resource-note {
   margin: 0.8rem 0 0;
   max-width: 60rem;
-  color: #353535;
-  font-family: "Charter", sans-serif;
-  font-size: inherit;
-  font-style: normal;
-  font-weight: 300;
-  line-height: 1.6;
 }
 
 .demo-layout {
