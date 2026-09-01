@@ -15,11 +15,10 @@
   <a href="https://flesymeb.github.io/HarnessOfHarness/#resources"><img src="https://img.shields.io/badge/-Download%20Games-478CBF?style=for-the-badge&labelColor=478CBF&logo=data:image/svg%2bxml%3bbase64%2cPHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI%2bPHBhdGggZmlsbD0iI2ZmZiIgZD0iTTcgNmgxMGMyLjggMCA0LjggMi4zIDUuNiA1LjFsMSA0LjRjLjUgMi4yLS44IDMuOS0yLjUgMy45LTEuMiAwLTIuMS0uNy0yLjktMS43bC0xLjEtMS40SDYuOWwtMS4xIDEuNEM1IDE4LjcgNC4xIDE5LjQgMi45IDE5LjRjLTEuNyAwLTMtMS43LTIuNS0zLjlsMS00LjRDMi4yIDguMyA0LjIgNiA3IDZ6bTEuNSAzdjJoMnYxLjVoLTJ2MmgtMS41di0yaC0yVjExaDJWOWgxLjV6bTguMiAxLjVhMSAxIDAgMSAwIDAgMiAxIDEgMCAwIDAgMC0yem0yLjUgMi41YTEgMSAwIDEgMCAwIDIgMSAxIDAgMCAwIDAtMnoiLz48L3N2Zz4%3D" alt="Download games"></a>
 </p>
 
-## News
+## 🗞️ News
 
-- **2026-09** — Added the Harness of Harness project page and the Fusepoint gameplay showcase.
-- **2026-08** — Fusepoint reached more than 60 autonomous development loops.
-- **Next** — HoH-lite core implementation and reproducibility artifacts are coming soon.
+- 🎮 **2026-09** — Added the Harness of Harness project page and the Fusepoint gameplay showcase.
+- 🔁 **2026-08** — Fusepoint reached more than 60 autonomous development loops.
 
 ## Overview
 
