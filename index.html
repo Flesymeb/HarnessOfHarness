@@ -24,25 +24,8 @@
 
     <link rel="stylesheet" type="text/css" media="all" href="assets/stylesheets/main_free.css">
     <link rel="stylesheet" type="text/css" media="all" href="assets/stylesheets/project.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/foundation.min.css">
     <link href="assets/fontawesome-free-7.2.0-web/css/all.min.css" rel="stylesheet">
-    <script src="assets/scripts/navbar.js"></script>
-    <script type="text/x-mathjax-config">
-        MathJax.Hub.Config({
-            "HTML-CSS": {
-                scale: 95,
-                fonts: ["Gyre-Pagella"],
-                imageFont: null,
-                undefinedFamily: "'Arial Unicode MS', cmbright"
-            },
-            tex2jax: {
-                inlineMath: [['$', '$'], ["\\(", "\\)"]],
-                processEscapes: true
-            }
-        });
-    </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="assets/scripts/navbar.js" defer></script>
 </head>
 
 <body>
@@ -77,7 +60,7 @@
     </div>
 
     <section class="paper-band paper-band-white paper-band-art-left paper-band-art-portrait paper-band-demo" id="demo">
-        <img class="paper-band-art" src="assets/illustrations/human-relax-recliner.svg" alt="" aria-hidden="true">
+        <img class="paper-band-art" src="assets/illustrations/human-relax-recliner.svg" alt="" aria-hidden="true" decoding="async">
         <div class="container blog extra-large demo-showcase">
             <header class="demo-heading">
                 <h1>From zero to a playable FPS</h1>
@@ -124,8 +107,8 @@
                         </div>
 
                         <div class="demo-panel" id="demo-panel-process" role="tabpanel" aria-labelledby="demo-tab-process" data-demo-panel="process" hidden>
-                            <div class="demo-video-wrap" data-video-src="assets/video/fusepoint-development-process.mp4">
-                                <video loop playsinline preload="none" poster="assets/figures/fusepoint-development-process-poster.jpg" aria-label="Harness-of-Harness autonomous development process"></video>
+                            <div class="demo-video-wrap" data-video-src="assets/video/fusepoint-development-process.mp4" data-video-poster="assets/figures/fusepoint-development-process-poster.jpg">
+                                <video loop playsinline preload="none" aria-label="Harness-of-Harness autonomous development process"></video>
                                 <button class="demo-video-trigger" type="button" aria-label="Load and play the development process video">
                                     <i class="fa-solid fa-play" aria-hidden="true"></i>
                                 </button>
@@ -133,8 +116,8 @@
                         </div>
 
                         <div class="demo-panel" id="demo-panel-gameplay" role="tabpanel" aria-labelledby="demo-tab-gameplay" data-demo-panel="gameplay" hidden>
-                            <div class="demo-video-wrap" data-video-src="assets/video/fusepoint-real-gameplay-preview.mp4">
-                                <video loop playsinline preload="none" poster="assets/figures/fusepoint-real-gameplay-poster.jpg" aria-label="Real gameplay montage from Fusepoint"></video>
+                            <div class="demo-video-wrap" data-video-src="assets/video/fusepoint-real-gameplay-preview.mp4" data-video-poster="assets/figures/fusepoint-real-gameplay-poster.jpg">
+                                <video loop playsinline preload="none" aria-label="Real gameplay montage from Fusepoint"></video>
                                 <button class="demo-video-trigger" type="button" aria-label="Load and play the real gameplay video">
                                     <i class="fa-solid fa-play" aria-hidden="true"></i>
                                 </button>
@@ -147,7 +130,7 @@
     </section>
 
     <section class="paper-band paper-band-gray paper-band-art-right paper-band-art-wide paper-band-abstract">
-        <img class="paper-band-art" src="assets/illustrations/human-relax-lying-back.svg" alt="" aria-hidden="true">
+        <img class="paper-band-art" src="assets/illustrations/human-relax-lying-back.svg" alt="" aria-hidden="true" loading="lazy" decoding="async">
         <div class="container blog main first" id="blog-main">
             <h1>Abstract</h1>
             <p class="text">
@@ -163,18 +146,18 @@
     </section>
 
     <section class="paper-band paper-band-white paper-band-art-left paper-band-art-portrait paper-band-method">
-        <img class="paper-band-art" src="assets/illustrations/human-relax-recliner.svg" alt="" aria-hidden="true">
+        <img class="paper-band-art" src="assets/illustrations/human-relax-recliner.svg" alt="" aria-hidden="true" loading="lazy" decoding="async">
         <div class="container blog main">
             <h1>Method</h1>
         </div>
 
         <div class="container blog extra-large gray-linear project-media">
-            <img src="assets/figures/hoh-method-framework.webp" alt="Harness-of-Harness framework with project planning, development, and evidence-grounded QA testing">
+            <img src="assets/figures/hoh-method-framework.webp" alt="Harness-of-Harness framework with project planning, development, and evidence-grounded QA testing" loading="lazy" decoding="async">
         </div>
     </section>
 
     <section class="paper-band paper-band-gray paper-band-art-right paper-band-art-wide paper-band-results" id="results">
-        <img class="paper-band-art" src="assets/illustrations/human-relax-lying-back.svg" alt="" aria-hidden="true">
+        <img class="paper-band-art" src="assets/illustrations/human-relax-lying-back.svg" alt="" aria-hidden="true" loading="lazy" decoding="async">
         <div class="container blog main">
         <h1>Results</h1>
         <p class="text">
@@ -242,9 +225,9 @@
                         <tr class="harness-start">
                             <th rowspan="4" scope="rowgroup">
                                 <span class="harness-model-pair">
-                                    <span class="software-label"><img class="software-icon" src="assets/branding/software/opencode.svg" alt=""><strong>OpenCode</strong></span>
+                                    <span class="software-label"><img class="software-icon" src="assets/branding/software/opencode.svg" alt="" loading="lazy" decoding="async"><strong>OpenCode</strong></span>
                                     <span class="pair-plus" aria-hidden="true">+</span>
-                                    <span class="software-label"><img class="software-icon software-icon-deepseek" src="assets/branding/software/deepseek.svg" alt="">DeepSeek-V4-Pro</span>
+                                    <span class="software-label"><img class="software-icon software-icon-deepseek" src="assets/branding/software/deepseek.svg" alt="" loading="lazy" decoding="async">DeepSeek-V4-Pro</span>
                                 </span>
                             </th>
                             <td class="setting-cell">Vanilla</td>
@@ -273,9 +256,9 @@
                         <tr class="harness-start">
                             <th rowspan="4" scope="rowgroup">
                                 <span class="harness-model-pair">
-                                    <span class="software-label"><img class="software-icon" src="assets/branding/software/pi.svg" alt=""><strong>Pi</strong></span>
+                                    <span class="software-label"><img class="software-icon" src="assets/branding/software/pi.svg" alt="" loading="lazy" decoding="async"><strong>Pi</strong></span>
                                     <span class="pair-plus" aria-hidden="true">+</span>
-                                    <span class="software-label"><img class="software-icon" src="assets/branding/software/minimax.png" alt="">MiniMax-M3</span>
+                                    <span class="software-label"><img class="software-icon" src="assets/branding/software/minimax.png" alt="" loading="lazy" decoding="async">MiniMax-M3</span>
                                 </span>
                             </th>
                             <td class="setting-cell">Vanilla</td>
@@ -317,7 +300,7 @@
     </section>
 
     <section class="paper-band paper-band-white paper-band-art-left paper-band-art-portrait paper-band-conclusion">
-        <img class="paper-band-art" src="assets/illustrations/human-relax-recliner.svg" alt="" aria-hidden="true">
+        <img class="paper-band-art" src="assets/illustrations/human-relax-recliner.svg" alt="" aria-hidden="true" loading="lazy" decoding="async">
         <div class="container blog main">
             <h1>Conclusion</h1>
             <p class="text">
@@ -327,7 +310,7 @@
     </section>
 
     <section class="paper-band paper-band-gray paper-band-art-right paper-band-art-wide paper-band-resources" id="resources">
-        <img class="paper-band-art" src="assets/illustrations/human-relax-lying-back.svg" alt="" aria-hidden="true">
+        <img class="paper-band-art" src="assets/illustrations/human-relax-lying-back.svg" alt="" aria-hidden="true" loading="lazy" decoding="async">
         <div class="container blog main">
             <h1>Resources</h1>
             <p class="text resource-note">We will publicly release <strong>HoH-lite</strong>, a lightweight implementation of HoH's core workflow, together with reproducibility materials.</p>
@@ -356,7 +339,7 @@
     </section>
 
     <section class="paper-band paper-band-white paper-band-art-left paper-band-art-portrait paper-band-citation">
-        <img class="paper-band-art" src="assets/illustrations/human-relax-recliner.svg" alt="" aria-hidden="true">
+        <img class="paper-band-art" src="assets/illustrations/human-relax-recliner.svg" alt="" aria-hidden="true" loading="lazy" decoding="async">
         <div class="container blog main">
             <h1>Citation</h1>
 <pre><code class="plaintext">@article{yan2026harness,
@@ -384,9 +367,6 @@
         </div>
     </footer>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
-    <script src="clarity/clarity.js"></script>
     <script src="assets/scripts/main.js"></script>
 </body>
 </html>

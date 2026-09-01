@@ -15,6 +15,9 @@
     if (!wrap) return;
 
     if (video.dataset.loaded !== 'true') {
+      if (!video.poster && wrap.dataset.videoPoster) {
+        video.poster = wrap.dataset.videoPoster;
+      }
       var source = document.createElement('source');
       source.src = wrap.dataset.videoSrc;
       source.type = 'video/mp4';
