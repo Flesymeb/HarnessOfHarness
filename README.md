@@ -85,31 +85,16 @@ Original materials in this repository are released under the [MIT License](LICEN
 
 We thank everyone who contributed to Harness of Harness and its case studies.
 
-<table>
-  <tr>
-    <td align="center">
-      <a href="https://github.com/Flesymeb">
-        <img src="assets/figures/contributors/Flesymeb.png" width="96" height="96" alt="Hyoung Yan">
-        <br><sub><b>Hyoung Yan</b></sub>
-      </a>
-    </td>
-    <td align="center">
-      <a href="https://github.com/rayburstray">
-        <img src="assets/figures/contributors/rayburstray.png" width="96" height="96" alt="Ray Burstray">
-        <br><sub><b>Ray Burstray</b></sub>
-      </a>
-    </td>
-    <td align="center">
-      <a href="https://github.com/HaoTechGuy">
-        <img src="assets/figures/contributors/HaoTechGuy.png" width="96" height="96" alt="HaoTechGuy">
-        <br><sub><b>HaoTechGuy</b></sub>
-      </a>
-    </td>
-    <td align="center">
-      <a href="https://github.com/qzzqzzb">
-        <img src="assets/figures/contributors/qzzqzzb.png" width="96" height="96" alt="qzzqzzb">
-        <br><sub><b>qzzqzzb</b></sub>
-      </a>
-    </td>
-  </tr>
-</table>
+<p align="center">
+  <a href="https://github.com/Flesymeb"><img src="assets/figures/contributors/Flesymeb.png" width="96" height="96" alt="Hyoung Yan"></a>&nbsp;&nbsp;&nbsp;
+  <a href="https://github.com/rayburstray"><img src="assets/figures/contributors/rayburstray.png" width="96" height="96" alt="Ray Burstray"></a>&nbsp;&nbsp;&nbsp;
+  <a href="https://github.com/HaoTechGuy"><img src="assets/figures/contributors/HaoTechGuy.png" width="96" height="96" alt="HaoTechGuy"></a>&nbsp;&nbsp;&nbsp;
+  <a href="https://github.com/qzzqzzb"><img src="assets/figures/contributors/qzzqzzb.png" width="96" height="96" alt="qzzqzzb"></a>
+</p>
+
+<p align="center">
+  <a href="https://github.com/Flesymeb"><sub><b>Hyoung Yan</b></sub></a>&nbsp;&nbsp;&nbsp;
+  <a href="https://github.com/rayburstray"><sub><b>Ray Burstray</b></sub></a>&nbsp;&nbsp;&nbsp;
+  <a href="https://github.com/HaoTechGuy"><sub><b>HaoTechGuy</b></sub></a>&nbsp;&nbsp;&nbsp;
+  <a href="https://github.com/qzzqzzb"><sub><b>qzzqzzb</b></sub></a>
+</p>
