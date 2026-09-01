@@ -79,6 +79,4 @@ We will publicly release HoH-lite, a lightweight implementation of HoH's core wo
 
 ## License
 
-The HoH-lite implementation and associated research artifacts will include
-their license terms with the corresponding release. Third-party game assets,
-fonts, and other bundled materials remain subject to their original licenses.
+Original materials in this repository are released under the [MIT License](LICENSE).
