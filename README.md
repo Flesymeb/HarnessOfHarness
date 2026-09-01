@@ -17,8 +17,8 @@
 
 ## 🗞️ News
 
-- 🎮 **2026-09** — Added the Harness of Harness project page and the Fusepoint gameplay showcase.
-- 🔁 **2026-08** — Fusepoint reached more than 60 autonomous development loops.
+- 🎉 **2026-09** — Added the Harness of Harness project page and the Fusepoint gameplay showcase.
+- 🎉 **2026-08** — Fusepoint reached more than 60 autonomous development loops.
 
 ## Overview
 
