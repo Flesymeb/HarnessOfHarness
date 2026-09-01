@@ -23,17 +23,16 @@
 
 ## Overview
 
-Harness of Harness (HoH) extends coding-agent harnesses with a persistent,
-evidence-grounded development loop. Instead of treating every invocation as an
-isolated coding task, HoH carries the evolving software artifact, execution
-evidence, and next-step decisions across iterations.
+We introduce Harness-of-Harness (HoH), a framework that equips coding agents with *continual improvement* capabilities for autonomous software development.
 
-Our paper studies autonomous software development from scratch and evaluates
-the approach on three software-engineering benchmarks. Across the benchmarks,
-HoH achieves an average relative gain of 52.25% and a maximum gain of 82.86%
-after three iterations. **Fusepoint** provides an open-ended case study: a
-single-player FPS developed from a PRD and an empty workspace over more than
-70 autonomous loops.
+HoH builds upon existing coding-agent harnesses and organizes development into iterative planning–coding–testing loops.
+
+In a multi-day deployment with more than 70 iterations, HoH autonomously develops a first-person-shooter game, featuring a coherent storyline, fully implemented core mechanics, human-playable experience, polished visuals and integrated audio.
+
+<p align="center">
+  <img src="assets/figures/framework_crop.jpg" width="100%"
+       alt="Harness-of-Harness framework">
+</p>
 
 ## How It Works
 
