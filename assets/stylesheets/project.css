@@ -44,6 +44,24 @@ div.container.blog#first-content div.blog-title .blog-intro p.author {
   padding: 0;
 }
 
+div.container.blog#first-content div.blog-title .blog-intro p.equal-contribution {
+  margin: 0.35rem 0 0;
+  color: #5d6870;
+  font-family: "Poppins", sans-serif;
+  font-size: clamp(0.72rem, 0.82vw, 0.82rem);
+  font-style: italic;
+  letter-spacing: 0.01em;
+}
+
+div.container.blog#first-content div.blog-title .blog-intro sup.equal-marker {
+  color: #365f7d;
+  font-family: "Poppins", sans-serif;
+  font-size: 0.68em;
+  font-style: normal;
+  font-weight: 600;
+  vertical-align: super;
+}
+
 div.container.blog#first-content div.blog-title .blog-intro p.hero-affiliation {
   color: #4b5359;
   font-family: "Poppins", sans-serif;
