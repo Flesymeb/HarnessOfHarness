@@ -1,0 +1,226 @@
+// define variables
+$extra-small-device: 600px;
+$small-device: 769px;
+$medium-device: 992px;
+$large-device: 1200px;
+$extra-large-device: 1600px;
+$extra-extra-large-device: 2000px;
+$super-large-device: 2400px;
+$super-super-large-device: 3200px;
+
+// define font-size
+$extra-extra-small-font-size: 14px;
+$extra-small-font-size: 15px;
+$small-font-size: 16px;
+$small-medium-font-size: 17px;
+$medium-font-size: 18px;
+$large-medium-font-size: 20px;
+$extra-large-medium-font-size: 22px;
+$large-font-size: 24px;
+
+// suitable for Poppins + Charter
+$extra-large-font-size: 26px;
+$extra-extra-large-font-size: 30px;
+$super-large-font-size: 36px;
+$extra-super-large-font-size: 42px;
+
+// suitable for Athletics + Tiempos Text
+// $extra-large-font-size: 30px;
+// $extra-extra-large-font-size: 36px;
+// $super-large-font-size: 42px;
+
+// define color
+$gray-1: #fafafa;
+$gray-5: #f6f6f6;
+$gray-10: #ececec;
+$gray-30: #c6c6c6;
+$gray-50: #9f9fa0;
+$gray-80: #666667;
+$gray-100: #404041;
+
+$white: #f4f3ef;
+$black: #353535;
+$light-black: #858585;
+
+// Program Coding Font
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&display=swap');
+
+// Main Text Font
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+@font-face {
+    font-family: 'Charter';
+    font-style: normal;
+    font-weight: normal;
+    src: url('../fonts/Charter/charter_regular.woff2') format('woff2');
+}
+    
+@font-face {
+    font-family: 'Charter';
+    font-style: italic;
+    font-weight: normal;
+    src: url('../fonts/Charter/charter_italic.woff2') format('woff2');
+}
+    
+@font-face {
+    font-family: 'Charter';
+    font-style: normal;
+    font-weight: bold;
+    src: url('../fonts/Charter/charter_bold.woff2') format('woff2');
+}
+    
+@font-face {
+    font-family: 'Charter';
+    font-style: italic;
+    font-weight: bold;
+    src: url('../fonts/Charter/charter_bold_italic.woff2') format('woff2');
+}
+
+// Using trial licensed fonts for NON-COMMERCIAL PURPOSE only
+// @font-face {
+//     font-family: 'Tiempos Text';
+//     src: url('../fonts/Tiempos/TiemposText-Bold.eot');
+//     src: url('../fonts/Tiempos/TiemposText-Bold.eot?#iefix') format('embedded-opentype'),
+//          url('../fonts/Tiempos/TiemposText-Bold.woff') format('woff'),
+//          url('../fonts/Tiempos/TiemposText-Bold.ttf') format('truetype');
+//     font-weight: 700;
+//     font-style: normal;
+// }
+
+// @font-face {
+//     font-family: 'Tiempos Text';
+//     src: url('../fonts/Tiempos/TiemposText-BoldItalic.eot');
+//     src: url('../fonts/Tiempos/TiemposText-BoldItalic.eot?#iefix') format('embedded-opentype'),
+//          url('../fonts/Tiempos/TiemposText-BoldItalic.woff') format('woff'),
+//          url('../fonts/Tiempos/TiemposText-BoldItalic.ttf') format('truetype');
+//     font-weight: 700;
+//     font-style: italic;
+// }
+
+// @font-face {
+//     font-family: 'Tiempos Text';
+//     src: url('../fonts/Tiempos/TiemposText-Semibold.eot');
+//     src: url('../fonts/Tiempos/TiemposText-Semibold.eot?#iefix') format('embedded-opentype'),
+//          url('../fonts/Tiempos/TiemposText-Semibold.woff') format('woff'),
+//          url('../fonts/Tiempos/TiemposText-Semibold.ttf') format('truetype');
+//     font-weight: 600;
+//     font-style: normal;
+// }
+
+// @font-face {
+//     font-family: 'Tiempos Text';
+//     src: url('../fonts/Tiempos/TiemposText-SemiboldItalic.eot');
+//     src: url('../fonts/Tiempos/TiemposText-SemiboldItalic.eot?#iefix') format('embedded-opentype'),
+//          url('../fonts/Tiempos/TiemposText-SemiboldItalic.woff') format('woff'),
+//          url('../fonts/Tiempos/TiemposText-SemiboldItalic.ttf') format('truetype');
+//     font-weight: 600;
+//     font-style: italic;
+// }
+
+// @font-face {
+//     font-family: 'Tiempos Text';
+//     src: url('../fonts/Tiempos/TiemposText-Regular.eot');
+//     src: url('../fonts/Tiempos/TiemposText-Regular.eot?#iefix') format('embedded-opentype'),
+//          url('../fonts/Tiempos/TiemposText-Regular.woff') format('woff'),
+//          url('../fonts/Tiempos/TiemposText-Regular.ttf') format('truetype');
+//     font-weight: 500;
+//     font-style: normal;
+// }
+
+// @font-face {
+//     font-family: 'Tiempos Text';
+//     src: url('../fonts/Tiempos/TiemposText-Italic.eot');
+//     src: url('../fonts/Tiempos/TiemposText-Italic.eot?#iefix') format('embedded-opentype'),
+//          url('../fonts/Tiempos/TiemposText-Italic.woff') format('woff'),
+//          url('../fonts/Tiempos/TiemposText-Italic.ttf') format('truetype');
+//     font-weight: 500;
+//     font-style: italic;
+// }
+
+
+// @font-face {
+//     font-family: 'Athletics';
+//     src: url('../fonts/Athletics/Athletics-Bold.eot');
+//     src: url('../fonts/Athletics/Athletics-Bold.eot?#iefix') format('embedded-opentype'),
+//         url('../fonts/Athletics/Athletics-Bold.woff2') format('woff2'),
+//         url('../fonts/Athletics/Athletics-Bold.woff') format('woff'),
+//         url('../fonts/Athletics/Athletics-Bold.ttf') format('truetype'),
+//         url('../fonts/Athletics/Athletics-Bold.svg#Athletics-Bold') format('svg');
+//     font-weight: 700;
+//     font-style: normal;
+//     font-display: swap;
+// }
+
+// @font-face {
+//     font-family: 'Athletics';
+//     src: url('../fonts/Athletics/Athletics-BoldItalic.eot');
+//     src: url('../fonts/Athletics/Athletics-BoldItalic.eot?#iefix') format('embedded-opentype'),
+//         url('../fonts/Athletics/Athletics-BoldItalic.woff2') format('woff2'),
+//         url('../fonts/Athletics/Athletics-BoldItalic.woff') format('woff'),
+//         url('../fonts/Athletics/Athletics-BoldItalic.ttf') format('truetype'),
+//         url('../fonts/Athletics/Athletics-BoldItalic.svg#Athletics-BoldItalic') format('svg');
+//     font-weight: 700;
+//     font-style: italic;
+//     font-display: swap;
+// }
+
+// @font-face {
+//     font-family: 'Athletics';
+//     src: url('../fonts/Athletics/Athletics-Medium.eot');
+//     src: url('../fonts/Athletics/Athletics-Medium.eot?#iefix') format('embedded-opentype'),
+//         url('../fonts/Athletics/Athletics-Medium.woff2') format('woff2'),
+//         url('../fonts/Athletics/Athletics-Medium.woff') format('woff'),
+//         url('../fonts/Athletics/Athletics-Medium.ttf') format('truetype'),
+//         url('../fonts/Athletics/Athletics-Medium.svg#Athletics-Medium') format('svg');
+//     font-weight: 600;
+//     font-style: normal;
+//     font-display: swap;
+// }
+
+// @font-face {
+//     font-family: 'Athletics';
+//     src: url('../fonts/Athletics/Athletics-MediumItalic.eot');
+//     src: url('../fonts/Athletics/Athletics-MediumItalic.eot?#iefix') format('embedded-opentype'),
+//         url('../fonts/Athletics/Athletics-MediumItalic.woff2') format('woff2'),
+//         url('../fonts/Athletics/Athletics-MediumItalic.woff') format('woff'),
+//         url('../fonts/Athletics/Athletics-MediumItalic.ttf') format('truetype'),
+//         url('../fonts/Athletics/Athletics-MediumItalic.svg#Athletics-MediumItalic') format('svg');
+//     font-weight: 600;
+//     font-style: italic;
+//     font-display: swap;
+// }
+
+
+// @font-face {
+//     font-family: 'Athletics';
+//     src: url('../fonts/Athletics/Athletics-Italic.eot');
+//     src: url('../fonts/Athletics/Athletics-Italic.eot?#iefix') format('embedded-opentype'),
+//         url('../fonts/Athletics/Athletics-Italic.woff2') format('woff2'),
+//         url('../fonts/Athletics/Athletics-Italic.woff') format('woff'),
+//         url('../fonts/Athletics/Athletics-Italic.ttf') format('truetype'),
+//         url('../fonts/Athletics/Athletics-Italic.svg#Athletics-Italic') format('svg');
+//     font-weight: 500;
+//     font-style: italic;
+//     font-display: swap;
+// }
+
+// @font-face {
+//     font-family: 'Athletics';
+//     src: url('../fonts/Athletics/Athletics-Regular.eot');
+//     src: url('../fonts/Athletics/Athletics-Regular.eot?#iefix') format('embedded-opentype'),
+//         url('../fonts/Athletics/Athletics-Regular.woff2') format('woff2'),
+//         url('../fonts/Athletics/Athletics-Regular.woff') format('woff'),
+//         url('../fonts/Athletics/Athletics-Regular.ttf') format('truetype'),
+//         url('../fonts/Athletics/Athletics-Regular.svg#Athletics-Regular') format('svg');
+//     font-weight: 500;
+//     font-style: normal;
+//     font-display: swap;
+// }
+
+
+$default-sans: 'Poppins';
+$default-serif: 'Charter';
+
+// Only use trial license for NON-COMMERCIAL PURPOSES
+// $default-sans: 'Athletics';
+// $default-serif: 'Tiempos Text';

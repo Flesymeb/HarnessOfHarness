@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Harness of Harness</title>
+    <meta name="description" content="Harness of Harness enables multi-day autonomous software development through continual planning, development, and evidence-grounded testing.">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <meta name="robots" content="all">
+    <meta content="en_EN" property="og:locale">
+    <meta content="website" property="og:type">
+    <meta content="https://flesymeb.github.io/HarnessOfHarness/" property="og:url">
+    <meta content="Harness of Harness" property="og:title">
+    <meta content="Multi-Day Autonomous Software Development with Continual Improvement" property="og:description">
+    <meta content="assets/figures/fusepoint-poster.jpg" property="og:image">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:description" content="Harness of Harness: Multi-Day Autonomous Software Development with Continual Improvement">
+    <meta name="twitter:image:src" content="assets/figures/fusepoint-poster.jpg">
+    <meta name="application-name" content="Harness of Harness">
+    <link rel="icon" type="image/svg+xml" href="assets/branding/hoh-mark.svg">
+
+    <link rel="stylesheet" type="text/css" media="all" href="assets/stylesheets/main_free.css">
+    <link rel="stylesheet" type="text/css" media="all" href="clarity/clarity.css">
+    <link rel="stylesheet" type="text/css" media="all" href="assets/stylesheets/project.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/foundation.min.css">
+    <link href="assets/fontawesome-free-7.2.0-web/css/all.min.css" rel="stylesheet">
+    <script src="assets/scripts/navbar.js"></script>
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            "HTML-CSS": {
+                scale: 95,
+                fonts: ["Gyre-Pagella"],
+                imageFont: null,
+                undefinedFamily: "'Arial Unicode MS', cmbright"
+            },
+            tex2jax: {
+                inlineMath: [['$', '$'], ["\\(", "\\)"]],
+                processEscapes: true
+            }
+        });
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <!-- Title Page: original Clarity cover layout. -->
+    <div class="container blog" id="first-content" style="background-color: #E0E4E6;">
+        <div class="blog-title">
+            <div class="hero-heading">
+                <h1 class="title">Harness of Harness: Multi-Day Autonomous Software Development with Continual Improvement</h1>
+            </div>
+
+            <div class="hero-lower">
+                <div class="blog-intro">
+                    <div class="hero-copy">
+                        <p class="author">
+                            Haoyang Yan, Minle Su, Hangfan Zhang, Zhanhao Li, Chen Zhang,<br>
+                            Shao Zhang, Yang Chen, Lei Bai, and Shuyue Hu
+                        </p>
+                        <p class="author hero-affiliation">
+                            Shanghai Artificial Intelligence Laboratory
+                        </p>
+                        <p class="abstract">
+                            HoH turns existing coding-agent harnesses into a continual process that builds complete software systems over multiple days.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="hero-video-slot">
+                    <div class="blog-cover" data-hero-video-frame>
+                        <video class="hero-video" autoplay loop muted playsinline preload="metadata" poster="assets/figures/hoh-0826-final-poster.jpg" tabindex="0" aria-label="Play the Harness of Harness project video in the expanded cover">
+                            <source src="assets/video/hoh-0826-final-web.mp4" type="video/mp4">
+                        </video>
+
+                        <button class="hero-video-expand" type="button" aria-label="Expand project video" aria-expanded="false" title="Expand video">
+                            <i class="fa-solid fa-up-right-and-down-left-from-center" aria-hidden="true"></i>
+                        </button>
+
+                        <div class="hero-video-controls" aria-label="Expanded video controls">
+                            <button class="hero-video-control" type="button" data-hero-video-action="fullscreen" title="Full screen">
+                                <i class="fa-solid fa-expand" aria-hidden="true"></i>
+                                <span>Full screen</span>
+                            </button>
+                            <button class="hero-video-control" type="button" data-hero-video-action="collapse" title="Minimize">
+                                <i class="fa-solid fa-down-left-and-up-right-to-center" aria-hidden="true"></i>
+                                <span>Minimize</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info hero-actions" aria-label="Project links">
+                    <a href="assets/paper/harness-of-harness.pdf" class="button icon hero-button">Paper <i class="fa-regular fa-file-lines" aria-hidden="true"></i></a>
+                    <a href="https://github.com/Flesymeb/HarnessOfHarness" class="button icon hero-button" target="_blank" rel="noopener noreferrer">Star on GitHub <i class="fa-brands fa-github" aria-hidden="true"></i></a>
+                    <a href="#resources" class="button icon hero-button">Download Game <i class="fa-solid fa-gamepad" aria-hidden="true"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="paper-band paper-band-white paper-band-art-left paper-band-art-portrait paper-band-abstract">
+        <img class="paper-band-art" src="assets/illustrations/human-relax-recliner.svg" alt="" aria-hidden="true">
+        <div class="container blog main first" id="blog-main">
+            <h1>Abstract</h1>
+            <p class="text">
+                Coding agents powered by large language models have demonstrated remarkable capabilities, yet their practical effectiveness depends heavily on harnesses that coordinate tool use, context management, execution, and the integration of resulting evidence. We study software development from scratch, where agents must transform high-level requirements into complete, functional software systems.
+            </p>
+            <p class="text">
+                HoH builds on existing coding-agent harnesses rather than replacing them. It enables a continuous planning–coding–testing cycle in which agents refine software artifacts and incorporate execution evidence into subsequent development decisions. Across GameCraft-Bench, FrontierSWE, and ProgramBench, HoH consistently improves over standalone harnesses and continues to benefit from additional iterations.
+            </p>
+        </div>
+    </section>
+
+    <section class="paper-band paper-band-gray paper-band-art-right paper-band-art-wide paper-band-demo" id="demo">
+        <img class="paper-band-art" src="assets/illustrations/human-relax-lying-back.svg" alt="" aria-hidden="true">
+        <div class="container blog extra-large demo-showcase">
+            <header class="demo-heading">
+                <h1>From zero to a playable FPS</h1>
+            </header>
+
+            <div class="demo-layout">
+                <div class="demo-mode-switch" role="tablist" aria-label="Fusepoint demo view" aria-orientation="vertical" data-active="process">
+                    <span class="demo-switch-rail" aria-hidden="true">
+                        <span class="demo-switch-marker"></span>
+                    </span>
+
+                    <button class="demo-mode-option is-active" id="demo-tab-process" type="button" role="tab" aria-selected="true" aria-controls="demo-panel-process" data-demo-target="process">
+                        <span class="demo-option-number">01</span>
+                        <span class="demo-option-copy">
+                            <strong>Development Process</strong>
+                        </span>
+                    </button>
+
+                    <button class="demo-mode-option" id="demo-tab-gameplay" type="button" role="tab" aria-selected="false" aria-controls="demo-panel-gameplay" tabindex="-1" data-demo-target="gameplay">
+                        <span class="demo-option-number">02</span>
+                        <span class="demo-option-copy">
+                            <strong>Real Gameplay</strong>
+                        </span>
+                    </button>
+                </div>
+
+                <div class="demo-media-column">
+                    <div class="demo-stage">
+                        <div class="demo-panel is-active" id="demo-panel-process" role="tabpanel" aria-labelledby="demo-tab-process" data-demo-panel="process">
+                            <video autoplay loop muted playsinline controls preload="metadata" poster="assets/figures/fusepoint-development-process-poster.jpg" aria-label="Fusepoint autonomous development process">
+                                <source src="assets/video/fusepoint-development-process.mp4" type="video/mp4">
+                            </video>
+                        </div>
+
+                        <div class="demo-panel" id="demo-panel-gameplay" role="tabpanel" aria-labelledby="demo-tab-gameplay" data-demo-panel="gameplay" hidden>
+                            <video loop muted playsinline controls preload="metadata" poster="assets/figures/fusepoint-real-gameplay-poster.jpg" aria-label="Real gameplay montage from Fusepoint">
+                                <source src="assets/video/fusepoint-real-gameplay-preview.mp4" type="video/mp4">
+                            </video>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="paper-band paper-band-white paper-band-art-left paper-band-art-portrait paper-band-method">
+        <img class="paper-band-art" src="assets/illustrations/human-relax-recliner.svg" alt="" aria-hidden="true">
+        <div class="container blog main">
+            <h1>Method</h1>
+            <p class="text">
+                Each iteration assigns three stable responsibilities. The <b>planner</b> reconciles the fixed product requirement document with verified behaviour and unresolved evidence gaps. The <b>developer</b> continues from the selected artifact while preserving previously verified functionality. The <b>tester</b> executes checkable claims and returns observable records as verified evidence or gaps.
+            </p>
+            <p class="text">
+                Every iteration shares one development document, one evolving workspace, and one evidence bundle. The harness–model configuration remains fixed; HoH changes the artifact and iteration-specific context supplied to it.
+            </p>
+        </div>
+
+        <div class="container blog extra-large gray-linear project-media">
+            <img src="assets/figures/framework.webp" alt="Harness-of-Harness framework with planning, programming, and evidence-grounded testing">
+            <p class="caption">
+                Harness-of-Harness coordinates project planning, software development, and evidence-grounded QA around a persistent software artifact.
+            </p>
+        </div>
+    </section>
+
+    <section class="paper-band paper-band-gray paper-band-art-right paper-band-art-wide paper-band-results" id="results">
+        <img class="paper-band-art" src="assets/illustrations/human-relax-lying-back.svg" alt="" aria-hidden="true">
+        <div class="container blog main">
+        <h1>Results</h1>
+        <p class="text">
+            Vanilla and successive HoH iterations across all evaluated harness–model configurations.
+        </p>
+
+        <figure class="paper-results-table">
+            <div class="paper-results-scroll">
+                <table aria-label="Vanilla and HoH iteration 1 through 3 results across three software-development benchmarks">
+                    <colgroup>
+                        <col class="column-pair">
+                        <col class="column-setting">
+                        <col class="column-metric">
+                        <col class="column-metric">
+                        <col class="column-metric">
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th rowspan="2" scope="col">Harness + Model</th>
+                            <th rowspan="2" scope="col">Setting</th>
+                            <th scope="col">GameCraft-Bench</th>
+                            <th scope="col">FrontierSWE</th>
+                            <th scope="col">ProgramBench</th>
+                        </tr>
+                        <tr>
+                            <th scope="col"><em>Overall</em></th>
+                            <th scope="col">
+                                <em>Dominance<sup><a class="metric-footnote-link" href="https://www.frontierswe.com/#results" target="_blank" rel="noopener noreferrer" aria-label="FrontierSWE official definition of Dominance">‡</a></sup></em>
+                            </th>
+                            <th scope="col"><em>Pass Rate<sup>†</sup></em></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="harness-start">
+                            <th rowspan="4" scope="rowgroup">
+                                <span class="harness-model-pair">
+                                    <span class="software-label"><i class="fa-brands fa-openai software-icon" aria-hidden="true"></i><strong>Codex</strong></span>
+                                    <span class="pair-plus" aria-hidden="true">+</span>
+                                    <span class="software-label"><i class="fa-brands fa-openai software-icon" aria-hidden="true"></i>GPT-5.5 (high)</span>
+                                </span>
+                            </th>
+                            <td class="setting-cell">Vanilla</td>
+                            <td><span class="metric-result"><span class="metric-score">49.58</span></span></td>
+                            <td><span class="metric-result"><span class="metric-score">44%</span></span></td>
+                            <td><span class="metric-result"><span class="metric-score">60.41</span></span></td>
+                        </tr>
+                        <tr class="hoh-result-row">
+                            <td class="setting-cell">HoH@1</td>
+                            <td><span class="metric-result"><span class="metric-score">59.71</span></span></td>
+                            <td><span class="metric-result"><span class="metric-score">58%</span></span></td>
+                            <td><span class="metric-result"><span class="metric-score">65.42</span></span></td>
+                        </tr>
+                        <tr class="hoh-result-row">
+                            <td class="setting-cell">HoH@2</td>
+                            <td><span class="metric-result"><span class="metric-score">64.84</span></span></td>
+                            <td><span class="metric-result"><span class="metric-score">60%</span></span></td>
+                            <td><span class="metric-result"><span class="metric-score">65.79</span></span></td>
+                        </tr>
+                        <tr class="hoh-result-row hoh-final-row">
+                            <td class="setting-cell"><strong>HoH@3</strong></td>
+                            <td><span class="metric-result"><strong class="metric-score">71.52</strong><span class="result-delta">(+21.93)</span></span></td>
+                            <td><span class="metric-result"><strong class="metric-score">71%</strong><span class="result-delta">(+27)</span></span></td>
+                            <td><span class="metric-result"><strong class="metric-score">66.50</strong><span class="result-delta">(+6.09)</span></span></td>
+                        </tr>
+                        <tr class="harness-start">
+                            <th rowspan="4" scope="rowgroup">
+                                <span class="harness-model-pair">
+                                    <span class="software-label"><img class="software-icon" src="assets/branding/software/opencode.svg" alt=""><strong>OpenCode</strong></span>
+                                    <span class="pair-plus" aria-hidden="true">+</span>
+                                    <span class="software-label"><img class="software-icon software-icon-deepseek" src="assets/branding/software/deepseek.svg" alt="">DeepSeek-V4-Pro</span>
+                                </span>
+                            </th>
+                            <td class="setting-cell">Vanilla</td>
+                            <td><span class="metric-result"><span class="metric-score">26.90</span></span></td>
+                            <td><span class="metric-result"><span class="metric-score">25%</span></span></td>
+                            <td><span class="metric-result"><span class="metric-score">45.27</span></span></td>
+                        </tr>
+                        <tr class="hoh-result-row">
+                            <td class="setting-cell">HoH@1</td>
+                            <td><span class="metric-result"><span class="metric-score">28.61</span></span></td>
+                            <td><span class="metric-result"><span class="metric-score">28%</span></span></td>
+                            <td><span class="metric-result"><span class="metric-score">55.33</span></span></td>
+                        </tr>
+                        <tr class="hoh-result-row">
+                            <td class="setting-cell">HoH@2</td>
+                            <td><span class="metric-result"><span class="metric-score">40.32</span></span></td>
+                            <td><span class="metric-result"><span class="metric-score">42%</span></span></td>
+                            <td><span class="metric-result"><span class="metric-score">55.66</span></span></td>
+                        </tr>
+                        <tr class="hoh-result-row hoh-final-row">
+                            <td class="setting-cell"><strong>HoH@3</strong></td>
+                            <td><span class="metric-result"><strong class="metric-score">48.98</strong><span class="result-delta">(+22.08)</span></span></td>
+                            <td><span class="metric-result"><strong class="metric-score">44%</strong><span class="result-delta">(+19)</span></span></td>
+                            <td><span class="metric-result"><strong class="metric-score">57.56</strong><span class="result-delta">(+12.29)</span></span></td>
+                        </tr>
+                        <tr class="harness-start">
+                            <th rowspan="4" scope="rowgroup">
+                                <span class="harness-model-pair">
+                                    <span class="software-label"><img class="software-icon" src="assets/branding/software/pi.svg" alt=""><strong>Pi</strong></span>
+                                    <span class="pair-plus" aria-hidden="true">+</span>
+                                    <span class="software-label"><img class="software-icon" src="assets/branding/software/minimax.png" alt="">MiniMax-M3</span>
+                                </span>
+                            </th>
+                            <td class="setting-cell">Vanilla</td>
+                            <td><span class="metric-result"><span class="metric-score">42.16</span></span></td>
+                            <td><span class="metric-result"><span class="metric-score">35%</span></span></td>
+                            <td><span class="metric-result"><span class="metric-score">35.83</span></span></td>
+                        </tr>
+                        <tr class="hoh-result-row">
+                            <td class="setting-cell">HoH@1</td>
+                            <td><span class="metric-result"><span class="metric-score">49.06</span></span></td>
+                            <td><span class="metric-result"><span class="metric-score">62%</span></span></td>
+                            <td><span class="metric-result"><span class="metric-score">48.68</span></span></td>
+                        </tr>
+                        <tr class="hoh-result-row">
+                            <td class="setting-cell">HoH@2</td>
+                            <td><span class="metric-result"><span class="metric-score">55.04</span></span></td>
+                            <td><span class="metric-result"><strong class="metric-score">66%</strong></span></td>
+                            <td><span class="metric-result"><strong class="metric-score">53.57</strong></span></td>
+                        </tr>
+                        <tr class="hoh-result-row hoh-final-row">
+                            <td class="setting-cell"><strong>HoH@3</strong></td>
+                            <td><span class="metric-result"><strong class="metric-score">58.78</strong><span class="result-delta">(+16.62)</span></span></td>
+                            <td><span class="metric-result"><span class="metric-score">64%</span><span class="result-delta">(+29)</span></span></td>
+                            <td><span class="metric-result"><span class="metric-score">52.68</span><span class="result-delta">(+16.85)</span></span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <figcaption>
+                <strong>Main results on GameCraft-Bench, FrontierSWE, and ProgramBench.</strong>
+                Each harness is evaluated under Vanilla and HoH@1–3. Bold values mark the best setting within each harness and metric. Small green values shown only for HoH@3 give absolute gains over Vanilla; higher is better for all metrics.
+                <span class="table-footnotes">
+                    <sup>‡</sup> Dominance is an official FrontierSWE metric; see the <a class="metric-footnote-link" href="https://www.frontierswe.com/#results" target="_blank" rel="noopener noreferrer">official documentation</a> for details.
+                    <sup>†</sup> Pass Rate denotes ProgramBench's average test pass rate.
+                </span>
+            </figcaption>
+        </figure>
+        </div>
+    </section>
+
+    <section class="paper-band paper-band-white paper-band-art-left paper-band-art-portrait paper-band-conclusion">
+        <img class="paper-band-art" src="assets/illustrations/human-relax-recliner.svg" alt="" aria-hidden="true">
+        <div class="container blog main">
+            <h1>Conclusion</h1>
+            <p class="text">
+                Harness of Harness treats greenfield software development as a harness-level, long-horizon research problem. Persistent artifacts, stable responsibilities, and execution-grounded evidence allow existing coding-agent harnesses to improve software over repeated iterations rather than restarting from isolated episodes.
+            </p>
+        </div>
+    </section>
+
+    <section class="paper-band paper-band-gray paper-band-art-right paper-band-art-wide paper-band-resources" id="resources">
+        <img class="paper-band-art" src="assets/illustrations/human-relax-lying-back.svg" alt="" aria-hidden="true">
+        <div class="container blog main">
+            <h1>Resources</h1>
+            <p class="resource-note">We release <strong>HoH-Lite</strong>, a lightweight open-source implementation of HoH's core workflow.</p>
+
+            <nav class="resource-links" aria-label="Project resources">
+                <a class="resource-link" href="https://github.com/Flesymeb/HarnessOfHarness" target="_blank" rel="noopener noreferrer">
+                    <span class="resource-icon" aria-hidden="true"><i class="fa-brands fa-github"></i></span>
+                    <strong>Source Code</strong>
+                    <span class="resource-arrow" aria-hidden="true"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+                </a>
+
+                <a class="resource-link" href="assets/paper/harness-of-harness.pdf">
+                    <span class="resource-icon" aria-hidden="true"><i class="fa-regular fa-file-lines"></i></span>
+                    <strong>Paper</strong>
+                    <span class="resource-arrow" aria-hidden="true"><i class="fa-solid fa-arrow-right"></i></span>
+                </a>
+
+                <!-- Replace this href with the public Google Drive folder URL after uploading. -->
+                <a class="resource-link resource-link-pending" href="#resources" aria-disabled="true" aria-label="Games and interactive builds archive, link coming soon">
+                    <span class="resource-icon" aria-hidden="true"><i class="fa-solid fa-gamepad"></i></span>
+                    <strong>Games</strong>
+                    <span class="resource-arrow" aria-hidden="true"><i class="fa-solid fa-arrow-right"></i></span>
+                </a>
+            </nav>
+        </div>
+    </section>
+
+    <section class="paper-band paper-band-white paper-band-art-left paper-band-art-portrait paper-band-citation">
+        <img class="paper-band-art" src="assets/illustrations/human-relax-recliner.svg" alt="" aria-hidden="true">
+        <div class="container blog main">
+            <h1>Citation</h1>
+            <p class="text">
+                The arXiv identifier and final venue metadata will be added after release.
+            </p>
+<pre><code class="plaintext">@article{yan2026harness,
+    title={Harness of Harness: Multi-Day Autonomous Software Development with Continual Improvement},
+    author={Yan, Haoyang and Su, Minle and Zhang, Hangfan and Li, Zhanhao and Zhang, Chen and Zhang, Shao and Chen, Yang and Bai, Lei and Hu, Shuyue},
+    journal={arXiv preprint},
+    year={2026}
+}</code></pre>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container footer-layout">
+            <p class="footer-signature">
+                <em>
+                    <i class="fa-solid fa-code" aria-hidden="true"></i> with
+                    <i class="fa-solid fa-heart" style="color: #ec6863" aria-hidden="true"></i> by
+                    <span class="signature">Hyoung Yan</span>
+                </em>
+            </p>
+            <div class="footer-meta">
+                <p>Built on the <a href="https://shikun.io/projects/clarity">Clarity Template</a>,</p>
+                <a class="footer-github" href="https://github.com/Flesymeb/HarnessOfHarness" target="_blank" rel="noopener noreferrer" aria-label="Harness of Harness on GitHub" title="Harness of Harness on GitHub"><i class="fa-brands fa-github" aria-hidden="true"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script src="clarity/clarity.js"></script>
+    <script src="assets/scripts/main.js"></script>
+</body>
+</html>
