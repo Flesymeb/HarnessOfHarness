@@ -398,14 +398,13 @@ div.container.blog.project-figure-narrow > p.caption {
   width: clamp(28rem, 42vw, 40rem);
 }
 
-.paper-band-method .paper-band-art,
 .paper-band-results .paper-band-art {
   top: clamp(11rem, 15vw, 14rem);
 }
 
 .paper-band-demo .paper-band-art {
-  top: clamp(7rem, 8vw, 8rem);
-  width: clamp(20rem, 30vw, 29rem);
+  top: 50%;
+  width: clamp(16rem, 22vw, 23rem);
 }
 
 .demo-showcase {
