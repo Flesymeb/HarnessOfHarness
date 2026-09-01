@@ -1,6 +1,6 @@
-<p align="center">
-  <img src="assets/figures/banner.png" width="100%" alt="Harness of Harness continual development process">
-</p>
+<div align="center">
+  <img src="assets/figures/banner-readme.webp" width="100%" alt="Harness of Harness continual development process">
+</div>
 
 <h1 align="center">Harness of Harness</h1>
 
