@@ -80,3 +80,14 @@ We will publicly release HoH-lite, a lightweight implementation of HoH's core wo
 ## License
 
 Original materials in this repository are released under the [MIT License](LICENSE).
+
+## Contributors
+
+We thank everyone who contributed to Harness of Harness and its case studies.
+
+| Contributor | GitHub |
+|:--|:--:|
+| Hyoung Yan | [@Flesymeb](https://github.com/Flesymeb) |
+| Ray Burstray | [@rayburstray](https://github.com/rayburstray) |
+| HaoTechGuy | [@HaoTechGuy](https://github.com/HaoTechGuy) |
+| qzzqzzb | [@qzzqzzb](https://github.com/qzzqzzb) |
