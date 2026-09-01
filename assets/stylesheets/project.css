@@ -564,6 +564,50 @@ div.container.blog.project-figure-narrow > p.caption {
   width: 100%;
 }
 
+.demo-video-wrap {
+  height: 100%;
+  position: relative;
+  width: 100%;
+}
+
+.demo-video-trigger {
+  align-items: center;
+  background: rgba(17, 21, 24, 0.82);
+  border: 1px solid rgba(255, 255, 255, 0.72);
+  border-radius: 0.35rem;
+  bottom: 50%;
+  color: #fff;
+  cursor: pointer;
+  display: inline-flex;
+  font-family: "Poppins", sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  gap: 0.55rem;
+  left: 50%;
+  letter-spacing: 0.04em;
+  padding: 0.7rem 1rem;
+  position: absolute;
+  text-transform: none;
+  transform: translate(-50%, 50%);
+  transition: background 180ms ease, opacity 180ms ease, transform 180ms ease;
+}
+
+.demo-video-trigger:hover {
+  background: rgba(17, 21, 24, 0.96);
+  transform: translate(-50%, 50%) scale(1.03);
+}
+
+.demo-video-trigger:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 3px;
+}
+
+.demo-video-wrap.is-loaded .demo-video-trigger {
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, 50%) scale(0.96);
+}
+
 @keyframes demo-panel-enter {
   from {
     opacity: 0;

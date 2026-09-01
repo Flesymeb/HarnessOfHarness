@@ -109,15 +109,23 @@
                 <div class="demo-media-column">
                     <div class="demo-stage">
                         <div class="demo-panel is-active" id="demo-panel-process" role="tabpanel" aria-labelledby="demo-tab-process" data-demo-panel="process">
-                            <video autoplay loop muted playsinline controls preload="metadata" poster="assets/figures/hoh-video03-poster.jpg" aria-label="Harness of Harness autonomous development process">
-                                <source src="assets/video/HoH视频03.mp4" type="video/mp4">
-                            </video>
+                            <div class="demo-video-wrap" data-video-src="assets/video/HoH视频03.mp4">
+                                <video loop muted playsinline preload="none" poster="assets/figures/hoh-video03-poster.jpg" aria-label="Harness of Harness autonomous development process"></video>
+                                <button class="demo-video-trigger" type="button" aria-label="Load and play the development process video">
+                                    <i class="fa-solid fa-play" aria-hidden="true"></i>
+                                    <span>Play video</span>
+                                </button>
+                            </div>
                         </div>
 
                         <div class="demo-panel" id="demo-panel-gameplay" role="tabpanel" aria-labelledby="demo-tab-gameplay" data-demo-panel="gameplay" hidden>
-                            <video loop muted playsinline controls preload="metadata" poster="assets/figures/fusepoint-real-gameplay-poster.jpg" aria-label="Real gameplay montage from Fusepoint">
-                                <source src="assets/video/fusepoint-real-gameplay-preview.mp4" type="video/mp4">
-                            </video>
+                            <div class="demo-video-wrap" data-video-src="assets/video/fusepoint-real-gameplay-preview.mp4">
+                                <video loop muted playsinline preload="none" poster="assets/figures/fusepoint-real-gameplay-poster.jpg" aria-label="Real gameplay montage from Fusepoint"></video>
+                                <button class="demo-video-trigger" type="button" aria-label="Load and play the real gameplay video">
+                                    <i class="fa-solid fa-play" aria-hidden="true"></i>
+                                    <span>Play video</span>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>

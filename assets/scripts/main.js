@@ -6,6 +6,44 @@
   var modeSwitch = showcase.querySelector('.demo-mode-switch');
   var buttons = Array.prototype.slice.call(showcase.querySelectorAll('[data-demo-target]'));
   var panels = Array.prototype.slice.call(showcase.querySelectorAll('[data-demo-panel]'));
+  var videoWraps = Array.prototype.slice.call(showcase.querySelectorAll('[data-video-src]'));
+
+  function loadAndPlay(video) {
+    if (!video) return;
+
+    var wrap = video.closest('[data-video-src]');
+    if (!wrap) return;
+
+    if (video.dataset.loaded !== 'true') {
+      var source = document.createElement('source');
+      source.src = wrap.dataset.videoSrc;
+      source.type = 'video/mp4';
+      video.appendChild(source);
+      video.dataset.loaded = 'true';
+      video.controls = true;
+      wrap.classList.add('is-loaded');
+      video.load();
+    }
+
+    video.play().catch(function() {});
+  }
+
+  videoWraps.forEach(function(wrap) {
+    var video = wrap.querySelector('video');
+    var trigger = wrap.querySelector('.demo-video-trigger');
+    if (!video) return;
+
+    if (trigger) {
+      trigger.addEventListener('click', function() {
+        loadAndPlay(video);
+        video.focus({preventScroll: true});
+      });
+    }
+
+    video.addEventListener('click', function() {
+      if (video.dataset.loaded !== 'true') loadAndPlay(video);
+    });
+  });
 
   function activateDemo(name, moveFocus) {
     modeSwitch.dataset.active = name;
@@ -28,8 +66,10 @@
 
       if (!video) return;
       if (isActive) {
-        video.currentTime = 0;
-        video.play().catch(function() {});
+        if (video.dataset.loaded === 'true') {
+          video.currentTime = 0;
+          video.play().catch(function() {});
+        }
       } else {
         video.pause();
       }
