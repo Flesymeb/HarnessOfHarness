@@ -420,6 +420,8 @@ div.container.blog.project-figure-narrow > p.caption {
 
 .paper-band-art {
   filter: grayscale(1) contrast(0.92);
+  /* Keep the intrinsic SVG/WebP aspect ratio when a deferred image is hydrated. */
+  height: auto;
   margin: 0;
   opacity: 0.055;
   padding: 0;
