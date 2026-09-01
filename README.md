@@ -17,6 +17,7 @@
 
 ## 🗞️ News
 
+- 🎉 **Coming soon** — We will publicly release **HoH-lite**, a lightweight implementation of HoH's core workflow.
 - 🎉 **2026-09** — Added the Harness of Harness project page and the Fusepoint gameplay showcase.
 - 🎉 **2026-08** — Fusepoint reached more than 60 autonomous development loops.
 
