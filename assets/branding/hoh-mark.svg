@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title">
   <title id="title">Harness of Harness H squared mark</title>
-  <rect width="64" height="64" rx="14" fill="#22282d"/>
-  <text x="9" y="47" fill="#f7f7f5" font-family="Arial, Helvetica, sans-serif" font-size="43" font-weight="700">H</text>
-  <text x="43" y="21" fill="#cbd1d5" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700">2</text>
+  <rect x="3" y="3" width="58" height="58" rx="8" fill="#365f7d"/>
+  <path d="M17 15v34M47 15v34M17 32h30" fill="none" stroke="#f7f7f5" stroke-width="6" stroke-linecap="square"/>
+  <text x="43" y="23" fill="#d9e2e8" font-family="Georgia, 'Times New Roman', serif" font-size="18" font-weight="700">2</text>
 </svg>
