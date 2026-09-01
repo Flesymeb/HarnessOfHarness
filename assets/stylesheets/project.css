@@ -14,11 +14,11 @@ div.container.blog#first-content .hero-heading {
 }
 
 div.container.blog#first-content .hero-heading h1.title {
-  font-family: "Poppins", sans-serif;
-  font-size: clamp(2rem, 3.05vw, 2.65rem);
+  font-family: "Garamond", "EB Garamond", Georgia, serif;
+  font-size: clamp(1.7rem, 2.5vw, 2.25rem);
   font-weight: 500;
-  letter-spacing: -0.015em;
-  line-height: 1.12;
+  letter-spacing: -0.01em;
+  line-height: 1.16;
   margin-left: auto;
   margin-right: auto;
   max-width: 1120px;
