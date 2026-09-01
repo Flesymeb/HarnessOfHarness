@@ -8,12 +8,14 @@
 
 <p align="center">
   <a href="https://flesymeb.github.io/HarnessOfHarness/"><img src="https://img.shields.io/badge/Project%20Page-365F7D?style=flat-square&logo=googlechrome&logoColor=white" alt="Project page"></a>
-  <a href="https://flesymeb.github.io/HarnessOfHarness/#resources"><img src="https://img.shields.io/badge/Paper-222222?style=flat-square&logo=arxiv&logoColor=white" alt="Paper"></a>
-  <a href="#repository-status"><img src="https://img.shields.io/badge/Code-coming%20soon-9AA4AB?style=flat-square&logo=github&logoColor=white" alt="Code coming soon"></a>
+  <a href="https://flesymeb.github.io/HarnessOfHarness/#resources"><img src="https://img.shields.io/badge/Paper-2D72CF?style=for-the-badge&logo=arxiv&logoColor=white" alt="Paper"></a>
+  <a href="https://flesymeb.github.io/HarnessOfHarness/#demo"><img src="https://img.shields.io/badge/Demo-2D72CF?style=for-the-badge&logo=googlechrome&logoColor=white" alt="Demo"></a>
+  <a href="https://github.com/Flesymeb/HarnessOfHarness"><img src="https://img.shields.io/badge/Code-6C757D?style=for-the-badge&logo=github&logoColor=white" alt="Code coming soon"></a>
+  <a href="https://flesymeb.github.io/HarnessOfHarness/"><img src="https://img.shields.io/badge/Project%20Page-2D72CF?style=for-the-badge&logo=googlechrome&logoColor=white" alt="Project page"></a>
 </p>
 
 <p align="center">
-  <img src="assets/figures/fusepoint-real-gameplay-poster.jpg" width="960" alt="Fusepoint real gameplay">
+  <img src="assets/figures/banner_color.png" width="100%" alt="Harness of Harness continual development process">
 </p>
 
 <p align="center"><strong>From specification to a playable FPS — developed through continual autonomous loops.</strong></p>
