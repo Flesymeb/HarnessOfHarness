@@ -8,9 +8,9 @@
 
 <p align="center">
   <a href="https://flesymeb.github.io/HarnessOfHarness/#resources"><img src="https://img.shields.io/badge/Paper-ArXiv-B31B1B?style=for-the-badge&labelColor=111111&logo=arxiv&logoColor=white" alt="Paper"></a>
-  <a href="https://flesymeb.github.io/HarnessOfHarness/#demo"><img src="https://img.shields.io/badge/Demo-2D72CF?style=for-the-badge&logo=googlechrome&logoColor=white" alt="Demo"></a>
-  <a href="https://github.com/Flesymeb/HarnessOfHarness"><img src="https://img.shields.io/badge/Code-181717?style=for-the-badge&logo=github&logoColor=white" alt="Code coming soon"></a>
+  <a href="https://github.com/Flesymeb/HarnessOfHarness"><img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub"></a>
   <a href="https://flesymeb.github.io/HarnessOfHarness/"><img src="https://img.shields.io/badge/Project%20Page-365F7D?style=for-the-badge&logo=googlechrome&logoColor=white" alt="Project page"></a>
+  <a href="https://flesymeb.github.io/HarnessOfHarness/#resources"><img src="https://img.shields.io/badge/Download%20Games-478CBF?style=for-the-badge&logo=godotengine&logoColor=white" alt="Download games"></a>
 </p>
 
 <p align="center">
