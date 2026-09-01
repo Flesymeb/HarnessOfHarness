@@ -1,11 +1,65 @@
 /* Project-only adjustments layered on top of the unmodified Clarity template. */
 div.container.blog#first-content {
+  background: #e7ebed;
   isolation: isolate;
+  overflow: hidden;
   position: relative;
+}
+
+div.container.blog#first-content::before {
+  background: linear-gradient(108deg, transparent 33%, rgba(54, 95, 125, 0.06) 46%, rgba(255, 255, 255, 0.5) 50%, rgba(54, 95, 125, 0.06) 54%, transparent 67%);
+  content: "";
+  inset: 0;
+  pointer-events: none;
+  position: absolute;
+  transform: translateX(-115%);
+  z-index: 0;
+  animation: hero-light-sweep 13s cubic-bezier(0.45, 0, 0.2, 1) infinite;
+}
+
+div.container.blog#first-content::after {
+  border: 1px solid rgba(54, 95, 125, 0.1);
+  border-radius: 50%;
+  content: "";
+  height: min(52vw, 44rem);
+  pointer-events: none;
+  position: absolute;
+  right: min(-13vw, -8rem);
+  top: min(-25vw, -13rem);
+  transform: rotate(-14deg);
+  width: min(52vw, 44rem);
+  z-index: 0;
+  animation: hero-orbit-drift 17s ease-in-out infinite alternate;
 }
 
 div.container.blog#first-content div.blog-title {
   display: block;
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes hero-light-sweep {
+  0%, 18% {
+    transform: translateX(-115%);
+  }
+
+  52%, 70% {
+    transform: translateX(115%);
+  }
+
+  100% {
+    transform: translateX(115%);
+  }
+}
+
+@keyframes hero-orbit-drift {
+  from {
+    transform: translate3d(0, 0, 0) rotate(-14deg);
+  }
+
+  to {
+    transform: translate3d(-2.5rem, 1.5rem, 0) rotate(-3deg);
+  }
 }
 
 div.container.blog#first-content .hero-heading {
@@ -1268,6 +1322,11 @@ a.resource-link:focus-visible .resource-arrow i {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  div.container.blog#first-content::before,
+  div.container.blog#first-content::after {
+    animation: none;
+  }
+
   .demo-panel.is-active {
     animation: none;
   }
