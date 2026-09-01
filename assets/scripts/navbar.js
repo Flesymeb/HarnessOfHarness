@@ -318,6 +318,11 @@ document.addEventListener('DOMContentLoaded', function() {
         const windowHeight = window.innerHeight;
         const isMobile = window.innerWidth < 768;
 
+        // offsetTop is relative to each heading's local offset parent. Use
+        // document coordinates so headings from different section containers
+        // are compared on the same vertical axis.
+        const documentTop = (element) => element.getBoundingClientRect().top + window.scrollY;
+
         // Find the active section based on page segments
         let activeH1 = null;
         let activeH2 = null;
@@ -325,9 +330,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Find active H1 section
         h1Elements.forEach((h1, index) => {
-            const currentPos = h1.offsetTop;
+            const currentPos = documentTop(h1);
             const nextH1 = h1Elements[index + 1];
-            const nextPos = nextH1 ? nextH1.offsetTop : document.documentElement.scrollHeight;
+            const nextPos = nextH1 ? documentTop(nextH1) : document.documentElement.scrollHeight;
 
             if (scrollPosition >= currentPos && scrollPosition < nextPos) {
                 activeH1 = h1;
@@ -336,7 +341,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 let nextElement = h1.nextElementSibling;
                 while (nextElement && (nextH1 === null || nextElement !== nextH1)) {
                     if (nextElement.tagName === 'H2') {
-                        const h2Pos = nextElement.offsetTop;
+                        const h2Pos = documentTop(nextElement);
                         let nextH2Pos;
                         
                         // Find the next position to compare against
@@ -346,9 +351,9 @@ document.addEventListener('DOMContentLoaded', function() {
                         }
                         
                         if (tempNext && tempNext.tagName === 'H2') {
-                            nextH2Pos = tempNext.offsetTop;
+                            nextH2Pos = documentTop(tempNext);
                         } else if (nextH1) {
-                            nextH2Pos = nextH1.offsetTop;
+                            nextH2Pos = documentTop(nextH1);
                         } else {
                             nextH2Pos = document.documentElement.scrollHeight;
                         }
@@ -396,7 +401,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Special handling for visibility
         const firstH1 = h1Elements[0];
-        const firstH1Passed = firstH1 && window.scrollY + 10 >= firstH1.offsetTop;
+        const firstH1Passed = firstH1 && window.scrollY + 10 >= documentTop(firstH1);
         
         // Handle visibility
         if (isMobile) {
