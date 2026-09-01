@@ -1,6 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title">
-  <title id="title">Harness of Harness H squared mark</title>
-  <rect x="3" y="3" width="58" height="58" rx="8" fill="#365f7d"/>
-  <path d="M17 15v34M47 15v34M17 32h30" fill="none" stroke="#f7f7f5" stroke-width="6" stroke-linecap="square"/>
-  <text x="43" y="23" fill="#d9e2e8" font-family="Georgia, 'Times New Roman', serif" font-size="18" font-weight="700">2</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" role="img" aria-labelledby="title desc">
+  <title id="title">Harness-of-Harness monogram</title>
+  <desc id="desc">Two linked H shapes represent the paired harnesses and their continual feedback loop.</desc>
+  <path d="M11 4h58l7 7v58l-7 7H11l-7-7V11z" fill="#1f2b33"/>
+  <path d="M18 19v42M18 40h15M33 19v42M47 19v42M47 40h15M62 19v42" fill="none" stroke="#f4f2ed" stroke-width="5.5" stroke-linecap="square" stroke-linejoin="miter"/>
+  <path d="M35.5 40h9" fill="none" stroke="#8fb2c5" stroke-width="3.5" stroke-linecap="square"/>
 </svg>
