@@ -65,6 +65,15 @@ next iteration, allowing the system to improve loop by loop.
   — paper overview, loop comparison, benchmark results, and supplementary
   videos.
 
+## Code
+
+The core Harness of Harness implementation is being prepared for release.
+We plan to release **HoH-lite**, a lightweight open-source implementation of
+the continual planning–development–QA workflow, together with configuration
+examples and reproducibility instructions.
+
+**Status:** Code coming soon.
+
 ## Citation
 
 ```bibtex
