@@ -246,8 +246,9 @@ document.addEventListener('DOMContentLoaded', function() {
     `;
     document.body.appendChild(nav);
 
-    // Get all h1 and h2 elements within container blog main and populate the navbar
-    const h1Elements = Array.from(document.querySelectorAll('.container.blog.main h1'));
+    // Include the demo heading alongside the paper section headings so the
+    // current-section indicator remains accurate while the demo is in view.
+    const h1Elements = Array.from(document.querySelectorAll('.demo-heading h1, .container.blog.main h1'));
     const navList = nav.querySelector('.nav-list');
     
     function resetNavbarState() {
