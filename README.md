@@ -10,16 +10,17 @@
 
 <p align="center">
   <a href="https://flesymeb.github.io/HarnessOfHarness/#resources"><img src="https://img.shields.io/badge/-Paper-8F3B45?style=for-the-badge&labelColor=8F3B45&logo=arxiv&logoColor=white" alt="Paper"></a>
+  <a href="https://flesymeb.github.io/HarnessOfHarness/#demo"><img src="https://img.shields.io/badge/Video-365F7D?style=for-the-badge&logo=googleplay&logoColor=white" alt="Video"></a>
   <a href="https://github.com/Flesymeb/HarnessOfHarness"><img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub"></a>
   <a href="https://flesymeb.github.io/HarnessOfHarness/"><img src="https://img.shields.io/badge/Project%20Page-365F7D?style=for-the-badge&logo=googlechrome&logoColor=white" alt="Project page"></a>
-  <a href="https://flesymeb.github.io/HarnessOfHarness/#resources"><img src="https://img.shields.io/badge/Download%20Games-478CBF?style=for-the-badge&logo=itchdotio&logoColor=white" alt="Download games"></a>
+  <a href="https://flesymeb.github.io/HarnessOfHarness/#resources"><img src="https://img.shields.io/badge/Download-Games-478CBF?style=for-the-badge&labelColor=478CBF&logo=itchdotio&logoColor=white" alt="Download games"></a>
 </p>
 
 ## 🗞️ News
 
-- 🎉 **Coming soon** — We will publicly release **HoH-lite**, a lightweight implementation of HoH's core workflow.
-- 🎉 **2026-09** — Added the Harness of Harness project page and the Fusepoint gameplay showcase.
-- 🎉 **2026-08** — Fusepoint reached more than 70 autonomous development loops.
+- 🎉 **Coming soon** — We will publicly release [HoH-lite](#code), a lightweight implementation of HoH's core workflow.
+- 🎉 **2026-09** — [Mournlight](https://github.com/Flesymeb/mournlight), a Vampire Survivors–style roguelite, has reached 80 autonomous development loops. [Follow its trajectory →](https://github.com/Flesymeb/mournlight)
+- 🎉 **2026-09** — [Fusepoint](https://github.com/Flesymeb/fusepoint) has reached more than 70 autonomous development loops. [Watch the gameplay and development trajectory →](https://flesymeb.github.io/HarnessOfHarness/#demo)
 
 ## Overview
 
@@ -58,10 +59,12 @@ next iteration, allowing the system to improve loop by loop.
 
 ## Demos
 
-| Game | Genre | Showcase | Download | GitHub |
+We will continue adding games and demos across different genres. For each project, you can access the source repository and follow its development trajectory; playable builds will be linked as they become available.
+
+| Game | Genre | Showcase | Download | Trajectory |
 |:--|:--|:--:|:--:|:--:|
-| **Fusepoint** | FPS | [![Watch showcase](https://img.shields.io/badge/Watch%20showcase-365F7D?style=for-the-badge&logo=googlechrome&logoColor=white)](https://flesymeb.github.io/HarnessOfHarness/#demo) | [![Download game](https://img.shields.io/badge/Download%20game-478CBF?style=for-the-badge&logo=itchdotio&logoColor=white)](https://flesymeb.github.io/HarnessOfHarness/#resources) | [![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Flesymeb/fusepoint) |
-| **Mournlight** | TBD | ![Coming soon](https://img.shields.io/badge/Coming%20soon-9AA5AD?style=for-the-badge) | [![Coming soon](https://img.shields.io/badge/Coming%20soon-9AA5AD?style=for-the-badge)](https://github.com/Flesymeb/mournlight/releases) | [![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Flesymeb/mournlight) |
+| **Fusepoint** | FPS | [![Watch showcase](https://img.shields.io/badge/Watch%20showcase-365F7D?style=for-the-badge&logo=googlechrome&logoColor=white)](https://flesymeb.github.io/HarnessOfHarness/#demo) | [![Download game](https://img.shields.io/badge/Download-game-478CBF?style=for-the-badge&labelColor=478CBF&logo=itchdotio&logoColor=white)](https://flesymeb.github.io/HarnessOfHarness/#resources) | [![Trajectory](https://img.shields.io/badge/Trajectory-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Flesymeb/fusepoint) |
+| **Mournlight** | Roguelite | ![Coming soon](https://img.shields.io/badge/Coming%20soon-9AA5AD?style=for-the-badge) | [![Coming soon](https://img.shields.io/badge/Coming%20soon-9AA5AD?style=for-the-badge)](https://github.com/Flesymeb/mournlight/releases) | [![Trajectory](https://img.shields.io/badge/Trajectory-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Flesymeb/mournlight) |
 
 ## Code
 
