@@ -470,7 +470,7 @@ div.container.blog.project-figure-narrow > p.caption {
 
 .demo-heading {
   margin-bottom: clamp(1.5rem, 2.8vw, 2.6rem);
-  max-width: 48rem;
+  max-width: 64rem;
 }
 
 .demo-heading h1 {
@@ -479,7 +479,7 @@ div.container.blog.project-figure-narrow > p.caption {
 
 .demo-heading .demo-context {
   margin: 0.8rem 0 0;
-  max-width: 44rem;
+  max-width: 60rem;
   color: #56626a;
   font-family: "Poppins", sans-serif;
   font-size: clamp(0.82rem, 0.98vw, 0.98rem);
