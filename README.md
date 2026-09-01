@@ -1,7 +1,3 @@
-<p align="center">
-  <img src="assets/branding/hoh-mark.svg" width="96" alt="Harness of Harness logo">
-</p>
-
 <h1 align="center">Harness of Harness</h1>
 
 <p align="center"><em>Multi-Day Autonomous Software Development with Continual Improvement</em></p>
@@ -14,7 +10,7 @@
 </p>
 
 <p align="center">
-  <img src="assets/figures/banner_color.png" width="100%" alt="Harness of Harness continual development process">
+  <img src="assets/figures/banner.png" width="100%" alt="Harness of Harness continual development process">
 </p>
 
 <p align="center"><strong>From specification to a playable FPS — developed through continual autonomous loops.</strong></p>
