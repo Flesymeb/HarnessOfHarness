@@ -19,7 +19,7 @@
 
 - 🎉 **Coming soon** — We will publicly release **HoH-lite**, a lightweight implementation of HoH's core workflow.
 - 🎉 **2026-09** — Added the Harness of Harness project page and the Fusepoint gameplay showcase.
-- 🎉 **2026-08** — Fusepoint reached more than 60 autonomous development loops.
+- 🎉 **2026-08** — Fusepoint reached more than 70 autonomous development loops.
 
 ## Overview
 
@@ -29,9 +29,11 @@ isolated coding task, HoH carries the evolving software artifact, execution
 evidence, and next-step decisions across iterations.
 
 Our paper studies autonomous software development from scratch and evaluates
-the approach on three software-engineering benchmarks. **Fusepoint** provides
-an open-ended case study: a single-player FPS developed over more than 60
-autonomous loops.
+the approach on three software-engineering benchmarks. Across the benchmarks,
+HoH achieves an average relative gain of 52.25% and a maximum gain of 82.86%
+after three iterations. **Fusepoint** provides an open-ended case study: a
+single-player FPS developed from a PRD and an empty workspace over more than
+70 autonomous loops.
 
 ## How It Works
 
@@ -64,14 +66,16 @@ next iteration, allowing the system to improve loop by loop.
 
 ## Code
 
-We will publicly release HoH-lite, a lightweight implementation of HoH's core workflow.
+We will publicly release HoH-lite, a lightweight implementation of HoH's core workflow, together with reproducibility materials.
 
 ## Citation
+
+† Haoyang Yan, Min-Le Su, Hangfan Zhang, and Zhanhao Li contributed equally.
 
 ```bibtex
 @article{yan2026harness,
   title={Harness of Harness: Multi-Day Autonomous Software Development with Continual Improvement},
-  author={Yan, Haoyang and Su, Minle and Zhang, Hangfan and Li, Zhanhao and Zhang, Chen and Zhang, Shao and Chen, Yang and Bai, Lei and Hu, Shuyue},
+  author={Yan, Haoyang and Su, Min-Le and Zhang, Hangfan and Li, Zhanhao and Zhang, Chen and Zhang, Shao and Chen, Yang and Bai, Lei and Hu, Shuyue},
   journal={arXiv preprint},
   year={2026}
 }
