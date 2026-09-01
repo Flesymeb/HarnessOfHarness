@@ -15,31 +15,55 @@
   <a href="https://flesymeb.github.io/HarnessOfHarness/#resources"><img src="https://img.shields.io/badge/-Download%20Games-478CBF?style=for-the-badge&labelColor=478CBF&logo=data:image/svg%2bxml%3bbase64%2cPHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI%2bPHBhdGggZmlsbD0iI2ZmZiIgZD0iTTcgNmgxMGMyLjggMCA0LjggMi4zIDUuNiA1LjFsMSA0LjRjLjUgMi4yLS44IDMuOS0yLjUgMy45LTEuMiAwLTIuMS0uNy0yLjktMS43bC0xLjEtMS40SDYuOWwtMS4xIDEuNEM1IDE4LjcgNC4xIDE5LjQgMi45IDE5LjRjLTEuNyAwLTMtMS43LTIuNS0zLjlsMS00LjRDMi4yIDguMyA0LjIgNiA3IDZ6bTEuNSAzdjJoMnYxLjVoLTJ2MmgtMS41di0yaC0yVjExaDJWOWgxLjV6bTguMiAxLjVhMSAxIDAgMSAwIDAgMiAxIDEgMCAwIDAgMC0yem0yLjUgMi41YTEgMSAwIDEgMCAwIDIgMSAxIDAgMCAwIDAtMnoiLz48L3N2Zz4%3D" alt="Download games"></a>
 </p>
 
+## News
+
+- **2026-09** — Added the Harness of Harness project page and the Fusepoint gameplay showcase.
+- **2026-08** — Fusepoint reached more than 60 autonomous development loops.
+- **Next** — HoH-lite core implementation and reproducibility artifacts are coming soon.
+
 ## Overview
 
-Harness of Harness (HoH) turns coding-agent harnesses into a continual development process. Persistent artifacts, execution evidence, and explicit next-step decisions allow an agent to improve a software system across many days instead of restarting from isolated episodes.
+Harness of Harness (HoH) extends coding-agent harnesses with a persistent,
+evidence-grounded development loop. Instead of treating every invocation as an
+isolated coding task, HoH carries the evolving software artifact, execution
+evidence, and next-step decisions across iterations.
 
-The project is presented through a research paper, benchmark results, and **Fusepoint**, a single-player FPS developed through repeated autonomous development loops.
+Our paper studies autonomous software development from scratch and evaluates
+the approach on three software-engineering benchmarks. **Fusepoint** provides
+an open-ended case study: a single-player FPS developed over more than 60
+autonomous loops.
 
-## Highlights
+## How It Works
 
-- Continual planning, implementation, testing, and evidence-grounded refinement
-- Persistent project state for multi-day autonomous development
-- A complete game-development case study from an initial specification to a playable FPS
-- Evaluation across GameCraft-Bench, FrontierSWE, and ProgramBench
+Each iteration uses the same evolving project workspace and coordinates three
+stable roles:
 
-## Project Materials
+- **Project Planner** — reads the public requirements and evidence from the
+  previous iteration, then writes a prioritized development document. It does
+  not modify the artifact.
+- **Developer** — implements the current development document in the shared
+  workspace while preserving functionality that has already been verified.
+- **QA Tester** — executes and inspects the updated artifact against the
+  requirements, recording evidence for verified behavior and unresolved gaps.
+  It remains read-only.
 
-- **[Project page](https://flesymeb.github.io/HarnessOfHarness/)** — paper overview, results, videos, and the Fusepoint case study
-- **Paper** — *Harness of Harness: Multi-Day Autonomous Software Development with Continual Improvement* (available on the [project page](https://flesymeb.github.io/HarnessOfHarness/#resources))
-- **Supplementary material** — available on the [project page](https://flesymeb.github.io/HarnessOfHarness/#resources)
-- **Playable builds** — coming soon
+<p align="center">
+  <img src="assets/figures/role_black.png" width="100%"
+       alt="Project Planner, Developer, and QA Tester across continual development iterations">
+</p>
 
-## Repository Status
+The resulting artifact and evidence bundle become the starting state for the
+next iteration, allowing the system to improve loop by loop.
 
-The `main` branch currently contains the project presentation and research materials. The HoH implementation is not included yet.
+## Demos
 
-**Code coming soon.**
+- **[Development process](https://flesymeb.github.io/HarnessOfHarness/#demo)**
+  — watch Fusepoint evolve through successive autonomous iterations.
+- **[Real gameplay](https://flesymeb.github.io/HarnessOfHarness/#demo)**
+  — view footage captured directly from the resulting game.
+- **[Project page](https://flesymeb.github.io/HarnessOfHarness/)**
+  — paper overview, loop comparison, benchmark results, and supplementary
+  videos.
 
 ## Citation
 
@@ -51,3 +75,9 @@ The `main` branch currently contains the project presentation and research mater
   year={2026}
 }
 ```
+
+## License
+
+The HoH-lite implementation and associated research artifacts will include
+their license terms with the corresponding release. Third-party game assets,
+fonts, and other bundled materials remain subject to their original licenses.
