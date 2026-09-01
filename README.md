@@ -8,7 +8,7 @@
 
 <p align="center">
   <a href="https://flesymeb.github.io/HarnessOfHarness/"><img src="https://img.shields.io/badge/Project%20Page-365F7D?style=flat-square&logo=googlechrome&logoColor=white" alt="Project page"></a>
-  <a href="assets/paper/harness-of-harness.pdf"><img src="https://img.shields.io/badge/Paper-222222?style=flat-square&logo=arxiv&logoColor=white" alt="Paper"></a>
+  <a href="https://flesymeb.github.io/HarnessOfHarness/#resources"><img src="https://img.shields.io/badge/Paper-222222?style=flat-square&logo=arxiv&logoColor=white" alt="Paper"></a>
   <a href="#repository-status"><img src="https://img.shields.io/badge/Code-coming%20soon-9AA4AB?style=flat-square&logo=github&logoColor=white" alt="Code coming soon"></a>
 </p>
 
@@ -34,8 +34,8 @@ The project is presented through a research paper, benchmark results, and **Fuse
 ## Project Materials
 
 - **[Project page](https://flesymeb.github.io/HarnessOfHarness/)** — paper overview, results, videos, and the Fusepoint case study
-- **[Paper](assets/paper/harness-of-harness.pdf)** — *Harness of Harness: Multi-Day Autonomous Software Development with Continual Improvement*
-- **[Supplementary material](assets/paper/supplementary.pdf)**
+- **Paper** — *Harness of Harness: Multi-Day Autonomous Software Development with Continual Improvement* (available on the [project page](https://flesymeb.github.io/HarnessOfHarness/#resources))
+- **Supplementary material** — available on the [project page](https://flesymeb.github.io/HarnessOfHarness/#resources)
 - **Playable builds** — coming soon
 
 ## Repository Status
