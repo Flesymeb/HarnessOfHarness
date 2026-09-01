@@ -572,34 +572,40 @@ div.container.blog.project-figure-narrow > p.caption {
 
 .demo-video-trigger {
   align-items: center;
-  background: rgba(17, 21, 24, 0.82);
-  border: 1px solid rgba(255, 255, 255, 0.72);
-  border-radius: 0.35rem;
+  aspect-ratio: 1;
+  background: rgba(244, 242, 237, 0.94);
+  border: 1px solid rgba(31, 43, 51, 0.58);
+  border-radius: 50%;
   bottom: 50%;
-  color: #fff;
+  box-shadow: 0 0.75rem 1.6rem rgba(16, 25, 31, 0.22);
+  color: #1f2b33;
   cursor: pointer;
-  display: inline-flex;
-  font-family: "Poppins", sans-serif;
-  font-size: 0.78rem;
-  font-weight: 600;
-  gap: 0.55rem;
+  display: inline-grid;
+  font-size: 1rem;
+  height: 4.2rem;
+  justify-items: center;
   left: 50%;
-  letter-spacing: 0.04em;
-  padding: 0.7rem 1rem;
+  padding: 0;
   position: absolute;
-  text-transform: none;
   transform: translate(-50%, 50%);
-  transition: background 180ms ease, opacity 180ms ease, transform 180ms ease;
+  transition: background 180ms ease, box-shadow 180ms ease, color 180ms ease, opacity 180ms ease, transform 180ms ease;
+  width: 4.2rem;
 }
 
 .demo-video-trigger:hover {
-  background: rgba(17, 21, 24, 0.96);
-  transform: translate(-50%, 50%) scale(1.03);
+  background: #365f7d;
+  box-shadow: 0 1rem 2rem rgba(16, 25, 31, 0.3);
+  color: #f4f2ed;
+  transform: translate(-50%, 50%) scale(1.08);
 }
 
 .demo-video-trigger:focus-visible {
-  outline: 2px solid #fff;
+  outline: 2px solid #365f7d;
   outline-offset: 3px;
+}
+
+.demo-video-trigger i {
+  margin-left: 0.12rem;
 }
 
 .demo-video-wrap.is-loaded .demo-video-trigger {
