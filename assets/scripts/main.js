@@ -1,3 +1,38 @@
+//* ======================== Deferred Decorative Art ===================== */
+(function setupDeferredArt() {
+  var images = Array.prototype.slice.call(document.querySelectorAll('img[data-src]'));
+  if (!images.length) return;
+
+  function loadImage(image) {
+    if (!image.dataset.src) return;
+    image.src = image.dataset.src;
+    image.removeAttribute('data-src');
+  }
+
+  function scheduleImage(image) {
+    window.setTimeout(function() {
+      loadImage(image);
+    }, 120);
+  }
+
+  if (!('IntersectionObserver' in window)) {
+    images.forEach(scheduleImage);
+    return;
+  }
+
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (!entry.isIntersecting) return;
+      observer.unobserve(entry.target);
+      scheduleImage(entry.target);
+    });
+  }, {rootMargin: '160px 0px'});
+
+  images.forEach(function(image) {
+    observer.observe(image);
+  });
+})();
+
 //* ======================== Demo Showcase ===================== */
 (function setupDemoShowcase() {
   var showcase = document.querySelector('.demo-showcase');
