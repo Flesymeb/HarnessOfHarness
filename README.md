@@ -30,7 +30,7 @@ HoH builds upon existing coding-agent harnesses and organizes development into i
 In a multi-day deployment with more than 70 iterations, HoH autonomously develops a first-person-shooter game, featuring a coherent storyline, fully implemented core mechanics, human-playable experience, polished visuals and integrated audio.
 
 <p align="center">
-  <img src="assets/figures/framework_crop.jpg" width="100%"
+  <img src="assets/figures/framework.jpg" width="100%"
        alt="Harness-of-Harness framework">
 </p>
 
