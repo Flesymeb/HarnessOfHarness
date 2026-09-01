@@ -925,13 +925,12 @@ a.resource-link:focus-visible .resource-arrow i {
 
   div.container.blog#first-content .hero-lower {
     align-items: start;
-    column-gap: clamp(2rem, 3.4vw, 4rem);
     grid-template-areas:
-      "copy media"
-      "actions media";
-    grid-template-columns: minmax(0, 0.72fr) minmax(420px, 1fr);
-    grid-template-rows: auto 1fr;
-    row-gap: clamp(1.2rem, 2.6vh, 1.7rem);
+      "copy"
+      "actions";
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto auto;
+    row-gap: clamp(1rem, 2.2vh, 1.5rem);
   }
 
   div.container.blog#first-content div.blog-title .blog-intro {
