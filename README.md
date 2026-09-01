@@ -57,7 +57,7 @@ next iteration, allowing the system to improve loop by loop.
 
 ## Demos
 
-| Game | Genre | Showcase | Download | Trace |
+| Game | Genre | Showcase | Download | GitHub |
 |:--|:--|:--:|:--:|:--:|
 | **Fusepoint** | Single-player FPS | [![Watch showcase](https://img.shields.io/badge/Watch%20showcase-365F7D?style=for-the-badge&logo=googlechrome&logoColor=white)](https://flesymeb.github.io/HarnessOfHarness/#demo) | [![Download game](https://img.shields.io/badge/Download%20game-478CBF?style=for-the-badge&logo=google-drive&logoColor=white)](https://flesymeb.github.io/HarnessOfHarness/#resources) | [![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Flesymeb/GameLoop) |
 | **Mournlight** | TBD | ![Coming soon](https://img.shields.io/badge/Coming%20soon-9AA5AD?style=for-the-badge) | [![Coming soon](https://img.shields.io/badge/Coming%20soon-9AA5AD?style=for-the-badge)](https://github.com/Flesymeb/mournlight/releases) | [![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Flesymeb/mournlight) |
