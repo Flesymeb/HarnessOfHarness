@@ -20,7 +20,7 @@
 
 - 🎉 **Coming soon** — We will publicly release [HoH-lite](#code), a lightweight implementation of HoH's core workflow.
 - 🎉 **2026-09** — [Mournlight](https://github.com/Flesymeb/mournlight), a Vampire Survivors–style roguelite, has reached 80 autonomous development loops. [Follow its trajectory →](https://github.com/Flesymeb/mournlight)
-- 🎉 **2026-09** — [Fusepoint](https://github.com/Flesymeb/fusepoint) has reached more than 70 autonomous development loops. [Watch the gameplay and development trajectory →](https://flesymeb.github.io/HarnessOfHarness/#demo)
+- 🎉 **2026-09** — [Fusepoint](https://github.com/Flesymeb/fusepoint), a single-player narrative first-person shooter, has reached more than 70 autonomous development loops. [Watch the gameplay and development trajectory →](https://flesymeb.github.io/HarnessOfHarness/#demo)
 
 ## Overview
 
