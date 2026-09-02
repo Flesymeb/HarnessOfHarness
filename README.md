@@ -20,8 +20,8 @@
 
 - 🎉 **2026-09-02** — 🌐 Our [project page](https://flesymeb.github.io/HarnessOfHarness/) is now live, featuring demo videos and project resources.
 - 🎉 **2026-09-02** — 📄 Our paper, [Harness-of-Harness](https://arxiv.org/abs/2609.01481), is now available on arXiv.
-- 🎉 **Coming soon** — We will publicly release [HoH-lite](#code), a lightweight implementation of HoH's core workflow.
-- 🎉 **2026-09** — [Mournlight](https://github.com/Flesymeb/mournlight), a Vampire Survivors–style roguelite, has reached 80+ loops.
+- 🎉 **Coming soon** — We will publicly release HoH-lite, a lightweight implementation of HoH's core workflow.
+- 🎉 **2026-09** — Mournlight, a Vampire Survivors–style roguelite, has reached 80+ loops.
 - 🎉 **2026-09** — [Fusepoint](https://github.com/Flesymeb/fusepoint), a single-player narrative first-person shooter, has reached 70+ loops. [Watch demo →](https://flesymeb.github.io/HarnessOfHarness/#demo)
 
 ## Overview
@@ -63,14 +63,14 @@ https://github.com/user-attachments/assets/41c5621c-e773-4af9-bc6a-b9cc6ff6876c
 
 We will continue adding games and demos across different genres. For each project, you can access the source repository and follow its development trajectory.
 
-| Game           | Genre     |                                                                                       Showcase                                                                                       |                                                                                       Download                                                                                       |                                                                       Trajectory                                                                        |
-| :------------- | :-------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------------------: |
-| **Fusepoint**  | FPS       | [![Watch showcase](<https://img.shields.io/badge/Watch%20showcase-365F7D?style=for-the-badge&logo=googlechrome&logoColor=white>)](https://flesymeb.github.io/HarnessOfHarness/#demo) | [![Download game](<https://img.shields.io/badge/Download%20game-5F6872?style=for-the-badge&logo=itchdotio&logoColor=white>)](https://flesymeb.github.io/HarnessOfHarness/#resources) | [![Trajectory](https://img.shields.io/badge/Trajectory-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Flesymeb/fusepoint)  |
-| **Mournlight** | Roguelite |                                               ![Coming soon](<https://img.shields.io/badge/Coming%20soon-9AA5AD?style=for-the-badge>)                                                |                      [![Coming soon](<https://img.shields.io/badge/Coming%20soon-9AA5AD?style=for-the-badge>)](https://github.com/Flesymeb/mournlight/releases)                      | [![Trajectory](https://img.shields.io/badge/Trajectory-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Flesymeb/mournlight) |
+| Game           | Genre     |                                                                                       Showcase                                                                                       |                                                                                       Download                                                                                       |                                                                       Trajectory                                                                       |
+| :------------- | :-------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------------: |
+| **Fusepoint**  | FPS       | [![Watch showcase](<https://img.shields.io/badge/Watch%20showcase-365F7D?style=for-the-badge&logo=googlechrome&logoColor=white>)](https://flesymeb.github.io/HarnessOfHarness/#demo) | [![Download game](<https://img.shields.io/badge/Download%20game-5F6872?style=for-the-badge&logo=itchdotio&logoColor=white>)](https://flesymeb.github.io/HarnessOfHarness/#resources) | [![Trajectory](https://img.shields.io/badge/Trajectory-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Flesymeb/fusepoint) |
+| **Mournlight** | Roguelite |                                               ![Coming soon](<https://img.shields.io/badge/Coming%20soon-9AA5AD?style=for-the-badge>)                                                |                      [![Coming soon](<https://img.shields.io/badge/Coming%20soon-9AA5AD?style=for-the-badge>)](https://github.com/Flesymeb/mournlight/releases)                      |       [![Coming soon](<https://img.shields.io/badge/Coming%20soon-9AA5AD?style=for-the-badge>)](https://github.com/Flesymeb/mournlight/releases)       |
 
 ## Code
 
-We will publicly release HoH-lite, a lightweight implementation of HoH's core workflow, together with reproducibility materials.
+We will publicly release HoH-lite, a lightweight implementation of HoH's core workflow.
 
 ## Citation
 
