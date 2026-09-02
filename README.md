@@ -102,4 +102,4 @@ We thank everyone who contributed to Harness of Harness and its case studies.
 
 For questions, suggestions, or feedback, please feel free to contact us at:
 
-{yanhaoyang, suminle, zhanghangfan, lizhanhao, hushuyue}@pjlab.org.cn
+[yanhaoyang](mailto:yanhaoyang@pjlab.org.cn) · [suminle](mailto:suminle@pjlab.org.cn) · [zhanghangfan](mailto:zhanghangfan@pjlab.org.cn) · [lizhanhao](mailto:lizhanhao@pjlab.org.cn) · [hushuyue](mailto:hushuyue@pjlab.org.cn) @pjlab.org.cn
