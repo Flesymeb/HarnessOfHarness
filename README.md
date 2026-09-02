@@ -9,7 +9,7 @@
 <p align="center"><em>Multi-Day Autonomous Software Development with Continual Improvement</em></p>
 
 <p align="center">
-  <a href="https://flesymeb.github.io/HarnessOfHarness/#resources"><img src="https://img.shields.io/badge/Paper-8F3B45?style=for-the-badge&logo=arxiv&logoColor=white" alt="Paper"></a>
+  <a href="https://arxiv.org/abs/2609.01481"><img src="https://img.shields.io/badge/Paper-8F3B45?style=for-the-badge&logo=arxiv&logoColor=white" alt="Paper"></a>
   <a href="#demos"><img src="https://img.shields.io/badge/Video-6B5B73?style=for-the-badge&logo=googleplay&logoColor=white" alt="Video"></a>
   <a href="https://github.com/Flesymeb/HarnessOfHarness"><img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub"></a>
   <a href="https://flesymeb.github.io/HarnessOfHarness/"><img src="https://img.shields.io/badge/Project%20Page-365F7D?style=for-the-badge&logo=googlechrome&logoColor=white" alt="Project page"></a>
