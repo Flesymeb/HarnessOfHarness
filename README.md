@@ -24,9 +24,7 @@
 
 ## Overview
 
-We introduce Harness-of-Harness (HoH), a framework that equips coding agents with *continual improvement* capabilities for autonomous software development.
-
-HoH builds upon existing coding-agent harnesses and organizes development into iterative planning–coding–testing loops.
+We introduce Harness-of-Harness (HoH), a framework that equips coding agents with *continual improvement* capabilities for autonomous software development. HoH builds upon existing coding-agent harnesses and organizes development into iterative planning–coding–testing loops.
 
 In a multi-day deployment with more than 70 iterations, HoH autonomously develops a first-person-shooter game, featuring a coherent storyline, fully implemented core mechanics, human-playable experience, polished visuals and integrated audio.
 
@@ -61,10 +59,10 @@ next iteration, allowing the system to improve loop by loop.
 
 We will continue adding games and demos across different genres. For each project, you can access the source repository and follow its development trajectory; playable builds will be linked as they become available.
 
-| Game | Genre | Showcase | Download | Trajectory |
-|:--|:--|:--:|:--:|:--:|
-| **Fusepoint** | FPS | [![Watch showcase](https://img.shields.io/badge/Watch%20showcase-365F7D?style=for-the-badge&logo=googlechrome&logoColor=white)](https://flesymeb.github.io/HarnessOfHarness/#demo) | [![Download game](https://img.shields.io/badge/Download%20game-5F6872?style=for-the-badge&logo=itchdotio&logoColor=white)](https://flesymeb.github.io/HarnessOfHarness/#resources) | [![Trajectory](https://img.shields.io/badge/Trajectory-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Flesymeb/fusepoint) |
-| **Mournlight** | Roguelite | ![Coming soon](https://img.shields.io/badge/Coming%20soon-9AA5AD?style=for-the-badge) | [![Coming soon](https://img.shields.io/badge/Coming%20soon-9AA5AD?style=for-the-badge)](https://github.com/Flesymeb/mournlight/releases) | [![Trajectory](https://img.shields.io/badge/Trajectory-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Flesymeb/mournlight) |
+| Game           | Genre     |                                                                                       Showcase                                                                                       |                                                                                       Download                                                                                       |                                                                       Trajectory                                                                        |
+| :------------- | :-------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------------------: |
+| **Fusepoint**  | FPS       | [![Watch showcase](<https://img.shields.io/badge/Watch%20showcase-365F7D?style=for-the-badge&logo=googlechrome&logoColor=white>)](https://flesymeb.github.io/HarnessOfHarness/#demo) | [![Download game](<https://img.shields.io/badge/Download%20game-5F6872?style=for-the-badge&logo=itchdotio&logoColor=white>)](https://flesymeb.github.io/HarnessOfHarness/#resources) | [![Trajectory](https://img.shields.io/badge/Trajectory-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Flesymeb/fusepoint)  |
+| **Mournlight** | Roguelite |                                               ![Coming soon](<https://img.shields.io/badge/Coming%20soon-9AA5AD?style=for-the-badge>)                                                |                      [![Coming soon](<https://img.shields.io/badge/Coming%20soon-9AA5AD?style=for-the-badge>)](https://github.com/Flesymeb/mournlight/releases)                      | [![Trajectory](https://img.shields.io/badge/Trajectory-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Flesymeb/mournlight) |
 
 ## Code
 
@@ -92,8 +90,8 @@ Original materials in this repository are released under the [MIT License](LICEN
 We thank everyone who contributed to Harness of Harness and its case studies.
 
 <p align="center">
-  <a href="https://github.com/Flesymeb"><img src="assets/figures/contributors/Flesymeb-card.png" width="112" height="140" alt="Hyoung Yan"></a>&nbsp;&nbsp;&nbsp;
-  <a href="https://github.com/rayburstray"><img src="assets/figures/contributors/rayburstray-card.png" width="112" height="140" alt="Ray Burstray"></a>&nbsp;&nbsp;&nbsp;
-  <a href="https://github.com/HaoTechGuy"><img src="assets/figures/contributors/HaoTechGuy-card.png" width="112" height="140" alt="HaoTechGuy"></a>&nbsp;&nbsp;&nbsp;
+  <a href="https://github.com/Flesymeb"><img src="assets/figures/contributors/Flesymeb-card.png" width="112" height="140" alt="Hyoung Yan"></a>   
+  <a href="https://github.com/rayburstray"><img src="assets/figures/contributors/rayburstray-card.png" width="112" height="140" alt="Ray Burstray"></a>   
+  <a href="https://github.com/HaoTechGuy"><img src="assets/figures/contributors/HaoTechGuy-card.png" width="112" height="140" alt="HaoTechGuy"></a>   
   <a href="https://github.com/qzzqzzb"><img src="assets/figures/contributors/qzzqzzb-card.png" width="112" height="140" alt="qzzqzzb"></a>
 </p>
