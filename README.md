@@ -36,14 +36,7 @@ In a multi-day deployment with more than 70 iterations, HoH autonomously develop
 
 ## Video
 
-<p align="center">
-  <video controls preload="metadata"
-         poster="https://flesymeb.github.io/HarnessOfHarness/assets/figures/hoh-video03-poster.jpg"
-         width="100%">
-    <source src="https://flesymeb.github.io/HarnessOfHarness/assets/video/HoH%E8%A7%86%E9%A2%9103.mp4" type="video/mp4">
-    <a href="https://flesymeb.github.io/HarnessOfHarness/#demo">Watch the project video on the Project Page</a>
-  </video>
-</p>
+https://github.com/user-attachments/assets/41c5621c-e773-4af9-bc6a-b9cc6ff6876c
 
 ## How It Works
 
