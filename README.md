@@ -10,7 +10,7 @@
 
 <p align="center">
   <a href="https://flesymeb.github.io/HarnessOfHarness/#resources"><img src="https://img.shields.io/badge/Paper-8F3B45?style=for-the-badge&logo=arxiv&logoColor=white" alt="Paper"></a>
-  <a href="https://flesymeb.github.io/HarnessOfHarness/#demo"><img src="https://img.shields.io/badge/Video-7A5C61?style=for-the-badge&logo=googleplay&logoColor=white" alt="Video"></a>
+  <a href="https://flesymeb.github.io/HarnessOfHarness/#demo"><img src="https://img.shields.io/badge/Video-6B5B73?style=for-the-badge&logo=googleplay&logoColor=white" alt="Video"></a>
   <a href="https://github.com/Flesymeb/HarnessOfHarness"><img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub"></a>
   <a href="https://flesymeb.github.io/HarnessOfHarness/"><img src="https://img.shields.io/badge/Project%20Page-365F7D?style=for-the-badge&logo=googlechrome&logoColor=white" alt="Project page"></a>
   <a href="https://flesymeb.github.io/HarnessOfHarness/#resources"><img src="https://img.shields.io/badge/Download%20Games-5F6872?style=for-the-badge&logo=itchdotio&logoColor=white" alt="Download games"></a>
