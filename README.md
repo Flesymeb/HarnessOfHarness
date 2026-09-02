@@ -59,14 +59,12 @@ next iteration, allowing the system to improve loop by loop.
 
 ## Demos
 
-<div align="center">
-  <video src="https://github.com/Flesymeb/HarnessOfHarness/raw/refs/heads/main/assets/video/HoH-video-full-web.mp4"
-         poster="https://raw.githubusercontent.com/Flesymeb/HarnessOfHarness/main/assets/figures/hoh-video-full-poster.jpg"
-         controls preload="metadata" width="100%"
-         aria-label="Full Harness-of-Harness project showcase"></video>
-</div>
-
-<p align="center"><a href="https://github.com/Flesymeb/HarnessOfHarness/raw/refs/heads/main/assets/video/HoH-video-full-web.mp4">Watch the full showcase video</a></p>
+<p align="center">
+  <a href="https://github.com/Flesymeb/HarnessOfHarness/raw/refs/heads/main/assets/video/HoH-video-full-web.mp4">
+    <img src="https://raw.githubusercontent.com/Flesymeb/HarnessOfHarness/main/assets/figures/hoh-video-full-poster.jpg"
+         width="100%" alt="Click to play the full Harness-of-Harness showcase video">
+  </a>
+</p>
 
 We will continue adding games and demos across different genres. For each project, you can access the source repository and follow its development trajectory.
 
