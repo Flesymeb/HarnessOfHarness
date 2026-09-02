@@ -59,7 +59,7 @@ next iteration, allowing the system to improve loop by loop.
 
 ## Demos
 
-https://github.com/user-attachments/assets/41c5621c-e773-4af9-bc6a-b9cc6ff6876c
+https://github.com/user-attachments/assets/78951fea-7e8a-4a73-8a16-d1ef5ca9526b
 
 We will continue adding games and demos across different genres. For each project, you can access the source repository and follow its development trajectory.
 
