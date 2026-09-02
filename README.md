@@ -18,7 +18,7 @@
 
 ## 🗞️ News
 
-- 🎉 **2026-09-02** — 🌐 The [Harness-of-Harness project page](https://flesymeb.github.io/HarnessOfHarness/) is now live.
+- 🎉 **2026-09-02** — 🌐 Our [project page](https://flesymeb.github.io/HarnessOfHarness/) is now live, featuring demo videos and project resources.
 - 🎉 **2026-09-02** — 📄 Our paper, [Harness-of-Harness](https://arxiv.org/abs/XXXX.XXXXX), is now available on arXiv.
 - 🎉 **Coming soon** — We will publicly release [HoH-lite](#code), a lightweight implementation of HoH's core workflow.
 - 🎉 **2026-09** — [Mournlight](https://github.com/Flesymeb/mournlight), a Vampire Survivors–style roguelite, has reached 80+ loops.
@@ -26,7 +26,7 @@
 
 ## Overview
 
-We introduce Harness-of-Harness (HoH), a framework that equips coding agents with *continual improvement* capabilities for autonomous software development. HoH builds upon existing coding-agent harnesses and organizes development into iterative planning–coding–testing loops.
+We introduce **Harness-of-Harness (HoH)**, a framework that equips coding agents with **continual improvement** capabilities for autonomous software development. HoH builds upon existing coding-agent harnesses and organizes development into iterative **planning–coding–testing loops**.
 
 In a multi-day deployment with more than 70 iterations, HoH autonomously develops a first-person-shooter game, featuring a coherent storyline, fully implemented core mechanics, human-playable experience, polished visuals and integrated audio.
 
@@ -102,4 +102,4 @@ We thank everyone who contributed to Harness of Harness and its case studies.
 
 For questions, suggestions, or feedback, please feel free to contact us at:
 
-`{yanhaoyang, suminle, zhanghangfan, lizhanhao, hushuyue}@pjlab.org.cn`
+{yanhaoyang, suminle, zhanghangfan, lizhanhao, hushuyue}@pjlab.org.cn
