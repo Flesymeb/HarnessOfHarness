@@ -10,7 +10,7 @@
 
 <p align="center">
   <a href="https://flesymeb.github.io/HarnessOfHarness/#resources"><img src="https://img.shields.io/badge/Paper-8F3B45?style=for-the-badge&logo=arxiv&logoColor=white" alt="Paper"></a>
-  <a href="https://flesymeb.github.io/HarnessOfHarness/#demo"><img src="https://img.shields.io/badge/Video-6B5B73?style=for-the-badge&logo=googleplay&logoColor=white" alt="Video"></a>
+  <a href="#video"><img src="https://img.shields.io/badge/Video-6B5B73?style=for-the-badge&logo=googleplay&logoColor=white" alt="Video"></a>
   <a href="https://github.com/Flesymeb/HarnessOfHarness"><img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub"></a>
   <a href="https://flesymeb.github.io/HarnessOfHarness/"><img src="https://img.shields.io/badge/Project%20Page-365F7D?style=for-the-badge&logo=googlechrome&logoColor=white" alt="Project page"></a>
   <a href="https://flesymeb.github.io/HarnessOfHarness/#resources"><img src="https://img.shields.io/badge/Download%20Games-5F6872?style=for-the-badge&logo=itchdotio&logoColor=white" alt="Download games"></a>
@@ -32,6 +32,17 @@ In a multi-day deployment with more than 70 iterations, HoH autonomously develop
 <p align="center">
   <img src="assets/figures/framework.jpg" width="100%"
        alt="Harness-of-Harness framework">
+</p>
+
+## Video
+
+<p align="center">
+  <video controls preload="metadata"
+         poster="https://flesymeb.github.io/HarnessOfHarness/assets/figures/hoh-video03-poster.jpg"
+         width="100%">
+    <source src="https://flesymeb.github.io/HarnessOfHarness/assets/video/HoH%E8%A7%86%E9%A2%9103.mp4" type="video/mp4">
+    <a href="https://flesymeb.github.io/HarnessOfHarness/#demo">Watch the project video on the Project Page</a>
+  </video>
 </p>
 
 ## How It Works
