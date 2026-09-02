@@ -9,11 +9,11 @@
 <p align="center"><em>Multi-Day Autonomous Software Development with Continual Improvement</em></p>
 
 <p align="center">
-  <a href="https://flesymeb.github.io/HarnessOfHarness/#resources"><img src="https://img.shields.io/badge/-Paper-8F3B45?style=for-the-badge&labelColor=8F3B45&logo=arxiv&logoColor=white" alt="Paper"></a>
-  <a href="https://flesymeb.github.io/HarnessOfHarness/#demo"><img src="https://img.shields.io/badge/Video-365F7D?style=for-the-badge&logo=googleplay&logoColor=white" alt="Video"></a>
+  <a href="https://flesymeb.github.io/HarnessOfHarness/#resources"><img src="https://img.shields.io/badge/Paper-8F3B45?style=for-the-badge&logo=arxiv&logoColor=white" alt="Paper"></a>
+  <a href="https://flesymeb.github.io/HarnessOfHarness/#demo"><img src="https://img.shields.io/badge/Video-7A5C61?style=for-the-badge&logo=googleplay&logoColor=white" alt="Video"></a>
   <a href="https://github.com/Flesymeb/HarnessOfHarness"><img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub"></a>
   <a href="https://flesymeb.github.io/HarnessOfHarness/"><img src="https://img.shields.io/badge/Project%20Page-365F7D?style=for-the-badge&logo=googlechrome&logoColor=white" alt="Project page"></a>
-  <a href="https://flesymeb.github.io/HarnessOfHarness/#resources"><img src="https://img.shields.io/badge/Download-Games-478CBF?style=for-the-badge&labelColor=478CBF&logo=itchdotio&logoColor=white" alt="Download games"></a>
+  <a href="https://flesymeb.github.io/HarnessOfHarness/#resources"><img src="https://img.shields.io/badge/Download%20Games-5F6872?style=for-the-badge&logo=itchdotio&logoColor=white" alt="Download games"></a>
 </p>
 
 ## 🗞️ News
@@ -63,7 +63,7 @@ We will continue adding games and demos across different genres. For each projec
 
 | Game | Genre | Showcase | Download | Trajectory |
 |:--|:--|:--:|:--:|:--:|
-| **Fusepoint** | FPS | [![Watch showcase](https://img.shields.io/badge/Watch%20showcase-365F7D?style=for-the-badge&logo=googlechrome&logoColor=white)](https://flesymeb.github.io/HarnessOfHarness/#demo) | [![Download game](https://img.shields.io/badge/Download-game-478CBF?style=for-the-badge&labelColor=478CBF&logo=itchdotio&logoColor=white)](https://flesymeb.github.io/HarnessOfHarness/#resources) | [![Trajectory](https://img.shields.io/badge/Trajectory-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Flesymeb/fusepoint) |
+| **Fusepoint** | FPS | [![Watch showcase](https://img.shields.io/badge/Watch%20showcase-365F7D?style=for-the-badge&logo=googlechrome&logoColor=white)](https://flesymeb.github.io/HarnessOfHarness/#demo) | [![Download game](https://img.shields.io/badge/Download%20game-5F6872?style=for-the-badge&logo=itchdotio&logoColor=white)](https://flesymeb.github.io/HarnessOfHarness/#resources) | [![Trajectory](https://img.shields.io/badge/Trajectory-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Flesymeb/fusepoint) |
 | **Mournlight** | Roguelite | ![Coming soon](https://img.shields.io/badge/Coming%20soon-9AA5AD?style=for-the-badge) | [![Coming soon](https://img.shields.io/badge/Coming%20soon-9AA5AD?style=for-the-badge)](https://github.com/Flesymeb/mournlight/releases) | [![Trajectory](https://img.shields.io/badge/Trajectory-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Flesymeb/mournlight) |
 
 ## Code
