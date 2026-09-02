@@ -113,10 +113,11 @@ div.container.blog#first-content div.blog-title .blog-intro p.author a.author-li
 div.container.blog#first-content div.blog-title .blog-intro p.author a.author-link .author-link-icon {
   color: currentColor;
   display: inline-block;
-  font-size: 0.58em;
-  margin-left: 0.22em;
-  transform: translateY(-0.45em);
-  transition: color 180ms ease;
+  font-size: 0.42em;
+  margin-left: 0.24em;
+  opacity: 0.72;
+  transform: translateY(-0.62em);
+  transition: color 180ms ease, opacity 180ms ease;
 }
 
 div.container.blog#first-content div.blog-title .blog-intro p.author a.author-link:hover,
@@ -126,6 +127,11 @@ div.container.blog#first-content div.blog-title .blog-intro p.author a.author-li
   text-decoration-color: rgba(39, 75, 100, 0.75);
   text-decoration-thickness: 0.06em;
   text-underline-offset: 0.16em;
+}
+
+div.container.blog#first-content div.blog-title .blog-intro p.author a.author-link:hover .author-link-icon,
+div.container.blog#first-content div.blog-title .blog-intro p.author a.author-link:focus-visible .author-link-icon {
+  opacity: 1;
 }
 
 div.container.blog#first-content div.blog-title .blog-intro p.equal-contribution {
