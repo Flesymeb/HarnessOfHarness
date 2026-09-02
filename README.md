@@ -19,7 +19,7 @@
 ## 🗞️ News
 
 - 🎉 **2026-09-02** — 🌐 Our [project page](https://flesymeb.github.io/HarnessOfHarness/) is now live, featuring demo videos and project resources.
-- 🎉 **2026-09-02** — 📄 Our paper, [Harness-of-Harness](https://arxiv.org/abs/XXXX.XXXXX), is now available on arXiv.
+- 🎉 **2026-09-02** — 📄 Our paper, [Harness-of-Harness](https://arxiv.org/abs/2609.01481), is now available on arXiv.
 - 🎉 **Coming soon** — We will publicly release [HoH-lite](#code), a lightweight implementation of HoH's core workflow.
 - 🎉 **2026-09** — [Mournlight](https://github.com/Flesymeb/mournlight), a Vampire Survivors–style roguelite, has reached 80+ loops.
 - 🎉 **2026-09** — [Fusepoint](https://github.com/Flesymeb/fusepoint), a single-player narrative first-person shooter, has reached 70+ loops. [Watch demo →](https://flesymeb.github.io/HarnessOfHarness/#demo)
@@ -79,6 +79,8 @@ We will publicly release HoH-lite, a lightweight implementation of HoH's core wo
   title={Harness of Harness: Multi-Day Autonomous Software Development with Continual Improvement},
   author={Yan, Haoyang and Su, Min-Le and Zhang, Hangfan and Li, Zhanhao and Zhang, Chen and Zhang, Shao and Chen, Yang and Bai, Lei and Hu, Shuyue},
   journal={arXiv preprint},
+  eprint={2609.01481},
+  archivePrefix={arXiv},
   year={2026}
 }
 ```
