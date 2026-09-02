@@ -59,7 +59,9 @@ next iteration, allowing the system to improve loop by loop.
 
 ## Demos
 
-https://github.com/user-attachments/assets/41c5621c-e773-4af9-bc6a-b9cc6ff6876c
+<video src="assets/video/HoH-video-full-web.mp4" controls preload="metadata" width="100%" poster="assets/figures/hoh-video03-poster.jpg" aria-label="Full Harness-of-Harness project showcase"></video>
+
+[Watch the full showcase video](assets/video/HoH-video-full-web.mp4)
 
 We will continue adding games and demos across different genres. For each project, you can access the source repository and follow its development trajectory.
 
