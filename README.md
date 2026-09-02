@@ -10,7 +10,7 @@
 
 <p align="center">
   <a href="https://flesymeb.github.io/HarnessOfHarness/#resources"><img src="https://img.shields.io/badge/Paper-8F3B45?style=for-the-badge&logo=arxiv&logoColor=white" alt="Paper"></a>
-  <a href="#video"><img src="https://img.shields.io/badge/Video-6B5B73?style=for-the-badge&logo=googleplay&logoColor=white" alt="Video"></a>
+  <a href="#demos"><img src="https://img.shields.io/badge/Video-6B5B73?style=for-the-badge&logo=googleplay&logoColor=white" alt="Video"></a>
   <a href="https://github.com/Flesymeb/HarnessOfHarness"><img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub"></a>
   <a href="https://flesymeb.github.io/HarnessOfHarness/"><img src="https://img.shields.io/badge/Project%20Page-365F7D?style=for-the-badge&logo=googlechrome&logoColor=white" alt="Project page"></a>
   <a href="https://flesymeb.github.io/HarnessOfHarness/#resources"><img src="https://img.shields.io/badge/Download%20Games-5F6872?style=for-the-badge&logo=itchdotio&logoColor=white" alt="Download games"></a>
@@ -33,10 +33,6 @@ In a multi-day deployment with more than 70 iterations, HoH autonomously develop
   <img src="assets/figures/framework.jpg" width="100%"
        alt="Harness-of-Harness framework">
 </p>
-
-## Video
-
-https://github.com/user-attachments/assets/41c5621c-e773-4af9-bc6a-b9cc6ff6876c
 
 ## How It Works
 
@@ -62,7 +58,9 @@ next iteration, allowing the system to improve loop by loop.
 
 ## Demos
 
-We will continue adding games and demos across different genres. For each project, you can access the source repository and follow its development trajectory; playable builds will be linked as they become available.
+https://github.com/user-attachments/assets/41c5621c-e773-4af9-bc6a-b9cc6ff6876c
+
+We will continue adding games and demos across different genres. For each project, you can access the source repository and follow its development trajectory.
 
 | Game           | Genre     |                                                                                       Showcase                                                                                       |                                                                                       Download                                                                                       |                                                                       Trajectory                                                                        |
 | :------------- | :-------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------------------: |
