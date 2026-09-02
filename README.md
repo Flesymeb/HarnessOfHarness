@@ -18,6 +18,7 @@
 
 ## 🗞️ News
 
+- 🎉 **2026-09-02** — 🌐 The [Harness-of-Harness project page](https://flesymeb.github.io/HarnessOfHarness/) is now live.
 - 🎉 **2026-09-02** — 📄 Our paper, [Harness-of-Harness](https://arxiv.org/abs/XXXX.XXXXX), is now available on arXiv.
 - 🎉 **Coming soon** — We will publicly release [HoH-lite](#code), a lightweight implementation of HoH's core workflow.
 - 🎉 **2026-09** — [Mournlight](https://github.com/Flesymeb/mournlight), a Vampire Survivors–style roguelite, has reached 80+ loops.
@@ -73,8 +74,6 @@ We will publicly release HoH-lite, a lightweight implementation of HoH's core wo
 
 ## Citation
 
-† Haoyang Yan, Min-Le Su, Hangfan Zhang, and Zhanhao Li contributed equally.
-
 ```bibtex
 @article{yan2026harness,
   title={Harness of Harness: Multi-Day Autonomous Software Development with Continual Improvement},
@@ -98,3 +97,9 @@ We thank everyone who contributed to Harness of Harness and its case studies.
   <a href="https://github.com/HaoTechGuy"><img src="assets/figures/contributors/HaoTechGuy-card.png" width="112" height="140" alt="HaoTechGuy"></a>   
   <a href="https://github.com/qzzqzzb"><img src="assets/figures/contributors/qzzqzzb-card.png" width="112" height="140" alt="qzzqzzb"></a>
 </p>
+
+## Contact
+
+For questions, suggestions, or feedback, please feel free to contact us at:
+
+`{yanhaoyang, suminle, zhanghangfan, lizhanhao, hushuyue}@pjlab.org.cn`
