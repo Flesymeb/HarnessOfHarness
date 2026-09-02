@@ -104,6 +104,21 @@ div.container.blog#first-content div.blog-title .blog-intro p.author {
   padding: 0;
 }
 
+div.container.blog#first-content div.blog-title .blog-intro p.author a.author-link {
+  color: inherit;
+  text-decoration: none;
+  text-decoration-thickness: 0.06em;
+  text-underline-offset: 0.16em;
+  transition: color 180ms ease, text-decoration-color 180ms ease;
+}
+
+div.container.blog#first-content div.blog-title .blog-intro p.author a.author-link:hover,
+div.container.blog#first-content div.blog-title .blog-intro p.author a.author-link:focus-visible {
+  color: #365f7d;
+  text-decoration: underline;
+  text-decoration-color: rgba(54, 95, 125, 0.6);
+}
+
 div.container.blog#first-content div.blog-title .blog-intro p.equal-contribution {
   margin: 0.35rem 0 0;
   color: #4d5b63;
