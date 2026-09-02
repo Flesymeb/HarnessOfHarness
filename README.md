@@ -18,6 +18,7 @@
 
 ## 🗞️ News
 
+- 🎉 **2026-09-02** — 📄 Our paper, [Harness-of-Harness](https://arxiv.org/abs/XXXX.XXXXX), is now available on arXiv.
 - 🎉 **Coming soon** — We will publicly release [HoH-lite](#code), a lightweight implementation of HoH's core workflow.
 - 🎉 **2026-09** — [Mournlight](https://github.com/Flesymeb/mournlight), a Vampire Survivors–style roguelite, has reached 80+ loops.
 - 🎉 **2026-09** — [Fusepoint](https://github.com/Flesymeb/fusepoint), a single-player narrative first-person shooter, has reached 70+ loops. [Watch demo →](https://flesymeb.github.io/HarnessOfHarness/#demo)
