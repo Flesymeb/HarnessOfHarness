@@ -1,0 +1,46 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.satelliteoflove/godot-mcp",
+  "title": "Godot MCP",
+  "description": "Agent-driven Godot playtesting: editor control, input injection, game-time stepping, live state.",
+  "version": "4.1.0",
+  "repository": {
+    "url": "https://github.com/satelliteoflove/godot-mcp",
+    "source": "github"
+  },
+  "websiteUrl": "https://github.com/satelliteoflove/godot-mcp",
+  "packages": [
+    {
+      "registryType": "npm",
+      "registryBaseUrl": "https://registry.npmjs.org",
+      "identifier": "@satelliteoflove/godot-mcp",
+      "version": "4.1.0",
+      "runtimeHint": "npx",
+      "runtimeArguments": [
+        {
+          "type": "named",
+          "name": "-y",
+          "isRequired": false
+        }
+      ],
+      "environmentVariables": [
+        {
+          "name": "GODOT_HOST",
+          "description": "Override the host used to reach the Godot editor bridge (e.g. for WSL2 or remote setups). Auto-detected when unset.",
+          "isRequired": false,
+          "isSecret": false
+        },
+        {
+          "name": "GODOT_MCP_READ_ONLY",
+          "description": "Set to 1 (or true) to register only read-only observation tools: no scene/node/animation edits, no game control, no input injection. Same as the --read-only flag.",
+          "format": "boolean",
+          "isRequired": false,
+          "isSecret": false
+        }
+      ],
+      "transport": {
+        "type": "stdio"
+      }
+    }
+  ]
+}

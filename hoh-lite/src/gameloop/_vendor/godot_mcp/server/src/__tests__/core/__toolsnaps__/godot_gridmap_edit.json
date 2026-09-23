@@ -1,0 +1,101 @@
+{
+  "name": "godot_gridmap_edit",
+  "description": "Modify GridMap cells in the open scene: set a single cell to a MeshLibrary item with an orientation, clear a cell, clear the whole map, or set many cells in one batch. Use it to build or remove 3D grid content; cell data is stored base64-encoded in the .tscn, so editing the file is not an alternative, and set_cells_batch beats repeated set_cell calls for anything beyond a few cells. To inspect the map, its MeshLibrary, or existing cells without changing anything, use godot_gridmap_read.",
+  "inputSchema": {
+    "type": "object",
+    "properties": {
+      "action": {
+        "type": "string",
+        "enum": [
+          "set_cell",
+          "clear_cell",
+          "clear",
+          "set_cells_batch"
+        ],
+        "description": "set_cell: Set a single cell\nclear_cell: Clear a single cell\nclear: Clear all cells\nset_cells_batch: Set many cells at once"
+      },
+      "node_path": {
+        "type": "string",
+        "description": "Path to the GridMap"
+      },
+      "coords": {
+        "type": "object",
+        "properties": {
+          "x": {
+            "type": "integer"
+          },
+          "y": {
+            "type": "integer"
+          },
+          "z": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "x",
+          "y",
+          "z"
+        ],
+        "description": "Cell coordinates (required for: set_cell, clear_cell)"
+      },
+      "item": {
+        "type": "integer",
+        "description": "MeshLibrary item index (required for: set_cell)"
+      },
+      "orientation": {
+        "description": "Orientation 0-23, default 0 (for: set_cell)",
+        "type": "integer"
+      },
+      "cells": {
+        "minItems": 1,
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "coords": {
+              "type": "object",
+              "properties": {
+                "x": {
+                  "type": "integer"
+                },
+                "y": {
+                  "type": "integer"
+                },
+                "z": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "x",
+                "y",
+                "z"
+              ]
+            },
+            "item": {
+              "type": "integer"
+            },
+            "orientation": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "coords",
+            "item"
+          ]
+        },
+        "description": "Array of cells to set (required for: set_cells_batch)"
+      }
+    },
+    "required": [
+      "action",
+      "node_path"
+    ]
+  },
+  "annotations": {
+    "title": "GridMap (edit)",
+    "readOnlyHint": false,
+    "destructiveHint": true,
+    "idempotentHint": true,
+    "openWorldHint": false
+  }
+}

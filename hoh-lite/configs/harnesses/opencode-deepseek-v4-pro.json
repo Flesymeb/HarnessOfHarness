@@ -1,0 +1,12 @@
+{
+  "task": null,
+  "experiment_id": "opencode-deepseek-v4-pro",
+  "harness": "opencode",
+  "model": "deepseek-v4-pro",
+  "attempts": 3,
+  "planner_mode": "harness",
+  "llm_tester": true,
+  "tester_policy": "repair-then-next",
+  "external_verifier": true,
+  "warm_start_latest": true
+}

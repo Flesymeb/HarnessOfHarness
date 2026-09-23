@@ -1,0 +1,123 @@
+{
+  "name": "godot_tilemap_edit",
+  "description": "Modify TileMapLayer cells in the open scene: set a single cell, erase a cell, clear a whole layer, or set many cells in one batch. Use it to paint or remove tiles; cell data is stored base64-encoded in the .tscn, so editing the file is not an alternative, and set_cells_batch beats repeated set_cell calls for anything beyond a few tiles. To inspect layers, TileSets, or existing cells without changing anything, use godot_tilemap_read.",
+  "inputSchema": {
+    "type": "object",
+    "properties": {
+      "action": {
+        "type": "string",
+        "enum": [
+          "set_cell",
+          "erase_cell",
+          "clear_layer",
+          "set_cells_batch"
+        ],
+        "description": "set_cell: Set a single cell\nerase_cell: Erase a single cell\nclear_layer: Clear all cells in the layer\nset_cells_batch: Set many cells at once"
+      },
+      "node_path": {
+        "type": "string",
+        "description": "Path to the TileMapLayer"
+      },
+      "coords": {
+        "type": "object",
+        "properties": {
+          "x": {
+            "type": "integer"
+          },
+          "y": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "x",
+          "y"
+        ],
+        "description": "Cell coordinates (required for: set_cell, erase_cell)"
+      },
+      "source_id": {
+        "description": "TileSet source ID, default 0 (for: set_cell)",
+        "type": "integer"
+      },
+      "atlas_coords": {
+        "description": "Atlas coordinates, default 0,0 (for: set_cell)",
+        "type": "object",
+        "properties": {
+          "x": {
+            "type": "integer"
+          },
+          "y": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "x",
+          "y"
+        ]
+      },
+      "alternative_tile": {
+        "description": "Alternative tile ID, default 0 (for: set_cell)",
+        "type": "integer"
+      },
+      "cells": {
+        "minItems": 1,
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "coords": {
+              "type": "object",
+              "properties": {
+                "x": {
+                  "type": "integer"
+                },
+                "y": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "x",
+                "y"
+              ]
+            },
+            "source_id": {
+              "type": "integer"
+            },
+            "atlas_coords": {
+              "type": "object",
+              "properties": {
+                "x": {
+                  "type": "integer"
+                },
+                "y": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "x",
+                "y"
+              ]
+            },
+            "alternative_tile": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "coords"
+          ]
+        },
+        "description": "Array of cells to set (required for: set_cells_batch)"
+      }
+    },
+    "required": [
+      "action",
+      "node_path"
+    ]
+  },
+  "annotations": {
+    "title": "TileMapLayer (edit)",
+    "readOnlyHint": false,
+    "destructiveHint": true,
+    "idempotentHint": true,
+    "openWorldHint": false
+  }
+}

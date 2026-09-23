@@ -1,0 +1,102 @@
+name: HoH-lite CI
+
+on:
+  push:
+  pull_request:
+
+defaults:
+  run:
+    working-directory: hoh-lite
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  GAMECRAFT_BENCH_REF: 9c0b92ffc9cb30f9708494af62d8245a906cf1ce
+
+jobs:
+  python:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v5.0.1
+        with:
+          fetch-depth: 0
+      - name: Check public source and reachable history
+        run: ./scripts/check-public-release
+      - uses: astral-sh/setup-uv@v10.2.0
+        with:
+          version: "0.11.3"
+          enable-cache: true
+      - name: Check out the unmodified benchmark
+        run: |
+          git clone --filter=blob:none https://github.com/tongxuluo/gamecraft-bench.git "$RUNNER_TEMP/gamecraft-bench"
+          git -C "$RUNNER_TEMP/gamecraft-bench" checkout --detach "$GAMECRAFT_BENCH_REF"
+          test -z "$(git -C "$RUNNER_TEMP/gamecraft-bench" status --porcelain)"
+      - name: Install Lite and benchmark dependencies
+        run: |
+          uv venv --python 3.12 .venv
+          uv pip install --python .venv/bin/python -e '.[gamecraft-bench]' -e "$RUNNER_TEMP/gamecraft-bench"
+      - name: Verify the adapter against the original benchmark
+        env:
+          GAMELOOP_GAMECRAFT_ALLOW_DIRECT_BACKEND: "1"
+        run: |
+          .venv/bin/gameloop-gamecraft-doctor --bench "$RUNNER_TEMP/gamecraft-bench"
+          .venv/bin/python -m compileall -q src/gameloop
+          .venv/bin/gameloop --help
+          test -z "$(git -C "$RUNNER_TEMP/gamecraft-bench" status --porcelain)"
+      - name: Build and inspect distributions
+        run: |
+          uv build
+          .venv/bin/python - <<'PY'
+          import tarfile
+          import zipfile
+          from pathlib import Path
+
+          archives = [*Path("dist").glob("*.whl"), *Path("dist").glob("*.tar.gz")]
+          assert len(archives) == 2, archives
+          forbidden = (
+              "/runs/", "/jobs/", "/workdirs/", "/task_sets/",
+              "/experiments/", "/local/", "/node_modules/",
+          )
+          for archive in archives:
+              if archive.name.endswith(".whl"):
+                  with zipfile.ZipFile(archive) as handle:
+                      names = handle.namelist()
+              else:
+                  with tarfile.open(archive, "r:gz") as handle:
+                      names = handle.getnames()
+              leaked = [
+                  name for name in names
+                  if any(part in f"/{name}" for part in forbidden)
+                  or Path(name).name in {".env", "auth.json"}
+              ]
+              if archive.name.endswith(".tar.gz"):
+                  sdist_root = archive.name.removesuffix(".tar.gz")
+                  leaked.extend(
+                      name for name in names
+                      if name.startswith((f"{sdist_root}/tests/", f"{sdist_root}/docs/"))
+                  )
+              assert not leaked, (archive, leaked)
+              if archive.name.endswith(".tar.gz"):
+                  sdist_root = archive.name.removesuffix(".tar.gz")
+                  required = {
+                      f"{sdist_root}/{name}"
+                      for name in (".env.example", "README.md", "CONTRIBUTING.md", "SECURITY.md")
+                  }
+                  assert required <= set(names), (archive, required - set(names))
+          PY
+      - name: Install and exercise the built wheel
+        env:
+          GAMELOOP_GAMECRAFT_ALLOW_DIRECT_BACKEND: "1"
+        run: |
+          uv venv --python 3.12 .wheel-venv
+          wheel_path="$(find dist -maxdepth 1 -name '*.whl' -print -quit)"
+          uv pip install --python .wheel-venv/bin/python "${wheel_path}[gamecraft-bench]" -e "$RUNNER_TEMP/gamecraft-bench"
+          .wheel-venv/bin/gameloop --help
+          .wheel-venv/bin/gameloop-gamecraft-doctor --bench "$RUNNER_TEMP/gamecraft-bench"
+          test -z "$(git -C "$RUNNER_TEMP/gamecraft-bench" status --porcelain)"

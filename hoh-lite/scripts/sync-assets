@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+SOURCE="${1:-${GAMELOOP_ASSET_SOURCE:-}}"
+DEST="${2:-${GAMELOOP_ASSETS_DIR:-$ROOT/assets}}"
+
+if [[ -z "$SOURCE" && -n "${GAMELOOP_BENCH:-}" ]]; then
+  SOURCE="$GAMELOOP_BENCH/assets"
+fi
+
+if [[ -z "$SOURCE" ]]; then
+  echo "Usage: $0 /absolute/path/to/asset-library [destination]" >&2
+  echo "Or set GAMELOOP_ASSET_SOURCE or GAMELOOP_BENCH." >&2
+  exit 2
+fi
+
+if [[ ! -d "$SOURCE" ]]; then
+  echo "Asset source not found: $SOURCE" >&2
+  exit 1
+fi
+
+mkdir -p "$DEST"
+rsync -a --info=stats1 "$SOURCE"/ "$DEST"/

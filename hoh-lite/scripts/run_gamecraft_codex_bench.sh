@@ -1,0 +1,1 @@
+../src/gameloop/resources/run_gamecraft_codex_bench.sh

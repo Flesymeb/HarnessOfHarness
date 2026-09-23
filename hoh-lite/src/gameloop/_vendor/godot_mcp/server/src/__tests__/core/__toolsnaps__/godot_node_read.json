@@ -1,0 +1,68 @@
+{
+  "name": "godot_node_read",
+  "description": "Inspect scene nodes: while a game is running, get_properties, find, inspect_ui and inspect_skeleton query the live runtime tree (including spawned nodes); otherwise they query the scene open in the editor. inspect_ui exposes Control geometry and input interception; inspect_skeleton exposes real bone pose/socket/animation bindings that screenshots or synthetic marker telemetry cannot prove. get_scene_tree always reports the editor-open scene, including children inside instanced sub-scenes. Use exact paths returned by find in the same run. It cannot modify anything; to update properties or reparent a node, use godot_node_edit.",
+  "inputSchema": {
+    "type": "object",
+    "properties": {
+      "action": {
+        "type": "string",
+        "enum": [
+          "get_properties",
+          "get_scene_tree",
+          "find",
+          "inspect_ui",
+          "inspect_skeleton"
+        ],
+        "description": "get_properties: Get a node's properties\nget_scene_tree: Full hierarchy of the open scene as the editor sees it, including children inside instanced sub-scenes (a .tscn file read cannot show those). Deep or wide scenes can be large — cap the result with max_depth and/or max_children; any node whose children are cut off carries \"truncated_children\": <count of omitted direct children> instead of (or alongside) \"children\".\nfind: Find nodes by name and/or type. Searches the RUNNING game's live tree when a game is playing (spawned entities included); otherwise searches the scene open in the editor.\ninspect_ui: Inspect bounded Control layout and input behavior in the running game, or in the editor-open scene when stopped. Returns global rectangles, anchors, offsets, clipping, z-order, focus, mouse_filter and explicit full-screen input risks.\ninspect_skeleton: Inspect a Skeleton3D live pose, hierarchy, BoneAttachment3D/Marker3D bindings and nearby AnimationPlayer/AnimationTree state. Use a path returned by find(type=\"Skeleton3D\")."
+      },
+      "node_path": {
+        "type": "string",
+        "description": "for get_properties: Path to the node; for inspect_skeleton: Exact Skeleton3D path. (required for: get_properties, inspect_skeleton)"
+      },
+      "max_depth": {
+        "description": "for get_scene_tree: Cap recursion depth (root = depth 1). Omit for the full tree.; for inspect_ui: Maximum descendant depth to inspect (default 12). (for: get_scene_tree, inspect_ui)",
+        "type": "integer",
+        "minimum": 1,
+        "maximum": 32
+      },
+      "max_children": {
+        "description": "Cap how many children are listed per node. Omit to list every child. (for: get_scene_tree)",
+        "type": "integer",
+        "exclusiveMinimum": 0
+      },
+      "name_pattern": {
+        "description": "Glob pattern to match node names, e.g. \"*Spawner*\", \"Turret?\" (for: find)",
+        "type": "string"
+      },
+      "type": {
+        "description": "Filter by node type, e.g. \"CharacterBody2D\", \"Area2D\" (for: find)",
+        "type": "string"
+      },
+      "root_path": {
+        "description": "for find: Path to start search from (defaults to scene root); for inspect_ui: Optional subtree root. Defaults to the current scene root. (for: find, inspect_ui)",
+        "type": "string"
+      },
+      "max_nodes": {
+        "description": "Maximum Control nodes to return (default 128). (for: inspect_ui)",
+        "type": "integer",
+        "minimum": 1,
+        "maximum": 512
+      },
+      "max_bones": {
+        "description": "Maximum bones to return (default 128). (for: inspect_skeleton)",
+        "type": "integer",
+        "minimum": 1,
+        "maximum": 512
+      }
+    },
+    "required": [
+      "action"
+    ]
+  },
+  "annotations": {
+    "title": "Node (read)",
+    "readOnlyHint": true,
+    "destructiveHint": false,
+    "openWorldHint": false
+  }
+}

@@ -1,0 +1,62 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "gameloop"
+version = "0.1.0"
+description = "General iterative game-development loop with a GameCraft adapter."
+readme = "README.md"
+license = "Apache-2.0"
+license-files = ["LICENSE", "NOTICE", "THIRD_PARTY_NOTICES.md"]
+requires-python = ">=3.12"
+dependencies = []
+
+[project.optional-dependencies]
+gamecraft-bench = [
+  "harbor==0.23.0",
+]
+deepseek-harness = [
+  "deepseek-harness-sdk==0.1.0rc6",
+  "deepseek-harness-runtime-bin==0.1.0rc6",
+]
+
+[project.scripts]
+gameloop = "gameloop.cli:main"
+gameloop-gamecraft = "gameloop.adapters.gamecraft_bench.runner:main"
+# Backward-compatible legacy alias; new users should use the benchmark adapter
+# name above.
+gameloop-gamecraft-legacy = "gameloop.adapters.gamecraft_bench.runner:main"
+gameloop-summarize = "gameloop.adapters.gamecraft_bench.summarize_results:main"
+gameloop-summarize-runs = "gameloop.adapters.gamecraft_bench.summarize_runs:main"
+gameloop-godot-docs = "gameloop.tools.godot_docs:main"
+gameloop-godot-mcp = "gameloop.tools.godot_mcp:main"
+gameloop-godot-mcp-smoke = "gameloop.tools.godot_mcp_smoke:main"
+gameloop-godot-mcp-vendor = "gameloop.tools.godot_mcp_vendor:main"
+gameloop-gamecraft-doctor = "gameloop.adapters.gamecraft_bench.compat:main"
+gameloop-harness-doctor = "gameloop.harnesses.doctor:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+gameloop = [
+  "templates/*.md",
+  "adapters/gamecraft_bench/templates/*.md",
+  "policies/*.md",
+  "resources/*.sh",
+  "resources/deepseek_harness/*.json",
+  "resources/deepseek_harness/*.yml",
+  "_vendor/godot-mcp.lock.json",
+  "_vendor/godot-mcp-gameloop.patch",
+  "_vendor/godot_mcp/**/*",
+  "_vendor/godot_mcp/**/.*",
+]
+
+[tool.setuptools.exclude-package-data]
+gameloop = [
+  "_vendor/godot_mcp/server/node_modules/*",
+  "_vendor/godot_mcp/server/dist/*",
+  "_vendor/godot_mcp/server/addon/*",
+  "_vendor/godot_mcp/coverage/*",
+]

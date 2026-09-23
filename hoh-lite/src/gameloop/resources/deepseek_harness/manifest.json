@@ -1,0 +1,12 @@
+{
+  "agent_preset": "minimal",
+  "sdk_version": "0.1.0rc6",
+  "runtime_version": "0.1.0rc6",
+  "source_version": "0.1.0-rc.5",
+  "source_commit": "47f943859bef60e4160492346772ded9b24f765a",
+  "official_preset_sha256": "cacb47f09a88985c8eb0906a62e6883205727a3c8db901807cb03f936b863cca",
+  "standalone_cordis_sha256": "4ddf99b5492fac7b578e3caddb0158815e44d5db176ba0aeab57012d35299fca",
+  "system_prompt_sha256": "5fab6e32f283d71510531ce850df2690b8fb77437d36bfabbe8c4ac862f19df9",
+  "model_visible_tools": ["bash", "str_replace_editor"],
+  "sandbox_policy": "danger-full-access"
+}

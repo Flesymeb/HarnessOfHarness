@@ -1,0 +1,67 @@
+{
+  "name": "godot_editor_read",
+  "description": "Observe the editor and running game: get editor state (open scene, play state, camera, viewport), read the current node selection, pull editor log messages (with an incremental cursor) and stack traces, and capture lossless PNG screenshots of the running game or an editor viewport. Reach for it to check what the editor sees before and after a change; screenshot_game needs a running game, while every other action works in the bare editor. It changes nothing - to select nodes, run/stop/restart, or move the 2D viewport use godot_editor_edit; errors from the running game (not the editor process) come via minimal-godot-mcp's get_console_output when that companion server is installed.",
+  "inputSchema": {
+    "type": "object",
+    "properties": {
+      "action": {
+        "type": "string",
+        "enum": [
+          "get_state",
+          "get_selection",
+          "get_log_messages",
+          "get_stack_trace",
+          "get_runtime_log_messages",
+          "screenshot_game",
+          "screenshot_editor"
+        ],
+        "description": "get_state: Get editor state: current scene, play state, version, camera, viewport\nget_selection: Get the currently selected nodes\nget_log_messages: Get errors and warnings from the EDITOR process - @tool script runtime errors, import failures, addon errors, and failures from editor-side operations (scene/resource edits, reloads). This is the feedback channel for editor-side changes: run it after a mutation to confirm it did not break the editor. It does NOT include errors from the running game - for those, use minimal-godot-mcp's get_console_output (game console via DAP). Filter by severity (errors-only = \"did my change break the editor?\") and use `since`/`cursor` to read only what is new; every response returns the current `cursor`, even when empty.\nget_stack_trace: Get the most recent error stack trace\nget_runtime_log_messages: Get stdout/stderr and debugger-break diagnostics from the most recent RUNNING GAME process. Use this for candidate GDScript/runtime failures; get_log_messages is editor-only.\nscreenshot_game: Capture the running game at the requested resolution. The model receives a bounded JPEG preview while GameLoop preserves a lossless PNG in the candidate-bound evidence sink. Each frame persists in context every later turn and never decays, so reserve it for genuine APPEARANCE judgments (spacing, color, art, \"does it look right\"). For STRUCTURE or state — which control is focused, a label's text, whether a panel is visible, a node's anchors/size — read cheap text instead: godot_node_read (scene tree, node properties) or godot_runtime_state digest (live values), both ~free versus the hundreds of visual tokens a frame costs. Do not re-shoot a view that has not changed.\nscreenshot_editor: Capture an editor viewport at the requested resolution. The model receives a bounded JPEG preview while GameLoop preserves a lossless PNG in its evidence sink. Same context cost as screenshot_game — the frame persists every later turn — so capture for appearance, not for structure/state you could read as cheap text via godot_node_read (scene tree, node properties) or godot_runtime_state."
+      },
+      "clear": {
+        "description": "Clear the editor error buffer after reading (for: get_log_messages)",
+        "type": "boolean"
+      },
+      "limit": {
+        "description": "for get_log_messages: Maximum number of messages to return (default: 50); for get_runtime_log_messages: Maximum recent runtime messages to return (default: 50) (for: get_log_messages, get_runtime_log_messages)",
+        "type": "integer",
+        "exclusiveMinimum": 0,
+        "maximum": 100
+      },
+      "severity": {
+        "description": "Filter by severity: \"error\" drops warnings (the \"did anything actually break?\" check), \"warning\" returns only warnings, \"all\" (default) returns both. (for: get_log_messages)",
+        "type": "string",
+        "enum": [
+          "all",
+          "error",
+          "warning"
+        ]
+      },
+      "since": {
+        "description": "Return only messages newer than this cursor. Pass back the `cursor` from a prior response to see just what is new since then - the incremental check that avoids re-reading the whole buffer (0/omitted = from the beginning). (for: get_log_messages)",
+        "type": "integer",
+        "minimum": 0
+      },
+      "max_width": {
+        "description": "for screenshot_game: Maximum width in pixels (default: 900). Cost scales with resolution (~1 visual token per 28x28px patch; a 900px 16:9 frame ≈ 600 tokens, a native 1080p frame ≈ 2700 on Opus). 640 is the legibility floor for chip-dense UI — still crisp; 512 is the edge and 384 breaks fine print — so drop toward 640 to roughly halve per-frame cost when you do not need the finest text, and raise above 900 only when detail is genuinely unreadable.; for screenshot_editor: Maximum width in pixels (default: 900). Cost scales with resolution (~1 visual token per 28x28px patch; a 900px 16:9 frame ≈ 600 tokens). 640 is the legibility floor for chip-dense UI (512 is the edge, 384 breaks fine print), so drop toward 640 to roughly halve per-frame cost when you do not need the finest text; raise above 900 only when detail is unreadable. (for: screenshot_game, screenshot_editor)",
+        "type": "integer"
+      },
+      "viewport": {
+        "description": "Which editor viewport to capture (for: screenshot_editor)",
+        "type": "string",
+        "enum": [
+          "2d",
+          "3d"
+        ]
+      }
+    },
+    "required": [
+      "action"
+    ]
+  },
+  "annotations": {
+    "title": "Editor Control (read)",
+    "readOnlyHint": true,
+    "destructiveHint": false,
+    "openWorldHint": false
+  }
+}

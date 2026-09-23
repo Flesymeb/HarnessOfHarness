@@ -1,0 +1,46 @@
+{
+  "bench": null,
+  "jobs_dir": null,
+  "task": null,
+  "wrapper": null,
+  "attempts": 3,
+  "mode": "clean",
+  "reasoning_effort": "high",
+  "developer_backend": "harness",
+  "roles": {
+    "planner": {
+      "harness": "codex",
+      "model": "gpt-5.5",
+      "workspace_access": "read-only",
+      "tools": {"godot_mcp": "disabled", "godot_docs": true}
+    },
+    "developer": {
+      "harness": "codex",
+      "model": "gpt-5.5",
+      "workspace_access": "read-write",
+      "tools": {"godot_mcp": "read-write", "godot_docs": true}
+    },
+    "tester": {
+      "harness": "codex",
+      "model": "gpt-5.5",
+      "workspace_access": "read-only",
+      "tools": {"godot_mcp": "read-only-runtime", "godot_docs": true}
+    }
+  },
+  "domain_policies": null,
+  "planner_mode": "harness",
+  "planner_timeout_seconds": 0,
+  "planner_idle_timeout_seconds": 1800,
+  "codex_login": true,
+  "external_verifier": true,
+  "warm_start_latest": true,
+  "llm_tester": true,
+  "tester_policy": "repair-then-next",
+  "max_inner_repairs": 2,
+  "require_developer_mcp_coverage": false,
+  "timeout_seconds": 3600,
+  "developer_idle_timeout_seconds": 900,
+  "tester_timeout_seconds": 0,
+  "tester_idle_timeout_seconds": 1800,
+  "n_concurrent": null
+}

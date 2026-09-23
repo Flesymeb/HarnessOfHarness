@@ -1,0 +1,4 @@
+# The overlay is a generated unified diff. Preserve its whitespace exactly so
+# the locked overlay digest remains reproducible and Git does not treat patch
+# indentation as source formatting noise.
+src/gameloop/_vendor/godot-mcp-gameloop.patch -diff whitespace=-trailing-space

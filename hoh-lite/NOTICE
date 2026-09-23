@@ -1,0 +1,18 @@
+HoH-lite
+Copyright 2026 HoH-lite contributors
+
+HoH-lite is distributed under the Apache License, Version 2.0. See the
+LICENSE file for the complete license text.
+
+Third-party components
+----------------------
+
+The vendored Godot MCP implementation under
+src/gameloop/_vendor/godot_mcp/ is originally from satelliteoflove/godot-mcp
+and remains available under its original MIT License. Its license and copyright
+notices are retained in that directory. The GameLoop-specific overlay is
+described in THIRD_PARTY_NOTICES.md.
+
+GameCraft-Bench is an external checkout and is not included in this source
+tree. When used, it remains under its own Apache License, Version 2.0, and its
+license terms apply to that separate project.

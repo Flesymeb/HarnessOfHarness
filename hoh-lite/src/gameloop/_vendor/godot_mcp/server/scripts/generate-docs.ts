@@ -1,0 +1,556 @@
+import { writeFileSync, readFileSync, mkdirSync, existsSync, readdirSync, unlinkSync } from 'fs';
+import { join, dirname } from 'path';
+import { fileURLToPath, pathToFileURL } from 'url';
+
+import { z } from 'zod';
+
+import { sceneTools } from '../src/tools/scene.js';
+import { nodeTools } from '../src/tools/node.js';
+import { editorTools } from '../src/tools/editor.js';
+import { projectTools } from '../src/tools/project.js';
+import { animationTools } from '../src/tools/animation.js';
+import { tilemapTools } from '../src/tools/tilemap.js';
+import { resourceTools } from '../src/tools/resource.js';
+import { scene3dTools } from '../src/tools/scene3d.js';
+import { docsTools } from '../src/tools/docs.js';
+import { inputTools } from '../src/tools/input.js';
+import { profilerTools } from '../src/tools/profiler.js';
+import { runtimeStateTools } from '../src/tools/runtime-state.js';
+import { gameTimeTools } from '../src/tools/game-time.js';
+import { execTools } from '../src/tools/exec.js';
+import { validateMeshesTools } from '../src/tools/validate-meshes.js';
+import { toInputSchema } from '../src/core/schema.js';
+import {
+  getActionVariants,
+  buildVariantExample,
+  rawJsonSchema,
+  type ActionVariant,
+} from '../src/core/doc-examples.js';
+import type { AnyToolDefinition } from '../src/core/types.js';
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
+const DOCS_DIR = join(__dirname, '../../docs');
+const TOOLS_DIR = join(DOCS_DIR, 'tools');
+const ROOT_README = join(__dirname, '../../README.md');
+const NPM_README = join(__dirname, '../README.md');
+
+interface ToolCategory {
+  name: string;
+  filename: string;
+  description: string;
+  tools: AnyToolDefinition[];
+}
+
+const categories: ToolCategory[] = [
+  { name: 'Scene', filename: 'scene', description: 'Scene management tools', tools: sceneTools },
+  { name: 'Node', filename: 'node', description: 'Node manipulation and script attachment tools', tools: nodeTools },
+  { name: 'Editor', filename: 'editor', description: 'Editor control, debugging, and screenshot tools', tools: editorTools },
+  { name: 'Project', filename: 'project', description: 'Project information tools', tools: projectTools },
+  { name: 'Animation', filename: 'animation', description: 'Animation query, playback, and editing tools', tools: animationTools },
+  { name: 'TileMapLayer/GridMap', filename: 'tilemap', description: 'TileMapLayer and GridMap editing tools (uses Godot 4.3+ TileMapLayer, not deprecated TileMap)', tools: tilemapTools },
+  { name: 'Resource', filename: 'resource', description: 'Resource inspection tools for SpriteFrames, TileSet, Materials, etc.', tools: resourceTools },
+  { name: 'Scene3D', filename: 'scene3d', description: '3D spatial information and bounding box tools', tools: scene3dTools },
+  { name: 'Documentation', filename: 'docs', description: 'Fetch Godot Engine documentation with smart extraction', tools: docsTools },
+  { name: 'Input', filename: 'input', description: 'Input injection for testing running games: named actions, joypad buttons, analog axes and stick vectors, raw keyboard keys with modifier combos, relative mouse-look, and text typing (no absolute cursor positioning)', tools: inputTools },
+  { name: 'Profiler', filename: 'profiler', description: 'Performance profiling: snapshots, per-frame time series with spike detection, active process inspection, signal connections', tools: profilerTools },
+  { name: 'Runtime State', filename: 'runtime-state', description: 'Observe live game entity state as structured JSON — positions, velocities, animation state, and custom _mcp_state() data. Works out of the box for both 2D and 3D scenes (the auto fallback surfaces visible 3D world nodes — meshes, gridmaps, cameras, lights, physics bodies and areas — not just UI). Much cheaper than screenshots.', tools: runtimeStateTools },
+  { name: 'Game Time Control', filename: 'game-time', description: 'Deterministic game-clock control: freeze the running game, step a bounded slice of game time (or step until a condition holds) with inputs riding inside the window, then thaw — so observation is not racing ahead between tool calls.', tools: gameTimeTools },
+  { name: 'Game Script Execution', filename: 'exec', description: 'Run GDScript inside the running game for test scenario setup: one-shot state mutations plus persistent holder-managed nodes, behind a denylist accident guard.', tools: execTools },
+  { name: 'Mesh Validation', filename: 'validate-meshes', description: 'Detect silently corrupt procedurally generated mesh data (inside-out winding, dropped triangles, degenerate UVs, NaN normals/tangents) that renders without errors and masquerades as lighting problems. Findings carry their likely cause and fix; a cheap scene-load sniff also attaches one-line warnings to game screenshots.', tools: validateMeshesTools },
+];
+
+function ensureDir(dir: string): void {
+  if (!existsSync(dir)) {
+    mkdirSync(dir, { recursive: true });
+  }
+}
+
+function cleanupOldDocs(): void {
+  if (!existsSync(TOOLS_DIR)) return;
+
+  const validFilenames = new Set(['README.md', ...categories.map(c => `${c.filename}.md`)]);
+  const existingFiles = readdirSync(TOOLS_DIR);
+
+  for (const file of existingFiles) {
+    if (file.endsWith('.md') && !validFilenames.has(file)) {
+      const filepath = join(TOOLS_DIR, file);
+      unlinkSync(filepath);
+      console.log(`  Deleted stale doc: ${file}`);
+    }
+  }
+}
+
+function escapeMarkdown(text: string): string {
+  return text.replace(/\|/g, '\\|').replace(/\n/g, ' ');
+}
+
+function getTypeString(prop: Record<string, unknown>): string {
+  if (prop.enum) {
+    const values = prop.enum as string[];
+    return values.map(v => `\`${v}\``).join(', ');
+  }
+  if (prop.type === 'array') {
+    const items = prop.items as Record<string, unknown> | undefined;
+    if (items?.type) {
+      return `${items.type}[]`;
+    }
+    return 'array';
+  }
+  if (prop.type === 'object') {
+    const properties = prop.properties as Record<string, Record<string, unknown>> | undefined;
+    if (properties && Object.keys(properties).length > 0) {
+      const keys = Object.keys(properties).slice(0, 5);
+      const keyStr = keys.map(k => `${k}`).join(', ');
+      if (Object.keys(properties).length > 5) {
+        return `object {${keyStr}, ...}`;
+      }
+      return `object {${keyStr}}`;
+    }
+    if (prop.additionalProperties) {
+      return 'Record<string, unknown>';
+    }
+    return 'object';
+  }
+  return String(prop.type || 'unknown');
+}
+
+function parseActionRequirements(description: string): string | null {
+  const requiredForMatch = description.match(/\(required for:\s*([^)]+)\)/i);
+  if (requiredForMatch) {
+    return requiredForMatch[1].trim();
+  }
+
+  const onlyMatch = description.match(/\(([^)]+)\s+only\)/i);
+  if (onlyMatch) {
+    return onlyMatch[1].trim();
+  }
+
+  const actionsMatch = description.match(/\(([a-z_]+(?:,\s*[a-z_]+)+)\)$/i);
+  if (actionsMatch) {
+    return actionsMatch[1].trim();
+  }
+
+  return null;
+}
+
+function getRequiredString(name: string, prop: Record<string, unknown>, required: string[]): string {
+  const isSchemaRequired = required.includes(name);
+  const description = String(prop.description || '');
+  const actionReqs = parseActionRequirements(description);
+
+  if (isSchemaRequired) {
+    return 'Yes';
+  }
+  if (actionReqs) {
+    return actionReqs;
+  }
+  return 'No';
+}
+
+function cleanDescription(description: string): string {
+  return description
+    .replace(/\s*\(required for:[^)]+\)/gi, '')
+    .replace(/\s*\([^)]+\s+only\)/gi, '')
+    .replace(/\s*\(([a-z_]+(?:,\s*[a-z_]+)+)\)$/gi, '')
+    .trim();
+}
+
+function generateParamsTable(schema: Record<string, unknown>): string {
+  const properties = schema.properties as Record<string, Record<string, unknown>> | undefined;
+  const required = (schema.required as string[]) || [];
+
+  if (!properties || Object.keys(properties).length === 0) {
+    return '*No parameters required.*\n';
+  }
+
+  let table = '| Parameter | Type | Required | Description |\n';
+  table += '|-----------|------|----------|-------------|\n';
+
+  for (const [name, prop] of Object.entries(properties)) {
+    const typeStr = getTypeString(prop);
+    const reqStr = getRequiredString(name, prop, required);
+    const desc = escapeMarkdown(cleanDescription(String(prop.description || '')));
+    table += `| \`${name}\` | ${typeStr} | ${reqStr} | ${desc} |\n`;
+  }
+
+  return table;
+}
+
+function getActionsFromSchema(schema: Record<string, unknown>): string[] {
+  const properties = schema.properties as Record<string, Record<string, unknown>> | undefined;
+  if (!properties?.action?.enum) return [];
+  return properties.action.enum as string[];
+}
+
+function actionListContains(actionList: string, action: string): boolean {
+  const actions = actionList.toLowerCase().split(/[,\s]+/).map(a => a.trim()).filter(Boolean);
+  return actions.includes(action);
+}
+
+function getActionSpecificParams(properties: Record<string, Record<string, unknown>>, action: string): { required: string[]; optional: string[] } {
+  const required: string[] = [];
+  const optional: string[] = [];
+
+  for (const [name, prop] of Object.entries(properties)) {
+    if (name === 'action') continue;
+    const desc = String(prop.description || '').toLowerCase();
+
+    const hasOnlyMarker = desc.match(/\(([^)]+)\s+only\)/i);
+    const hasRequiredForMarker = desc.match(/\(required for:\s*([^)]+)\)/i);
+    const hasActionListMarker = desc.match(/\(([a-z_]+(?:,\s*[a-z_]+)+)\)$/i);
+
+    const isForThisAction =
+      (hasOnlyMarker && actionListContains(hasOnlyMarker[1], action)) ||
+      (hasRequiredForMarker && actionListContains(hasRequiredForMarker[1], action)) ||
+      (hasActionListMarker && actionListContains(hasActionListMarker[1], action));
+
+    const hasAnyActionMarker = hasOnlyMarker || hasRequiredForMarker || hasActionListMarker;
+
+    if (isForThisAction) {
+      if (hasOnlyMarker || hasRequiredForMarker) {
+        required.push(name);
+      } else {
+        optional.push(name);
+      }
+    } else if (!hasAnyActionMarker) {
+      continue;
+    }
+  }
+
+  return { required, optional };
+}
+
+function generateActionDocs(schema: Record<string, unknown>): string {
+  const actions = getActionsFromSchema(schema);
+  if (actions.length === 0) return '';
+
+  const properties = schema.properties as Record<string, Record<string, unknown>>;
+
+  let md = '### Actions\n\n';
+
+  for (const action of actions) {
+    const { required, optional } = getActionSpecificParams(properties, action);
+
+    if (required.length === 0 && optional.length === 0) {
+      md += `#### \`${action}\`\n\n`;
+      continue;
+    }
+
+    md += `#### \`${action}\`\n\n`;
+
+    const parts: string[] = [];
+    if (required.length > 0) {
+      parts.push(...required.map(p => `\`${p}\`*`));
+    }
+    if (optional.length > 0) {
+      parts.push(...optional.map(p => `\`${p}\``));
+    }
+
+    if (parts.length > 0) {
+      md += `Parameters: ${parts.join(', ')}\n\n`;
+    }
+  }
+
+  return md;
+}
+
+function generateExample(tool: AnyToolDefinition, schema: Record<string, unknown>): string {
+  const actions = getActionsFromSchema(schema);
+  if (actions.length === 0) return '';
+
+  const properties = schema.properties as Record<string, Record<string, unknown>>;
+  const required = (schema.required as string[]) || [];
+
+  let md = '### Examples\n\n';
+
+  const examplesToShow = actions.slice(0, 3);
+
+  for (const action of examplesToShow) {
+    const example: Record<string, unknown> = { action };
+    const addedParams = new Set<string>();
+
+    for (const [name, prop] of Object.entries(properties)) {
+      if (name === 'action') continue;
+      const desc = String(prop.description || '').toLowerCase();
+
+      const isSchemaRequired = required.includes(name);
+      const isActionRequired =
+        desc.includes(`${action} only`) ||
+        (desc.includes('required for:') && desc.includes(action));
+
+      if (isSchemaRequired || isActionRequired) {
+        if (desc.includes('use this or')) {
+          const match = desc.match(/use this or\s+(\w+)/i);
+          if (match && addedParams.has(match[1])) {
+            continue;
+          }
+        }
+        example[name] = getExampleValue(name, prop);
+        addedParams.add(name);
+      }
+    }
+
+    md += `\`\`\`json\n// ${action}\n${JSON.stringify(example, null, 2)}\n\`\`\`\n\n`;
+  }
+
+  if (actions.length > 3) {
+    md += `*${actions.length - 3} more actions available: ${actions.slice(3).map(a => `\`${a}\``).join(', ')}*\n\n`;
+  }
+
+  return md;
+}
+
+function getExampleValue(name: string, prop: Record<string, unknown>): unknown {
+  if (prop.enum) {
+    const values = prop.enum as string[];
+    return values[0];
+  }
+
+  const exampleValues: Record<string, unknown> = {
+    node_path: '/root/Main/Player',
+    parent_path: '/root/Main',
+    new_parent_path: '/root/UI',
+    scene_path: 'res://scenes/enemy.tscn',
+    script_path: 'res://scripts/player.gd',
+    resource_path: 'res://resources/spriteframes.tres',
+    animation_name: 'idle',
+    node_name: 'NewNode',
+    node_type: 'Sprite2D',
+    name_pattern: '*Enemy*',
+    type: 'CharacterBody2D',
+    root_path: '/root/Main',
+    layer_index: 0,
+    track_index: 0,
+    time: 0.5,
+    seconds: 1.0,
+    length: 2.0,
+    max_depth: 1,
+    x: 0,
+    y: 0,
+    value: 1,
+  };
+
+  if (name in exampleValues) {
+    return exampleValues[name];
+  }
+
+  switch (prop.type) {
+    case 'string':
+      return 'example';
+    case 'number':
+      return 0;
+    case 'boolean':
+      return false;
+    case 'object':
+      return {};
+    case 'array':
+      return [];
+    default:
+      return null;
+  }
+}
+
+function generateUnionActionDocs(variants: ActionVariant[]): string {
+  let md = '### Actions\n\n';
+
+  for (const variant of variants) {
+    md += `#### \`${variant.action}\`\n\n`;
+
+    // The richest per-action copy lives on the action literal's `.describe()`;
+    // surface it under the heading instead of leaving the section bare (#287).
+    const actionDesc = String(variant.properties.action?.description ?? '').trim();
+    if (actionDesc) md += `${actionDesc}\n\n`;
+
+    const paramNames = Object.keys(variant.properties).filter((n) => n !== 'action');
+
+    if (paramNames.length === 0) {
+      md += '*No parameters.*\n\n';
+      continue;
+    }
+
+    md += '| Parameter | Type | Required | Description |\n';
+    md += '|-----------|------|----------|-------------|\n';
+    for (const name of paramNames) {
+      const prop = variant.properties[name];
+      const typeStr = getTypeString(prop);
+      const reqStr = variant.required.includes(name) ? 'Yes' : 'No';
+      const desc = escapeMarkdown(String(prop.description || ''));
+      md += `| \`${name}\` | ${typeStr} | ${reqStr} | ${desc} |\n`;
+    }
+    md += '\n';
+  }
+
+  return md;
+}
+
+function generateUnionExamples(variants: ActionVariant[], toolSchema: z.ZodType, toolName: string): string {
+  let md = '### Examples\n\n';
+
+  for (const variant of variants.slice(0, 3)) {
+    const example = buildVariantExample(variant, toolSchema, toolName);
+    md += `\`\`\`json\n// ${variant.action}\n${JSON.stringify(example, null, 2)}\n\`\`\`\n\n`;
+  }
+
+  if (variants.length > 3) {
+    md += `*${variants.length - 3} more actions available: ${variants.slice(3).map((v) => `\`${v.action}\``).join(', ')}*\n\n`;
+  }
+
+  return md;
+}
+
+function generateToolMarkdown(tool: AnyToolDefinition): string {
+  let md = `## ${tool.name}\n\n`;
+  md += `${tool.description}\n\n`;
+
+  // Detect action unions from the raw (un-flattened) schema; toInputSchema would
+  // have collapsed the oneOf, hiding per-action required fields + descriptions.
+  const variants = getActionVariants(rawJsonSchema(tool));
+  if (variants) {
+    md += generateUnionActionDocs(variants);
+    md += generateUnionExamples(variants, tool.schema, tool.name);
+    return md;
+  }
+
+  const schema = toInputSchema(tool.schema);
+  md += `### Parameters\n\n`;
+  md += generateParamsTable(schema);
+  md += '\n';
+  md += generateActionDocs(schema);
+  md += generateExample(tool, schema);
+  return md;
+}
+
+function generateCategoryFile(category: ToolCategory): string {
+  let md = `# ${category.name} Tools\n\n`;
+  md += `${category.description}\n\n`;
+  md += `## Tools\n\n`;
+
+  for (const tool of category.tools) {
+    md += `- [${tool.name}](#${tool.name.replace(/_/g, '_')})\n`;
+  }
+
+  md += '\n---\n\n';
+
+  for (const tool of category.tools) {
+    md += generateToolMarkdown(tool);
+    md += '---\n\n';
+  }
+
+  return md;
+}
+
+function generateToolsIndex(): string {
+  let md = `# Tools Reference\n\n`;
+  md += `This documentation is auto-generated from the tool definitions.\n\n`;
+
+  for (const category of categories) {
+    md += `## [${category.name}](${category.filename}.md)\n\n`;
+    md += `${category.description}\n\n`;
+    for (const tool of category.tools) {
+      md += `- \`${tool.name}\` - ${tool.description}\n`;
+    }
+    md += '\n';
+  }
+
+  return md;
+}
+
+function generateMainReadme(): string {
+  const totalTools = categories.reduce((sum, cat) => sum + cat.tools.length, 0);
+
+  return `# godot-mcp Documentation
+
+MCP (Model Context Protocol) server for Godot Engine integration.
+
+## Overview
+
+This server provides **${totalTools} tools** for AI-assisted Godot development.
+
+## Quick Links
+
+- [Claude Code Setup Guide](claude-code-setup.md) - Configure your project for AI-assisted development
+- [Tools Reference](tools/README.md) - All available MCP tools
+- [Architecture Guide](architecture.md) - How the server, addon, and game bridge fit together
+- [Troubleshooting](troubleshooting.md) - Connection checklist, CLI smoke test, common fixes
+
+## Tool Categories
+
+| Category | Tools | Description |
+|----------|-------|-------------|
+${categories.map(c => `| [${c.name}](tools/${c.filename}.md) | ${c.tools.length} | ${c.description} |`).join('\n')}
+
+## Installation
+
+Add to your MCP configuration:
+
+\`\`\`json
+{
+  "mcpServers": {
+    "godot-mcp": {
+      "command": "npx",
+      "args": ["-y", "@satelliteoflove/godot-mcp"]
+    }
+  }
+}
+\`\`\`
+
+## Requirements
+
+- Godot 4.5+ (required for Logger class)
+- godot-mcp addon installed and enabled in your Godot project
+
+---
+
+*This documentation is auto-generated from tool definitions.*
+`;
+}
+
+function generateNpmReadme(): string {
+  const rootReadme = readFileSync(ROOT_README, 'utf-8');
+  const blobBase = 'https://github.com/satelliteoflove/godot-mcp/blob/main/';
+  const rawBase = 'https://raw.githubusercontent.com/satelliteoflove/godot-mcp/main/';
+
+  // npmjs.com resolves relative links against the repo root, not server/, so
+  // every relative link must become an absolute GitHub URL. Images need raw
+  // URLs (a blob URL is an HTML page and will not render as an image).
+  return rootReadme.replace(
+    /(!?)\[([^\]]*)\]\((?!https?:\/\/|#)([^)\s]+)\)/g,
+    (_match, bang: string, text: string, path: string) => {
+      const isImage = bang === '!' || /\.(png|jpe?g|gif|svg|webp)(#|$)/i.test(path);
+      return `${bang}[${text}](${isImage ? rawBase : blobBase}${path})`;
+    },
+  );
+}
+
+
+function main(): void {
+  console.log('Generating documentation...');
+
+  ensureDir(DOCS_DIR);
+  ensureDir(TOOLS_DIR);
+
+  cleanupOldDocs();
+
+  writeFileSync(join(DOCS_DIR, 'README.md'), generateMainReadme());
+  console.log('  Created docs/README.md');
+
+  writeFileSync(join(TOOLS_DIR, 'README.md'), generateToolsIndex());
+  console.log('  Created docs/tools/README.md');
+
+  for (const category of categories) {
+    const content = generateCategoryFile(category);
+    writeFileSync(join(TOOLS_DIR, `${category.filename}.md`), content);
+    console.log(`  Created docs/tools/${category.filename}.md`);
+  }
+
+  writeFileSync(NPM_README, generateNpmReadme());
+  console.log('  Created server/README.md (synced from root with adjusted paths)');
+
+  console.log(`\nGenerated documentation for ${categories.reduce((sum, c) => sum + c.tools.length, 0)} tools.`);
+}
+
+// Only write files when run as a script (tsx scripts/generate-docs.ts); stay
+// inert when imported by tests so the doc-generation helpers can be unit-tested.
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
+  main();
+}

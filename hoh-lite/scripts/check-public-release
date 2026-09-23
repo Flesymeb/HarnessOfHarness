@@ -1,0 +1,56 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+cd "$ROOT"
+
+failed=0
+fail() {
+  echo "release check failed: $*" >&2
+  failed=1
+}
+
+[[ -f LICENSE ]] || fail "top-level LICENSE is missing"
+
+if [[ -n "$(git ls-files -- tests docs)" ]]; then
+  fail "development tests or docs are tracked in the public checkout"
+fi
+
+if [[ -n "$(git status --porcelain)" ]]; then
+  fail "working tree is not clean"
+fi
+
+# Check every reachable public commit. Branding and maintenance commits are
+# allowed, but an earlier commit must not retain material removed at HEAD.
+# Keep generic examples such as /absolute/path/to in the documentation.
+machine_path_pattern="/home/"'[A-Za-z0-9._-]+'"|/mnt"'/data'
+credential_pattern='(^|[ =])((sk|rk|pk)-[A-Za-z0-9_-]{20,}|AKIA[0-9A-Z]{16})($|[ ])'
+forbidden_path_pattern='(^|/)(runs|jobs|logs|workdirs|task_sets|node_modules|dist|build|experiments|local)/'
+forbidden_path_pattern+='|(^|/)(\.env|auth\.json)$|\.local\.(py|sh|json|ya?ml)$'
+for commit in $(git rev-list HEAD); do
+  paths="$(git ls-tree -r --name-only "$commit")"
+  if rg -q "$forbidden_path_pattern" <<< "$paths"; then
+    fail "forbidden runtime path is reachable in commit $commit"
+  fi
+  if git grep -q -I -E "$machine_path_pattern" "$commit" -- .; then
+    fail "machine-specific path is reachable in commit $commit"
+  fi
+  if git grep -q -I -E "$credential_pattern" "$commit" -- .; then
+    fail "credential-looking literal is reachable in commit $commit"
+  fi
+done
+
+python3 - <<'PY' || failed=1
+import pathlib
+import tomllib
+
+project = tomllib.loads(pathlib.Path("pyproject.toml").read_text())
+if not project.get("project", {}).get("license"):
+    raise SystemExit("release check failed: project.license metadata is missing")
+PY
+
+if [[ "$failed" -ne 0 ]]; then
+  exit 1
+fi
+
+echo "public release source/history checks passed"

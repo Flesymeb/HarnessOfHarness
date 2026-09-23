@@ -1,0 +1,1 @@
+../src/gameloop/resources/run_gamecraft_deepseek_harness_v4_flash_standard.sh

@@ -1,0 +1,410 @@
+import { describe, it, expect, beforeEach } from 'vitest';
+import { createMockGodot, createToolContext, MockGodotConnection, structuredOf } from '../helpers/mock-godot.js';
+import { gameTime } from '../../tools/game-time.js';
+import { deriveTimeouts } from '../../connection/timeouts.js';
+
+describe('game_time tool', () => {
+  let mock: MockGodotConnection;
+
+  beforeEach(() => {
+    mock = createMockGodot();
+  });
+
+  describe('schema validation', () => {
+    it('step requires exactly one of duration_ms or frames', () => {
+      expect(gameTime.schema.safeParse({ action: 'step' }).success).toBe(false);
+      expect(gameTime.schema.safeParse({ action: 'step', duration_ms: 500, frames: 10 }).success).toBe(false);
+      expect(gameTime.schema.safeParse({ action: 'step', duration_ms: 500 }).success).toBe(true);
+      expect(gameTime.schema.safeParse({ action: 'step', frames: 1 }).success).toBe(true);
+    });
+
+    it('step enforces the published caps', () => {
+      expect(gameTime.schema.safeParse({ action: 'step', duration_ms: 50000 }).success).toBe(true);
+      expect(gameTime.schema.safeParse({ action: 'step', duration_ms: 50001 }).success).toBe(false);
+      expect(gameTime.schema.safeParse({ action: 'step', frames: 1200 }).success).toBe(true);
+      expect(gameTime.schema.safeParse({ action: 'step', frames: 1201 }).success).toBe(false);
+      expect(gameTime.schema.safeParse({ action: 'step', duration_ms: 0 }).success).toBe(false);
+    });
+
+    it('step accepts an input timeline', () => {
+      expect(gameTime.schema.safeParse({
+        action: 'step',
+        duration_ms: 500,
+        inputs: [{ action_name: 'fire', start_ms: 100, duration_ms: 200 }],
+      }).success).toBe(true);
+    });
+
+    it('step_until requires a non-empty until expression', () => {
+      expect(gameTime.schema.safeParse({ action: 'step_until' }).success).toBe(false);
+      expect(gameTime.schema.safeParse({ action: 'step_until', until: '' }).success).toBe(false);
+      expect(gameTime.schema.safeParse({ action: 'step_until', until: 'G.wave > 1' }).success).toBe(true);
+    });
+
+    it('step_until caps max_ms and accepts report expressions and an input timeline', () => {
+      expect(gameTime.schema.safeParse({ action: 'step_until', until: 'true', max_ms: 50000 }).success).toBe(true);
+      expect(gameTime.schema.safeParse({ action: 'step_until', until: 'true', max_ms: 50001 }).success).toBe(false);
+      expect(gameTime.schema.safeParse({ action: 'step_until', until: 'true', max_ms: 0 }).success).toBe(false);
+      expect(gameTime.schema.safeParse({ action: 'step_until', until: 'true', report: ['G.wave', 'G.score'] }).success).toBe(true);
+      expect(gameTime.schema.safeParse({ action: 'step_until', until: 'true', report: [''] }).success).toBe(false);
+      expect(gameTime.schema.safeParse({
+        action: 'step_until',
+        until: 'true',
+        inputs: [{ action_name: 'move_up', start_ms: 0, duration_ms: 500 }],
+      }).success).toBe(true);
+    });
+
+    it('freeze, thaw, and status take no extra arguments', () => {
+      expect(gameTime.schema.safeParse({ action: 'freeze' }).success).toBe(true);
+      expect(gameTime.schema.safeParse({ action: 'thaw' }).success).toBe(true);
+      expect(gameTime.schema.safeParse({ action: 'status' }).success).toBe(true);
+    });
+  });
+
+  describe('freeze', () => {
+    it('reports a fresh freeze', async () => {
+      mock.mockResponse({ frozen: true, was_frozen: false, game_paused: false });
+      const ctx = createToolContext(mock);
+
+      const result = await gameTime.execute({ action: 'freeze' }, ctx);
+      expect(result).toContain('Frozen');
+      expect(result).not.toContain('already frozen');
+      expect(mock.calls[0].command).toBe('game_time_freeze');
+    });
+
+    it('notes idempotent re-freeze and an open pause menu', async () => {
+      mock.mockResponse({ frozen: true, was_frozen: true, game_paused: true });
+      const ctx = createToolContext(mock);
+
+      const result = await gameTime.execute({ action: 'freeze' }, ctx);
+      expect(result).toContain('already frozen');
+      expect(result).toContain('pause menu is open');
+    });
+  });
+
+  describe('step', () => {
+    it('forwards window parameters and inputs, returns structured result', async () => {
+      mock.mockResponse({
+        completed: true,
+        frozen: true,
+        elapsed_ms: 517,
+        gameplay_ms: 517,
+        frames: 31,
+        physics_ticks: 31,
+        game_paused: false,
+        events_fired: 2,
+      });
+      const ctx = createToolContext(mock);
+
+      const result = await gameTime.execute({
+        action: 'step',
+        duration_ms: 500,
+        inputs: [{ action_name: 'fire', start_ms: 0, duration_ms: 100 }],
+      }, ctx);
+
+      expect(mock.calls[0].command).toBe('game_time_step');
+      expect(mock.calls[0].params.duration_ms).toBe(500);
+      expect(mock.calls[0].params.inputs).toHaveLength(1);
+      const data = structuredOf(result);
+      expect(data.elapsed_ms).toBe(517);
+      expect(data.events_fired).toBe(2);
+    });
+
+    it('surfaces pause transitions from the game layer', async () => {
+      mock.mockResponse({
+        completed: true,
+        frozen: true,
+        elapsed_ms: 500,
+        gameplay_ms: 120,
+        frames: 30,
+        physics_ticks: 7,
+        game_paused: true,
+        pause_transitions: [{ at_ms: 120, paused: true }],
+      });
+      const ctx = createToolContext(mock);
+
+      const result = await gameTime.execute({ action: 'step', duration_ms: 500 }, ctx);
+      const data = structuredOf(result);
+      expect(data.pause_transitions).toHaveLength(1);
+      expect(data.game_paused).toBe(true);
+      expect(data.gameplay_ms).toBe(120);
+    });
+
+    it('accepts joypad entries, compiles stick sugar onto the wire, and surfaces input_kinds (#233)', async () => {
+      mock.mockResponse({
+        completed: true, frozen: true, elapsed_ms: 500, gameplay_ms: 500,
+        frames: 30, physics_ticks: 30, game_paused: false, events_fired: 6,
+        input_kinds: { action: 0, joy_button: 1, axis: 2 },
+      });
+      const ctx = createToolContext(mock);
+
+      const result = await gameTime.execute({
+        action: 'step',
+        duration_ms: 500,
+        inputs: [
+          { stick: 'left', x: 0.5, y: -0.5, device: 0, start_ms: 0, duration_ms: 400 },
+          { joy_button: 'a', device: 0, start_ms: 200, duration_ms: 50 },
+        ],
+      }, ctx);
+
+      expect(mock.calls[0].params.inputs).toEqual([
+        { axis: 'left_x', value: 0.5, device: 0, start_ms: 0, duration_ms: 400 },
+        { axis: 'left_y', value: -0.5, device: 0, start_ms: 0, duration_ms: 400 },
+        // Non-stick entries pass through verbatim.
+        { joy_button: 'a', device: 0, start_ms: 200, duration_ms: 50 },
+      ]);
+      const data = structuredOf(result);
+      expect(data.input_kinds).toEqual({ action: 0, joy_button: 1, axis: 2 });
+      // Stable shape (#198 precedent): warnings is always an array, empty here.
+      expect(data.warnings).toEqual([]);
+    });
+
+    it('warns in the structured result when joypad entries hit an old addon (no input_kinds) (#233)', async () => {
+      mock.mockResponse({
+        completed: true, frozen: true, elapsed_ms: 500, gameplay_ms: 500,
+        frames: 30, physics_ticks: 30, game_paused: false,
+      });
+      const ctx = createToolContext(mock);
+
+      const result = await gameTime.execute({
+        action: 'step',
+        duration_ms: 500,
+        inputs: [{ axis: 'left_x', value: 1, device: 0, start_ms: 0, duration_ms: 200 }],
+      }, ctx);
+
+      const data = structuredOf(result);
+      expect(data.warnings).toHaveLength(1);
+      expect((data.warnings as string[])[0]).toContain('predates controller injection');
+    });
+
+    it('accepts raw key entries, passes them through verbatim, and surfaces a key count (#290)', async () => {
+      mock.mockResponse({
+        completed: true, frozen: true, elapsed_ms: 500, gameplay_ms: 500,
+        frames: 30, physics_ticks: 30, game_paused: false, events_fired: 2,
+        input_kinds: { action: 0, joy_button: 0, axis: 0, key: 1 },
+      });
+      const ctx = createToolContext(mock);
+
+      const result = await gameTime.execute({
+        action: 'step',
+        duration_ms: 500,
+        inputs: [{ key: 'ctrl+s', start_ms: 100, duration_ms: 50 }],
+      }, ctx);
+
+      expect(mock.calls[0].params.inputs).toEqual([
+        { key: 'ctrl+s', start_ms: 100, duration_ms: 50 },
+      ]);
+      const data = structuredOf(result);
+      expect(data.input_kinds).toEqual({ action: 0, joy_button: 0, axis: 0, key: 1 });
+      expect(data.warnings).toEqual([]);
+    });
+
+    it('warns in the structured result when key entries hit a bridge with no key count (#290)', async () => {
+      mock.mockResponse({
+        completed: true, frozen: true, elapsed_ms: 500, gameplay_ms: 500,
+        frames: 30, physics_ticks: 30, game_paused: false,
+        input_kinds: { action: 0, joy_button: 0, axis: 0 },
+      });
+      const ctx = createToolContext(mock);
+
+      const result = await gameTime.execute({
+        action: 'step',
+        duration_ms: 500,
+        inputs: [{ key: 'escape', start_ms: 0, duration_ms: 50 }],
+      }, ctx);
+
+      const data = structuredOf(result);
+      expect(data.warnings).toHaveLength(1);
+      expect((data.warnings as string[])[0]).toContain('predates raw-key injection');
+    });
+
+    it('accepts look entries, passes them through verbatim, and surfaces a look count (#294)', async () => {
+      mock.mockResponse({
+        completed: true, frozen: true, elapsed_ms: 500, gameplay_ms: 500,
+        frames: 30, physics_ticks: 30, game_paused: false, events_fired: 5,
+        input_kinds: { action: 0, joy_button: 0, axis: 0, key: 0, look: 1 },
+      });
+      const ctx = createToolContext(mock);
+
+      const result = await gameTime.execute({
+        action: 'step',
+        duration_ms: 500,
+        inputs: [{ look: [200, 0], start_ms: 0, duration_ms: 80 }],
+      }, ctx);
+
+      expect(mock.calls[0].params.inputs).toEqual([
+        { look: [200, 0], start_ms: 0, duration_ms: 80 },
+      ]);
+      const data = structuredOf(result);
+      expect(data.input_kinds).toEqual({ action: 0, joy_button: 0, axis: 0, key: 0, look: 1 });
+      expect(data.warnings).toEqual([]);
+    });
+
+    it('warns in the structured result when look entries hit a bridge with no look count (#294)', async () => {
+      mock.mockResponse({
+        completed: true, frozen: true, elapsed_ms: 500, gameplay_ms: 500,
+        frames: 30, physics_ticks: 30, game_paused: false,
+        input_kinds: { action: 0, joy_button: 0, axis: 0, key: 0 },
+      });
+      const ctx = createToolContext(mock);
+
+      const result = await gameTime.execute({
+        action: 'step',
+        duration_ms: 500,
+        inputs: [{ look: [100, 0], start_ms: 0, duration_ms: 50 }],
+      }, ctx);
+
+      const data = structuredOf(result);
+      expect(data.warnings).toHaveLength(1);
+      expect((data.warnings as string[])[0]).toContain('predates mouse-look injection');
+    });
+
+    it('derives the per-request timeout and pushes the relay/wall budgets to the bridge (#276)', async () => {
+      mock.mockResponse({
+        completed: true, frozen: true, elapsed_ms: 500, gameplay_ms: 500,
+        frames: 30, physics_ticks: 30, game_paused: false,
+      });
+      const ctx = createToolContext(mock);
+
+      await gameTime.execute({ action: 'step', duration_ms: 500 }, ctx);
+      const call = mock.calls[0];
+      const t = deriveTimeouts(500); // game_time has no ready-wait
+      expect(call.params.wall_budget_ms).toBe(t.bridgeWallMs);
+      expect(call.params.relay_timeout_ms).toBe(t.relayMs);
+      expect(call.opts?.timeoutMs).toBe(t.serverMs);
+    });
+  });
+
+  describe('step_until', () => {
+    it('forwards the predicate and report, and surfaces a met result with its readings', async () => {
+      mock.mockResponse({
+        completed: true,
+        frozen: true,
+        elapsed_ms: 4317,
+        gameplay_ms: 4317,
+        frames: 259,
+        physics_ticks: 259,
+        game_paused: false,
+        predicate_met: true,
+        report: { 'G.wave': 1 },
+      });
+      const ctx = createToolContext(mock);
+
+      const result = await gameTime.execute({
+        action: 'step_until',
+        until: 'tree.get_nodes_in_group("enemies").size() >= 1',
+        max_ms: 8000,
+        report: ['G.wave'],
+      }, ctx);
+
+      expect(mock.calls[0].command).toBe('game_time_step_until');
+      expect(mock.calls[0].params.until).toBe('tree.get_nodes_in_group("enemies").size() >= 1');
+      expect(mock.calls[0].params.max_ms).toBe(8000);
+      expect(mock.calls[0].params.report).toEqual(['G.wave']);
+      const data = structuredOf(result);
+      expect(data.predicate_met).toBe(true);
+      expect(data.report).toEqual({ 'G.wave': 1 });
+      expect(data.elapsed_ms).toBe(4317);
+    });
+
+    it('reports predicate_met false when the cap is hit first', async () => {
+      mock.mockResponse({
+        completed: true,
+        frozen: true,
+        elapsed_ms: 8000,
+        gameplay_ms: 8000,
+        frames: 480,
+        physics_ticks: 480,
+        game_paused: false,
+        predicate_met: false,
+        report: { 'G.wave': 3 },
+      });
+      const ctx = createToolContext(mock);
+
+      const result = await gameTime.execute({ action: 'step_until', until: 'G.wave > 5', max_ms: 8000, report: ['G.wave'] }, ctx);
+      const data = structuredOf(result);
+      expect(data.predicate_met).toBe(false);
+      expect(data.report).toEqual({ 'G.wave': 3 });
+    });
+
+    it('propagates a bridge-side predicate rejection', async () => {
+      mock.mockError(new Error('predicate failed to evaluate: Invalid named index'));
+      const ctx = createToolContext(mock);
+
+      await expect(
+        gameTime.execute({ action: 'step_until', until: 'Bogus.foo > 1' }, ctx),
+      ).rejects.toThrow('predicate failed to evaluate');
+    });
+
+    it('sizes the timeout from max_ms and pushes the derived budgets (#276)', async () => {
+      mock.mockResponse({
+        completed: true, frozen: true, elapsed_ms: 0, gameplay_ms: 0,
+        frames: 0, physics_ticks: 0, game_paused: false, predicate_met: true,
+      });
+      const ctx = createToolContext(mock);
+
+      await gameTime.execute({ action: 'step_until', until: 'true', max_ms: 8000 }, ctx);
+      const call = mock.calls[0];
+      const t = deriveTimeouts(8000); // budget = explicit max_ms, no ready-wait
+      expect(call.params.max_ms).toBe(8000);
+      expect(call.params.wall_budget_ms).toBe(t.bridgeWallMs);
+      expect(call.params.relay_timeout_ms).toBe(t.relayMs);
+      expect(call.opts?.timeoutMs).toBe(t.serverMs);
+    });
+
+    it('defaults max_ms to a modest 20s, decoupled from the 50s cap, when omitted (#276)', async () => {
+      mock.mockResponse({
+        completed: true, frozen: true, elapsed_ms: 20000, gameplay_ms: 20000,
+        frames: 1200, physics_ticks: 1200, game_paused: false, predicate_met: false,
+      });
+      const ctx = createToolContext(mock);
+
+      await gameTime.execute({ action: 'step_until', until: 'false' }, ctx);
+      const call = mock.calls[0];
+      // Omitted max_ms must not inherit the 50s cap: a wrong predicate gives up in ~20s.
+      expect(call.params.max_ms).toBe(20000);
+      expect(call.opts?.timeoutMs).toBe(deriveTimeouts(20000).serverMs);
+    });
+  });
+
+  describe('thaw', () => {
+    it('reports the frozen duration', async () => {
+      mock.mockResponse({ frozen: false, was_frozen: true, game_paused: false, frozen_wall_ms: 42000 });
+      const ctx = createToolContext(mock);
+
+      const result = await gameTime.execute({ action: 'thaw' }, ctx);
+      expect(result).toContain('42000ms');
+      expect(mock.calls[0].command).toBe('game_time_thaw');
+    });
+
+    it('is idempotent when not frozen', async () => {
+      mock.mockResponse({ frozen: false, was_frozen: false, game_paused: false });
+      const ctx = createToolContext(mock);
+
+      const result = await gameTime.execute({ action: 'thaw' }, ctx);
+      expect(result).toContain('Was not frozen');
+    });
+  });
+
+  describe('status', () => {
+    it('returns the structured freeze state', async () => {
+      mock.mockResponse({
+        frozen: true,
+        game_paused: false,
+        tree_paused: true,
+        engine_time_scale: 1.0,
+        physics_ticks_per_second: 60,
+        frozen_wall_ms: 12345,
+        freeze_transitions: 0,
+        launched_frozen: true,
+      });
+      const ctx = createToolContext(mock);
+
+      const result = await gameTime.execute({ action: 'status' }, ctx);
+      expect(mock.calls[0].command).toBe('game_time_status');
+      const data = structuredOf(result);
+      expect(data.frozen).toBe(true);
+      expect(data.frozen_wall_ms).toBe(12345);
+      expect(data.launched_frozen).toBe(true);
+    });
+  });
+});

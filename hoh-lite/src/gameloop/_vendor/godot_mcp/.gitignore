@@ -1,0 +1,53 @@
+# Dependencies
+node_modules/
+
+# Build output
+server/dist/
+server/addon/
+server/src/*.js
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Godot test project
+godot/*
+!godot/addons/
+godot/addons/*
+!godot/addons/godot_mcp/
+!godot/addons/godot_mcp/**
+godot/.editorconfig
+
+# Godot
+.godot/
+*.import
+# Ignore .uid files in the throwaway test project, but TRACK the ones inside
+# the distributed addon: Godot expects plugin authors to ship script .uid
+# sidecars so the addon's resource identity is stable across machines (a
+# missing sidecar makes any uid:// reference to an addon script fall back to
+# path with a load warning). See Godot VCS docs / 4.4 release notes.
+*.uid
+!godot/addons/godot_mcp/**/*.uid
+
+# Environment
+.env
+.env.local
+
+# Logs
+*.log
+npm-debug.log*
+
+# Test coverage
+coverage/
+
+# AI assistant working files
+ai/
+.copilot/
+CLAUDE.md
+*.backup

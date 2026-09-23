@@ -1,0 +1,17 @@
+{
+  "schema_version": 2,
+  "id": "satelliteoflove-godot-mcp",
+  "source": "https://github.com/satelliteoflove/godot-mcp",
+  "commit": "15794ee995188b2a850a73e16ed568e7414f2d04",
+  "server_version": "4.1.0",
+  "license": "MIT",
+  "checkout": "godot_mcp",
+  "vendored_source": {
+    "sha256": "db8bc5c35e2b064b798f03b52c18aac0b471df2a1af9b5a9189f069d8eb31730",
+    "file_count": 266
+  },
+  "overlay": {
+    "path": "godot-mcp-gameloop.patch",
+    "sha256": "bc858754d8a9b159b4120093c80e1312d9b159eaa2ae26fe3e7ae8f1bab12f5c"
+  }
+}

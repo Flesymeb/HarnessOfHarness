@@ -1,0 +1,17 @@
+{
+  "task": null,
+  "experiment_id": "dsh-minimal-deepseek-v4-flash",
+  "harness": "deepseek-harness",
+  "model": "deepseek-v4-flash",
+  "attempts": 3,
+  "roles": {
+    "developer": {"tools": {"godot_mcp": "disabled"}},
+    "tester": {"tools": {"godot_mcp": "disabled"}}
+  },
+  "planner_mode": "harness",
+  "llm_tester": true,
+  "tester_policy": "repair-then-next",
+  "external_verifier": true,
+  "warm_start_latest": true,
+  "require_developer_mcp_coverage": false
+}

@@ -1,0 +1,1 @@
+../src/gameloop/resources/run_gamecraft_opencode_bailian_deepseek_v4_pro.sh

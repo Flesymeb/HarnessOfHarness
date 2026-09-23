@@ -1,0 +1,34 @@
+{
+  "name": "godot_profiler",
+  "description": "Profile a running game; every action errors if no game is playing. Use snapshot for one-shot engine metrics, or start → get_data for a per-frame time series with percentile stats, frame-budget usage, spike detection, and monitor trends. get_active_processes lists scripts with live _process/_physics_process callbacks (useful for finding per-frame cost sources); get_signal_connections maps signal wiring. For observing game state rather than performance, use godot_runtime_state.",
+  "inputSchema": {
+    "type": "object",
+    "properties": {
+      "action": {
+        "type": "string",
+        "enum": [
+          "snapshot",
+          "start",
+          "stop",
+          "get_data",
+          "get_active_processes",
+          "get_signal_connections"
+        ],
+        "description": "snapshot: Full performance snapshot (all engine metrics)\nstart: Start per-frame time-series profiling\nstop: Stop time-series profiling\nget_data: Get collected time-series data with spike detection\nget_active_processes: List active _process/_physics_process scripts\nget_signal_connections: Inspect signal connections"
+      },
+      "node_path": {
+        "description": "Node path (defaults to scene root) (for: get_signal_connections)",
+        "type": "string"
+      }
+    },
+    "required": [
+      "action"
+    ]
+  },
+  "annotations": {
+    "title": "Profiler",
+    "readOnlyHint": true,
+    "destructiveHint": false,
+    "openWorldHint": false
+  }
+}

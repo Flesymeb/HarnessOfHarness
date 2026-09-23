@@ -1,0 +1,1 @@
+../src/gameloop/resources/run_gamecraft_pi_minimax_m3.sh

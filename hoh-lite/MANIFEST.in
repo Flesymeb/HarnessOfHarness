@@ -1,0 +1,15 @@
+include README.md
+include .env.example
+include CONTRIBUTING.md
+include SECURITY.md
+include THIRD_PARTY_NOTICES.md
+include scripts/check-public-release
+include scripts/sync-assets
+recursive-include configs *.json
+global-exclude *.local.*
+global-exclude *.pem *.key *.crt auth.json
+prune experiments
+prune local
+prune scripts/local
+prune tests
+prune docs

@@ -1,0 +1,153 @@
+name: Release
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      force_publish:
+        description: 'Force publish to npm (skip release-please check)'
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  release-please:
+    runs-on: ubuntu-latest
+    outputs:
+      release_created: ${{ steps.release.outputs.release_created }}
+      tag_name: ${{ steps.release.outputs.tag_name }}
+      version: ${{ steps.release.outputs.version }}
+    steps:
+      - uses: googleapis/release-please-action@v5
+        id: release
+        with:
+          config-file: .github/release-please-config.json
+          manifest-file: .github/release-please-manifest.json
+
+  update-docs:
+    needs: release-please
+    if: ${{ !needs.release-please.outputs.release_created }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: read
+    steps:
+      - name: Check for open release PR
+        id: check-pr
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          PR_BRANCH=$(gh pr list --repo ${{ github.repository }} --head "release-please--branches--main--components--godot-mcp" --json headRefName --jq '.[0].headRefName // empty')
+          echo "branch=$PR_BRANCH" >> $GITHUB_OUTPUT
+      - uses: actions/checkout@v7
+        if: ${{ steps.check-pr.outputs.branch }}
+        with:
+          ref: ${{ steps.check-pr.outputs.branch }}
+      - uses: actions/setup-node@v7
+        if: ${{ steps.check-pr.outputs.branch }}
+        with:
+          node-version: '22'
+      - name: Sync package-lock version after release-please bump
+        if: ${{ steps.check-pr.outputs.branch }}
+        run: npm install --package-lock-only
+        working-directory: server
+      - run: npm ci
+        if: ${{ steps.check-pr.outputs.branch }}
+        working-directory: server
+      - run: npm run generate-docs
+        if: ${{ steps.check-pr.outputs.branch }}
+        working-directory: server
+      - name: Sync version to Godot addon
+        if: ${{ steps.check-pr.outputs.branch }}
+        run: |
+          VERSION=$(node -p "require('./server/package.json').version")
+          sed -i "s/^version=.*/version=\"$VERSION\"/" godot/addons/godot_mcp/plugin.cfg
+      - name: Commit docs if changed
+        if: ${{ steps.check-pr.outputs.branch }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add docs/ README.md server/README.md server/package-lock.json godot/addons/godot_mcp/plugin.cfg
+          git diff --staged --quiet || git commit -m "chore: auto-generate docs and sync addon version"
+          git push
+
+  publish:
+    needs: release-please
+    if: ${{ needs.release-please.outputs.release_created || inputs.force_publish }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '22'
+          registry-url: 'https://registry.npmjs.org'
+      - run: npm install -g npm@latest
+      - run: npm --version
+      - run: npm ci
+        working-directory: server
+      - run: npm run build
+        working-directory: server
+      - run: npm publish --access public
+        working-directory: server
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+  upload-addon:
+    needs: release-please
+    if: ${{ needs.release-please.outputs.release_created }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v7
+      - name: Create addon zip
+        run: |
+          cd godot/addons
+          zip -r ../../godot-mcp-addon-${{ needs.release-please.outputs.version }}.zip godot_mcp
+      - name: Upload addon to release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release upload ${{ needs.release-please.outputs.tag_name }} \
+            godot-mcp-addon-${{ needs.release-please.outputs.version }}.zip \
+            --clobber
+
+  # Publish server.json to the official MCP Registry. Runs only on a real release
+  # and only after `npm publish` succeeds, because the registry validates the
+  # mcpName against the published npm tarball. Auth is GitHub OIDC — no secrets:
+  # the io.github.satelliteoflove/* namespace is owned by this repo's owner, and
+  # the id-token permission lets the runner prove that identity to the registry.
+  publish-registry:
+    needs: [release-please, publish]
+    if: ${{ needs.release-please.outputs.release_created }}
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v7
+      - name: Install mcp-publisher
+        run: curl -fsSL "https://github.com/modelcontextprotocol/registry/releases/latest/download/mcp-publisher_linux_amd64.tar.gz" | tar xz mcp-publisher
+      - name: Log in to the MCP Registry (GitHub OIDC)
+        run: ./mcp-publisher login github-oidc
+      - name: Publish to the MCP Registry
+        run: |
+          # npm can take a moment to propagate after the publish job, and the
+          # registry rejects until it can validate the mcpName against the new
+          # version on npm — so retry before giving up.
+          for attempt in 1 2 3 4 5; do
+            if ./mcp-publisher publish server/server.json; then
+              exit 0
+            fi
+            echo "::warning::MCP Registry publish attempt $attempt failed; retrying in 20s"
+            sleep 20
+          done
+          echo "::error::MCP Registry publish failed after 5 attempts"
+          exit 1

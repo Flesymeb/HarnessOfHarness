@@ -1,0 +1,2 @@
+"""Generic GameLoop core concepts.
+"""

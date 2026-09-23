@@ -18,7 +18,7 @@
 
 ## 🗞️ News
 
-- 🎉 **Coming soon** — We will publicly release HoH-lite, a lightweight implementation of HoH's core workflow.
+- 🎉 **2026-09-24** — **[HoH-lite](hoh-lite/)**, a lightweight, extensible implementation of HoH's core workflow, is available. [Try it →](hoh-lite/README.md)
 - 🎉 **2026-09-23** — [Focusboard](https://github.com/Flesymeb/focusboard-claude), a Todo-list software, has reached a usable state. [Watch demo →](https://flesymeb.github.io/HarnessOfHarness/#focusboard)
 - 🎉 **2026-09-06** — [Mournlight](https://github.com/Flesymeb/mournlight), a Vampire Survivors–style roguelite, has reached a playable state. [Watch demo →](https://flesymeb.github.io/HarnessOfHarness/#mournlight)
 - 🎉 **2026-09-02** — 🌐 Our [project page](https://flesymeb.github.io/HarnessOfHarness/) is now live, featuring demo videos and project resources.
@@ -69,11 +69,11 @@ next iteration, allowing the system to improve loop by loop.
 
 We will continue adding games, software, and demos across different genres. For each project, you can access the source repository and follow its development trajectory.
 
-| Project        | Genre     |                                                                                       Showcase                                                                                       |                                                                                                      Download                                                                                                      |                                                                       Trajectory                                                                        |
-| :------------- | :-------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------------------: |
-| **Fusepoint**  | FPS       | [![Watch demo](<https://img.shields.io/badge/Watch%20demo-365F7D?style=for-the-badge&logo=googlechrome&logoColor=white>)](https://flesymeb.github.io/HarnessOfHarness/#fusepoint) | [![Download game](<https://img.shields.io/badge/Download%20game-5F6872?style=for-the-badge&logo=itchdotio&logoColor=white>)](https://drive.google.com/drive/folders/1gch3D5HKa3n3gxM0LNrzubcJxlFFLaXy?usp=sharing) | [![Trajectory](https://img.shields.io/badge/Trajectory-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Flesymeb/fusepoint)  |
-| **Mournlight** | Roguelite |      [![Watch demo](<https://img.shields.io/badge/Watch%20demo-365F7D?style=for-the-badge&logo=googlechrome&logoColor=white>)](https://flesymeb.github.io/HarnessOfHarness/#mournlight)       | [![Download game](<https://img.shields.io/badge/Download%20game-5F6872?style=for-the-badge&logo=itchdotio&logoColor=white>)](https://drive.google.com/drive/folders/1gch3D5HKa3n3gxM0LNrzubcJxlFFLaXy?usp=sharing) | [![Trajectory](https://img.shields.io/badge/Trajectory-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Flesymeb/mournlight) |
-| **Focusboard** | Productivity | [![Watch demo](<https://img.shields.io/badge/Watch%20demo-365F7D?style=for-the-badge&logo=googlechrome&logoColor=white>)](https://flesymeb.github.io/HarnessOfHarness/#focusboard) | [![Download app](<https://img.shields.io/badge/Download%20app-5F6872?style=for-the-badge&logo=itchdotio&logoColor=white>)](https://drive.google.com/drive/folders/1gch3D5HKa3n3gxM0LNrzubcJxlFFLaXy?usp=sharing) | [![Trajectory](https://img.shields.io/badge/Trajectory-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Flesymeb/focusboard-claude) |
+| Project              | Genre        |                                                                                     Showcase                                                                                     |                                                                                                     Download                                                                                                     |                                                                          Trajectory                                                                          |
+| :------------------- | :----------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------------------------: |
+| **Fusepoint**  | FPS          | [![Watch demo](<https://img.shields.io/badge/Watch%20demo-365F7D?style=for-the-badge&logo=googlechrome&logoColor=white>)](https://flesymeb.github.io/HarnessOfHarness/#fusepoint) | [![Download game](<https://img.shields.io/badge/Download%20game-5F6872?style=for-the-badge&logo=itchdotio&logoColor=white>)](https://drive.google.com/drive/folders/1gch3D5HKa3n3gxM0LNrzubcJxlFFLaXy?usp=sharing) |     [![Trajectory](https://img.shields.io/badge/Trajectory-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Flesymeb/fusepoint)     |
+| **Mournlight** | Roguelite    | [![Watch demo](<https://img.shields.io/badge/Watch%20demo-365F7D?style=for-the-badge&logo=googlechrome&logoColor=white>)](https://flesymeb.github.io/HarnessOfHarness/#mournlight) | [![Download game](<https://img.shields.io/badge/Download%20game-5F6872?style=for-the-badge&logo=itchdotio&logoColor=white>)](https://drive.google.com/drive/folders/1gch3D5HKa3n3gxM0LNrzubcJxlFFLaXy?usp=sharing) |    [![Trajectory](https://img.shields.io/badge/Trajectory-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Flesymeb/mournlight)    |
+| **Focusboard** | Productivity | [![Watch demo](<https://img.shields.io/badge/Watch%20demo-365F7D?style=for-the-badge&logo=googlechrome&logoColor=white>)](https://flesymeb.github.io/HarnessOfHarness/#focusboard) |  [![Download app](<https://img.shields.io/badge/Download%20app-5F6872?style=for-the-badge&logo=itchdotio&logoColor=white>)](https://drive.google.com/drive/folders/1gch3D5HKa3n3gxM0LNrzubcJxlFFLaXy?usp=sharing)  | [![Trajectory](https://img.shields.io/badge/Trajectory-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Flesymeb/focusboard-claude) |
 
 <table>
   <tr>
@@ -94,7 +94,15 @@ We will continue adding games, software, and demos across different genres. For 
 
 ## Code
 
-We will publicly release HoH-lite, a lightweight implementation of HoH's core workflow.
+🚀 **[HoH-lite](hoh-lite/) is released!** It is a lightweight, extensible
+implementation of HoH's core workflow. [Get started](hoh-lite/README.md),
+adapt it to your own benchmark or project, and build on it as you like.
+
+🧰 The HoH system behind our demos builds on this foundation with more
+development and debugging tools, reusable skills, and project integrations.
+
+💬 Ideas and contributions are welcome: [open an issue](https://github.com/Flesymeb/HarnessOfHarness/issues)
+or [send a pull request](https://github.com/Flesymeb/HarnessOfHarness/pulls).
 
 ## Citation
 
@@ -111,7 +119,10 @@ We will publicly release HoH-lite, a lightweight implementation of HoH's core wo
 
 ## License
 
-Original materials in this repository are released under the [MIT License](LICENSE).
+Original paper and demo materials in this repository are released under the
+[MIT License](LICENSE). HoH-lite source under [`hoh-lite/`](hoh-lite/) is
+released under [Apache-2.0](hoh-lite/LICENSE), with its own
+[notices](hoh-lite/THIRD_PARTY_NOTICES.md).
 
 ## Contributors
 
