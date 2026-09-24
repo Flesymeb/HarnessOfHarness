@@ -2471,7 +2471,13 @@ def main(argv: list[str] | None = None) -> int:
         run_dir = run_directory(RUNS_ROOT, run_id)
     except ValueError as error:
         raise SystemExit(f"Invalid --run-id: {error}") from error
-    run_dir.mkdir(parents=True, exist_ok=True)
+    try:
+        run_dir.mkdir(parents=True, exist_ok=False)
+    except FileExistsError as error:
+        raise SystemExit(
+            f"Run directory already exists: {run_dir}. Choose a new --run-id, "
+            "or continue with --seed-trial-dir and --start-loop-index in a new run."
+        ) from error
     jobs_dir.mkdir(parents=True, exist_ok=True)
     role_bindings: dict[RoleName, RoleBinding] = args.role_bindings
     if role_bindings[RoleName.PLANNER].godot_docs:

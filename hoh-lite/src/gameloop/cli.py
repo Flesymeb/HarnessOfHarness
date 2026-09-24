@@ -29,19 +29,8 @@ def main(argv: Sequence[str] | None = None) -> int:
             f"unknown benchmark {dispatch.benchmark!r}; available: "
             + ", ".join(registry.ids())
         )
-    if dispatch.benchmark == "gamecraft-bench":
-        from gameloop.adapters.gamecraft_bench.runner import main as gamecraft_main
-
-        if not any(
-            item == "--developer-backend"
-            or item.startswith("--developer-backend=")
-            for item in remainder
-        ):
-            remainder.extend(("--developer-backend", "harness"))
-        return gamecraft_main(remainder)
-    raise SystemExit(
-        f"benchmark {dispatch.benchmark!r} is registered but has no CLI adapter"
-    )
+    adapter = registry.get(dispatch.benchmark)
+    return adapter.run_cli(remainder)
 
 
 if __name__ == "__main__":

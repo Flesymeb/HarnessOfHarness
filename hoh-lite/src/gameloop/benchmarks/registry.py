@@ -19,6 +19,8 @@ class BenchmarkRegistry:
             raise ValueError("benchmark_id must not be empty")
         if benchmark_id in self._adapters:
             raise ValueError(f"benchmark already registered: {benchmark_id}")
+        if not callable(getattr(adapter, "run_cli", None)):
+            raise ValueError(f"benchmark {benchmark_id!r} must provide run_cli")
         self._adapters[benchmark_id] = adapter
 
     def get(self, benchmark_id: str) -> BenchmarkAdapter:

@@ -49,6 +49,8 @@ jobs:
           .venv/bin/python -m compileall -q src/gameloop
           .venv/bin/gameloop --help
           test -z "$(git -C "$RUNNER_TEMP/gamecraft-bench" status --porcelain)"
+      - name: Check public runtime contracts
+        run: .venv/bin/python -m unittest discover -s ../.github/ci -p 'test_*.py'
       - name: Build and inspect distributions
         run: |
           uv build

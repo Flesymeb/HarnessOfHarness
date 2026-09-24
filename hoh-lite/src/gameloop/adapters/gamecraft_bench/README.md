@@ -13,8 +13,8 @@ the three roles, Harness Runtime, domain policies, local asset roots, and Godot
 MCP tools live outside this directory under `gameloop.core`,
 `gameloop.harnesses`, and `gameloop.tools`.
 
-To add another benchmark, implement `BenchmarkAdapter` in a new sibling under
-`gameloop.adapters` and register it without importing GameCraft-specific code
-into Core. The `gameloop.adapters.gamecraft` package is a deprecated import
-alias kept temporarily for existing integrations; it contains no second
-implementation.
+To add another benchmark, implement `BenchmarkAdapter` with a `run_cli` entry
+point in a new sibling under `gameloop.adapters` and register it without
+importing GameCraft-specific code into Core. The `gameloop.adapters.gamecraft`
+package is a deprecated import alias kept temporarily for existing
+integrations; it contains no second implementation.

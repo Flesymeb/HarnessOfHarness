@@ -12,7 +12,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from pathlib import Path
 import shutil
-from typing import Callable
+from typing import Callable, Sequence
 
 from gameloop.adapters.gamecraft_bench.paths import (
     DEFAULT_BENCH,
@@ -64,6 +64,17 @@ class GameCraftBenchAdapter:
     bench: Path | None = None
     evaluator: EvaluationFn | None = None
     benchmark_id: str = "gamecraft-bench"
+
+    def run_cli(self, argv: Sequence[str]) -> int:
+        from gameloop.adapters.gamecraft_bench.runner import main
+
+        args = list(argv)
+        if not any(
+            item == "--developer-backend" or item.startswith("--developer-backend=")
+            for item in args
+        ):
+            args.extend(("--developer-backend", "harness"))
+        return main(args)
 
     def _bench_root(self) -> Path:
         root = self.bench or DEFAULT_BENCH

@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Any, Mapping, Protocol
+from typing import Any, Mapping, Protocol, Sequence
 
 
 @dataclass(frozen=True)
@@ -56,6 +56,9 @@ class BenchmarkAdapter(Protocol):
     """Adapter contract; no role or harness implementation belongs here."""
 
     benchmark_id: str
+
+    def run_cli(self, argv: Sequence[str]) -> int:
+        """Run this benchmark from the public CLI."""
 
     def load_task(self, task_id: str) -> TaskSpec:
         """Resolve one public task without exposing the catalog to Core."""

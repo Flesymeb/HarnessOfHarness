@@ -55,6 +55,11 @@ class GameLoopRuntime:
             names = ", ".join(sorted(role.value for role in missing))
             raise ValueError(f"missing runtime role bindings: {names}")
         self.run_dir = run_dir.resolve()
+        if self.receipt_path.exists():
+            raise FileExistsError(
+                f"runtime receipt already exists: {self.receipt_path}; "
+                "start a new run or continue from an archived trial"
+            )
         self.roles = dict(roles)
         self._events: list[RuntimeEvent] = []
         self._active_loop: int | None = None

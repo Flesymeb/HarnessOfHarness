@@ -27,6 +27,10 @@ gameloop --config configs/harnesses/codex-gpt-5.5.json \
   --run-id my-run
 ```
 
+Run IDs must be new. To continue from an archived trial, use a new run ID with
+`--seed-trial-dir` and `--start-loop-index`; reusing an existing run ID fails
+before its receipts or artifacts can be overwritten.
+
 Choose another profile in `configs/harnesses/` to use a different harness or
 model. For a new benchmark or real project, add an adapter to the registry.
 

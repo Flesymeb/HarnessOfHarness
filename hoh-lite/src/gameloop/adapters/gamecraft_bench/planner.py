@@ -32,6 +32,7 @@ _OVERLAY_SUBHEADINGS = (
     "### Acceptance Gate",
 )
 _MIN_TEMPLATE_SIMILARITY = 0.90
+_MAX_PLANNER_ATTEMPTS = 2
 _REQUIRED_DOCUMENT_HEADINGS = (
     "## Public Task Brief",
     "## Development Focus For This Loop",
@@ -224,6 +225,7 @@ def run_project_planner(
             "planner_strategy": "template_constrained_overlay",
             "template_similarity": 1.0,
             "scaffold_retention": 1.0,
+            "attempts": 0,
             "fallback_reason": "dry_run",
             "experiment_id": experiment_id,
             "harness": binding.harness,
@@ -248,84 +250,108 @@ def run_project_planner(
     error = None
     result = None
     output_mode = ""
-    try:
-        command, output_mode = _planner_command(
-            experiment_id=experiment_id,
-            workspace=workspace,
-            prompt=prompt,
-            raw_output_path=raw_output_path,
-            env=planner_env,
-            reasoning_effort=reasoning_effort,
-            role_binding=binding,
-        )
-        stdin_path = prompt_path if output_mode == "stdin" else None
-        result = run_command_with_idle_timeout(
-            command,
-            cwd=workspace,
-            stdout_path=stdout_path,
-            stderr_path=stderr_path,
-            wall_timeout_seconds=(
-                None if wall_timeout_seconds <= 0 else wall_timeout_seconds
-            ),
-            idle_timeout_seconds=idle_timeout_seconds,
-            env=planner_env,
-            stdin_path=stdin_path,
-        )
-        if output_mode == "stdin":
-            raw_text = (
-                raw_output_path.read_text(encoding="utf-8", errors="ignore")
-                if raw_output_path.is_file()
-                else ""
+    attempts = 0
+    usage_by_attempt: list[dict[str, Any] | None] = []
+    for attempt in range(1, _MAX_PLANNER_ATTEMPTS + 1):
+        attempts = attempt
+        result = None
+        usage = None
+        overlay = ""
+        try:
+            command, output_mode = _planner_command(
+                experiment_id=experiment_id,
+                workspace=workspace,
+                prompt=prompt_path.read_text(encoding="utf-8"),
+                raw_output_path=raw_output_path,
+                env=planner_env,
+                reasoning_effort=reasoning_effort,
+                role_binding=binding,
             )
-            usage = _codex_usage(stdout_path)
-        else:
-            raw_text, usage = parse_harness_output(
-                output_mode,
+            stdin_path = prompt_path if output_mode == "stdin" else None
+            result = run_command_with_idle_timeout(
+                command,
+                cwd=workspace,
                 stdout_path=stdout_path,
-                output_path=raw_output_path,
+                stderr_path=stderr_path,
+                wall_timeout_seconds=(
+                    None if wall_timeout_seconds <= 0 else wall_timeout_seconds
+                ),
+                idle_timeout_seconds=idle_timeout_seconds,
+                env=planner_env,
+                stdin_path=stdin_path,
             )
-            if output_mode != "dsh":
-                raw_output_path.write_text(raw_text, encoding="utf-8")
-        overlay = _clean_overlay(raw_text)
-        validation_errors = _validate_overlay(
-            overlay,
-            scaffold_document=scaffold_document,
-        )
-        if not validation_errors:
-            document = _compose_constrained_document(
-                scaffold_document,
-                overlay,
-            )
-            template_similarity = _template_similarity(
-                scaffold_document,
-                document,
-            )
-            validation_errors.extend(
-                _validate_document(document, expected_title=expected_title)
-            )
-            if template_similarity < _MIN_TEMPLATE_SIMILARITY:
-                validation_errors.append(
-                    "composed document is below the minimum template similarity "
-                    f"of {_MIN_TEMPLATE_SIMILARITY:.2f}"
+            if output_mode == "stdin":
+                raw_text = (
+                    raw_output_path.read_text(encoding="utf-8", errors="ignore")
+                    if raw_output_path.is_file()
+                    else ""
                 )
-        if result.idle_timed_out:
-            validation_errors.insert(0, "planner harness hit idle timeout")
-        elif result.wall_timed_out:
-            validation_errors.insert(0, "planner harness hit wall timeout")
-        elif result.timed_out:
-            validation_errors.insert(0, "planner harness timed out")
-        if result.returncode != 0:
-            validation_errors.insert(
-                0, f"planner harness exited with status {result.returncode}"
+                usage = _codex_usage(stdout_path)
+            else:
+                raw_text, usage = parse_harness_output(
+                    output_mode,
+                    stdout_path=stdout_path,
+                    output_path=raw_output_path,
+                )
+                if output_mode != "dsh":
+                    raw_output_path.write_text(raw_text, encoding="utf-8")
+            usage_by_attempt.append(usage)
+            overlay = _clean_overlay(raw_text)
+            validation_errors = _validate_overlay(
+                overlay,
+                scaffold_document=scaffold_document,
             )
-        if validation_errors:
+            if not validation_errors:
+                document = _compose_constrained_document(
+                    scaffold_document,
+                    overlay,
+                )
+                template_similarity = _template_similarity(
+                    scaffold_document,
+                    document,
+                )
+                validation_errors.extend(
+                    _validate_document(document, expected_title=expected_title)
+                )
+                if template_similarity < _MIN_TEMPLATE_SIMILARITY:
+                    validation_errors.append(
+                        "composed document is below the minimum template similarity "
+                        f"of {_MIN_TEMPLATE_SIMILARITY:.2f}"
+                    )
+            process_failed = result.returncode != 0 or result.timed_out
+            if result.idle_timed_out:
+                validation_errors.insert(0, "planner harness hit idle timeout")
+            elif result.wall_timed_out:
+                validation_errors.insert(0, "planner harness hit wall timeout")
+            elif result.timed_out:
+                validation_errors.insert(0, "planner harness timed out")
+            if result.returncode != 0:
+                validation_errors.insert(
+                    0, f"planner harness exited with status {result.returncode}"
+                )
+            if not validation_errors:
+                error = None
+                break
             error = "; ".join(validation_errors)
             document = scaffold_document
             template_similarity = 1.0
-    except Exception as exc:
-        error = f"{type(exc).__name__}: {exc}"
-        document = scaffold_document
-        template_similarity = 1.0
+            if process_failed or attempt == _MAX_PLANNER_ATTEMPTS:
+                break
+            for path in (prompt_path, raw_output_path, stdout_path, stderr_path):
+                if path.exists():
+                    path.replace(path.with_name(f"{path.stem}.attempt-{attempt:02d}{path.suffix}"))
+            prompt_path.write_text(
+                prompt.rstrip()
+                + "\n\nYour previous response failed validation:\n"
+                + "\n".join(f"- {item}" for item in validation_errors)
+                + "\nReturn a complete corrected Project Planner Priorities overlay.\n",
+                encoding="utf-8",
+            )
+        except Exception as exc:
+            error = f"{type(exc).__name__}: {exc}"
+            document = scaffold_document
+            template_similarity = 1.0
+            break
 
     composed_output_path.write_text(document, encoding="utf-8")
 
@@ -339,6 +365,7 @@ def run_project_planner(
         "template_similarity": round(template_similarity, 6),
         "scaffold_retention": 1.0,
         "overlay_chars": len(overlay),
+        "attempts": attempts,
         "fallback_reason": error,
         "error": error,
         "experiment_id": experiment_id,
@@ -351,6 +378,7 @@ def run_project_planner(
         "idle_timed_out": False if result is None else result.idle_timed_out,
         "wall_timed_out": False if result is None else result.wall_timed_out,
         "usage": usage,
+        "usage_by_attempt": usage_by_attempt,
         "prompt": str(prompt_path),
         "raw_output": str(raw_output_path),
         "composed_output": str(composed_output_path),

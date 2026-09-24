@@ -1,2 +1,3 @@
 .playwright-cli/
 assets/video/source/
+__pycache__/
