@@ -434,6 +434,54 @@ def trial_seed_from_dir(trial_dir: Path) -> dict[str, Any]:
     }
 
 
+def select_resume_trial(run_dir: Path) -> tuple[Path, int, str]:
+    """Select the latest completed, valid loop without using partial work."""
+
+    run_dir = run_dir.expanduser().resolve()
+    try:
+        summary = read_json(run_dir / "summary.json")
+        receipt = read_json(run_dir / "runtime_receipt.json")
+    except (OSError, json.JSONDecodeError) as error:
+        raise ValueError(f"cannot read completed run records in {run_dir}") from error
+    if summary.get("run_id") != run_dir.name:
+        raise ValueError("run summary does not match its directory")
+    if receipt.get("schema_version") != 1:
+        raise ValueError("runtime receipt has an unsupported schema")
+    attempts = summary.get("attempts")
+    events = receipt.get("events")
+    if not isinstance(attempts, list) or not isinstance(events, list):
+        raise ValueError("run summary or runtime receipt has invalid structure")
+    tested_loops = {
+        event.get("loop_index")
+        for event in events
+        if isinstance(event, dict) and event.get("role") == "tester"
+    }
+    active_loop = receipt.get("active_loop")
+    if active_loop is not None and (not isinstance(active_loop, int) or active_loop < 1):
+        raise ValueError("runtime receipt has an invalid active loop")
+    for attempt in reversed(attempts):
+        if not isinstance(attempt, dict):
+            continue
+        loop_index = attempt.get("attempt")
+        trial = attempt.get("reported_trial")
+        if (
+            not isinstance(loop_index, int)
+            or loop_index not in tested_loops
+            or (isinstance(active_loop, int) and loop_index >= active_loop)
+            or attempt.get("returncode") != 0
+            or not attempt.get("trial_valid")
+            or not isinstance(trial, dict)
+        ):
+            continue
+        trial_path = trial.get("trial_dir")
+        if isinstance(trial_path, str) and Path(trial_path).is_dir():
+            task = summary.get("task")
+            if not isinstance(task, str) or not task:
+                raise ValueError("run summary has no task identity")
+            return Path(trial_path), loop_index + 1, task
+    raise ValueError("run has no completed valid trial to continue from")
+
+
 def archive_seed_game(run_dir: Path, seed_trial: dict[str, Any], prior_loop_index: int) -> Path | None:
     trial_dir = Path(str(seed_trial.get("trial_dir") or ""))
     game_dir = trial_dir / "sandbox" / "workspace" / "game"

@@ -34,6 +34,7 @@ from gameloop.adapters.gamecraft_bench.artifacts import (
     load_next_loop_evidence_report,
     load_next_loop_evidence_from_trial,
     parse_trial_result,
+    select_resume_trial,
     summarize_breakdown,
     trial_seed_from_dir,
     validate_demo_trace_schema,
@@ -48,6 +49,7 @@ from gameloop.adapters.gamecraft_bench.paths import (
     DEFAULT_BENCH,
     PROJECT_ROOT,
     RUNS_ROOT,
+    SRC_ROOT,
     TASK_WORKDIRS,
     copy_task_for_attempt,
     default_jobs_dir,
@@ -104,6 +106,7 @@ from gameloop.core.roles import (
     role_bindings_from_config,
 )
 from gameloop.core.runtime import GameLoopRuntime
+from gameloop.core.reproducibility import build_reproducibility_manifest
 from gameloop.core.prompts import (
     build_development_brief,
     build_development_doc_delta,
@@ -916,6 +919,11 @@ def parse_args(argv: list[str]) -> tuple[argparse.Namespace, list[str]]:
         "--seed-trial-dir",
         default=defaults.get("seed_trial_dir"),
         help="Existing Harbor trial directory to copy as the warm-start baseline for the first loop.",
+    )
+    parser.add_argument(
+        "--resume-from",
+        default=None,
+        help="Continue from the latest completed valid loop in an existing run, using a new run ID.",
     )
     parser.add_argument("--mode", choices=["clean"], default="clean")
     parser.add_argument("--reasoning-effort", default=defaults.get("reasoning_effort"))
@@ -2440,6 +2448,22 @@ def main(argv: list[str] | None = None) -> int:
     task_dir = Path(task_arg) if Path(task_arg).is_absolute() else bench / task_arg
     if not task_dir.exists():
         raise SystemExit(f"Task directory not found: {task_dir}")
+    if args.resume_from:
+        if args.seed_trial_dir or args.start_loop_index != 1:
+            raise SystemExit(
+                "--resume-from cannot be combined with --seed-trial-dir or "
+                "--start-loop-index"
+            )
+        try:
+            resume_trial, resume_index, resume_task = select_resume_trial(
+                Path(args.resume_from)
+            )
+        except ValueError as error:
+            raise SystemExit(str(error)) from error
+        if normalize_task_arg(resume_task) != task_arg:
+            raise SystemExit("--resume-from task does not match --task")
+        args.seed_trial_dir = str(resume_trial)
+        args.start_loop_index = resume_index
     public_task_instruction = load_public_task_instruction(task_dir)
     explicit_domain_policies = getattr(args, "domain_policies", None)
     if explicit_domain_policies is not None and not isinstance(
@@ -2493,6 +2517,18 @@ def main(argv: list[str] | None = None) -> int:
     if role_bindings[RoleName.TESTER].godot_mcp is not GodotMCPAccess.DISABLED:
         tester_policy_guidance += "\n" + godot_mcp_role_guidance("tester")
     runtime = GameLoopRuntime(run_dir=run_dir, roles=role_bindings)
+    profile = EXPERIMENT_SPECS[args.experiment_id or "codex-gpt-5.5"]
+    write_json(
+        run_dir / "reproducibility.json",
+        build_reproducibility_manifest(
+            source=PROJECT_ROOT,
+            benchmark=bench,
+            roles=role_bindings,
+            environment=load_runtime_env(project_root=PROJECT_ROOT, bench=bench),
+            config=Path(args.config).expanduser() if args.config else None,
+            paper_harness_version=profile.paper_harness_version or profile.harness_version,
+        ),
+    )
     if not args.dry_run:
         compatibility = (
             inspect_bench_compatibility(

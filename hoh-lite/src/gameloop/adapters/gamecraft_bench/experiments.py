@@ -15,6 +15,7 @@ class GameCraftExperimentSpec:
     agent_import_path: str
     reasoning_effort: str | None = None
     harness_version: str | None = None
+    paper_harness_version: str | None = None
     harness_preset: str | None = None
 
 
@@ -31,6 +32,7 @@ EXPERIMENT_SPECS = {
             # The benchmark fixes the model/reasoning pair, while the user
             # explicitly opts into the newest installed Codex CLI.
             harness_version="latest",
+            paper_harness_version="0.142.5",
         ),
         GameCraftExperimentSpec(
             experiment_id="opencode-deepseek-v4-pro",

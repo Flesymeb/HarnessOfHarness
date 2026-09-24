@@ -1,5 +1,6 @@
 """Public contracts that need no benchmark checkout or provider credentials."""
 
+import json
 from pathlib import Path
 from tempfile import TemporaryDirectory
 from types import SimpleNamespace
@@ -7,9 +8,14 @@ import unittest
 from unittest.mock import patch
 
 from gameloop import cli
-from gameloop.adapters.gamecraft_bench import planner
+from gameloop.adapters.gamecraft_bench import planner, runner
 from gameloop.adapters.gamecraft_bench.adapter import GameCraftBenchAdapter
+from gameloop.adapters.gamecraft_bench.artifacts import select_resume_trial
+from gameloop.benchmarks.base import BenchmarkContext, CandidateRef, EvaluationResult, TaskSpec
 from gameloop.benchmarks.registry import BenchmarkRegistry
+from gameloop.core.documents import write_json
+from gameloop.core.loop_engine import LoopEngine
+from gameloop.core.reproducibility import build_reproducibility_manifest
 from gameloop.core.roles import default_role_bindings
 from gameloop.core.runtime import GameLoopRuntime
 
@@ -24,6 +30,128 @@ class PublicContracts(unittest.TestCase):
             with self.assertRaises(FileExistsError):
                 GameLoopRuntime(run_dir=run_dir, roles=default_role_bindings())
             self.assertEqual(runtime.receipt_path.read_bytes(), before)
+
+    def test_json_replacement_failure_keeps_previous_record(self) -> None:
+        with TemporaryDirectory() as directory:
+            path = Path(directory) / "record.json"
+            write_json(path, {"state": "before"})
+            before = path.read_bytes()
+            with patch("gameloop.core.documents.os.replace", side_effect=OSError("disk error")):
+                with self.assertRaises(OSError):
+                    write_json(path, {"state": "after"})
+            self.assertEqual(path.read_bytes(), before)
+            self.assertEqual(sorted(path.parent.iterdir()), [path])
+
+    def test_resume_selects_last_completed_loop(self) -> None:
+        with TemporaryDirectory() as directory:
+            run_dir = Path(directory) / "old-run"
+            run_dir.mkdir()
+            complete_trial = run_dir / "trial-1"
+            partial_trial = run_dir / "trial-2"
+            complete_trial.mkdir()
+            partial_trial.mkdir()
+            write_json(
+                run_dir / "summary.json",
+                {
+                    "run_id": "old-run",
+                    "task": "tasks/demo",
+                    "attempts": [
+                        {"attempt": 1, "returncode": 0, "trial_valid": True,
+                         "reported_trial": {"trial_dir": str(complete_trial)}},
+                        {"attempt": 2, "returncode": 0, "trial_valid": True,
+                         "reported_trial": {"trial_dir": str(partial_trial)}},
+                    ],
+                },
+            )
+            write_json(
+                run_dir / "runtime_receipt.json",
+                {"schema_version": 1, "active_loop": 2, "events": [
+                    {"loop_index": 1, "role": "tester"},
+                    {"loop_index": 2, "role": "tester"},
+                ]},
+            )
+            self.assertEqual(
+                select_resume_trial(run_dir), (complete_trial, 2, "tasks/demo")
+            )
+
+    def test_complete_generic_loop_writes_role_receipt(self) -> None:
+        class Adapter:
+            benchmark_id = "example"
+
+            def load_task(self, task_id: str) -> TaskSpec:
+                return TaskSpec(self.benchmark_id, task_id, "Build a demo")
+
+            def create_context(self, *, run_dir: Path, task: TaskSpec,
+                               loop_index: int, parent: CandidateRef | None = None) -> BenchmarkContext:
+                return BenchmarkContext(run_dir, run_dir, task, loop_index)
+
+            def evaluate(self, *, context: BenchmarkContext,
+                         candidate: CandidateRef) -> EvaluationResult:
+                return EvaluationResult("completed", score=1.0)
+
+        order: list[str] = []
+        with TemporaryDirectory() as directory:
+            run_dir = Path(directory)
+            engine = LoopEngine(
+                runtime=GameLoopRuntime(run_dir=run_dir, roles=default_role_bindings()),
+                benchmark=Adapter(),
+            )
+            result = engine.run(
+                run_dir=run_dir,
+                task_id="demo",
+                loop_index=1,
+                planner=lambda inputs: order.append("planner") or "plan",
+                developer=lambda inputs, plan: order.append("developer") or CandidateRef(
+                    run_dir / "game", "candidate-1"
+                ),
+                tester=lambda inputs, plan, candidate: order.append("tester") or "pass",
+            )
+            self.assertEqual(order, ["planner", "developer", "tester"])
+            self.assertEqual(result.evaluation.score, 1.0)
+            receipt = json.loads((run_dir / "runtime_receipt.json").read_text())
+            self.assertIsNone(receipt["active_loop"])
+            self.assertEqual(
+                [event["role"] for event in receipt["events"]], order
+            )
+
+    def test_gamecraft_dry_run_completes_public_entry_point(self) -> None:
+        with TemporaryDirectory() as directory:
+            root = Path(directory)
+            bench = root / "bench"
+            task = bench / "tasks" / "demo"
+            task.mkdir(parents=True)
+            (task / "instruction.md").write_text("Build a simple game.\n")
+            run_dir = root / "runs" / "demo"
+            with patch.object(runner, "RUNS_ROOT", root / "runs"):
+                result = runner.main([
+                    "--bench", str(bench), "--task", "tasks/demo",
+                    "--jobs-dir", str(root / "jobs"), "--run-id", "demo",
+                    "--dry-run", "--planner-mode", "template",
+                    "--no-external-verifier",
+                ])
+            self.assertEqual(result, 0)
+            receipt = json.loads((run_dir / "runtime_receipt.json").read_text())
+            self.assertIsNone(receipt["active_loop"])
+            self.assertEqual(
+                [event["role"] for event in receipt["events"]],
+                ["planner", "developer", "tester"],
+            )
+            self.assertTrue((run_dir / "summary.json").is_file())
+            self.assertTrue((run_dir / "reproducibility.json").is_file())
+
+    def test_reproducibility_manifest_excludes_environment_secrets(self) -> None:
+        with TemporaryDirectory() as directory:
+            root = Path(directory)
+            manifest = build_reproducibility_manifest(
+                source=root,
+                benchmark=root,
+                roles=default_role_bindings(),
+                environment={"PATH": "", "API_KEY": "private-value"},
+                config=None,
+                paper_harness_version="0.142.5",
+            )
+            self.assertNotIn("private-value", json.dumps(manifest))
+            self.assertEqual(manifest["paper_harness_version"], "0.142.5")
 
     def test_cli_dispatches_registered_benchmark(self) -> None:
         class Adapter:

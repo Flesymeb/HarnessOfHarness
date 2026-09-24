@@ -31,6 +31,15 @@ Run IDs must be new. To continue from an archived trial, use a new run ID with
 `--seed-trial-dir` and `--start-loop-index`; reusing an existing run ID fails
 before its receipts or artifacts can be overwritten.
 
+To pick the latest completed valid loop from a previous run automatically, use
+`--resume-from runs/old-run --run-id new-run` with the same `--task`. Partial
+work in an interrupted loop is left untouched in the old run.
+
+Each run writes `reproducibility.json` with the observed tool versions, source
+and benchmark revisions, role bindings, and configuration hash. The paper used
+Codex CLI 0.142.5; the default profile accepts the installed Codex CLI, so
+check this manifest before comparing a run with the paper's results.
+
 Choose another profile in `configs/harnesses/` to use a different harness or
 model. For a new benchmark or real project, add an adapter to the registry.
 
