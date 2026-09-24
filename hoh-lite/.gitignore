@@ -19,8 +19,7 @@ htmlcov/
 *.key
 *.crt
 
-# Local agent credentials, client state, and MCP registrations.
-# Keep these generic so ignore rules do not encode a benchmark/task selection.
+# Local client state and credentials.
 .codex/
 .claude/
 .opencode/
@@ -50,8 +49,7 @@ auth.json
 *.local.yml
 *.local.yaml
 
-# Local benchmark asset libraries copied from GameCraft-Bench. Keep the README
-# tracked, but ignore the multi-GB payload.
+# Large local assets.
 assets/*
 !assets/README.md
 
